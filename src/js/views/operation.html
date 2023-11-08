@@ -1,0 +1,113 @@
+<style>
+.myClass{
+    --oj-form-layout-column-max-width: 100% !important;
+}
+</style>
+
+<!-- <div class="oj-flex">
+
+    <div  class="oj-sm-3">
+        </div>
+
+<div  class="oj-panel oj-flex-item  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-10x oj-lg-margin-2x oj-lg-padding-7x oj-md-margin-2x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5 bg_grey">
+                        <oj-form-layout id="fl1" readonly="[[isFormReadonly()]]">
+                            <div class="oj-panel io-color demo-center-items">
+                                <h7>Requirement</h7>
+                            </div>
+                            
+                        <oj-select-single required id="srcdep" label-hint="Choose Your Operating System"
+                            label-edge="inside" data="{{OperatingSystemsDP}}" value="{{currentOS}}"
+                            class="demo-max-width" >
+                        </oj-select-single>
+
+
+                        <oj-select-single required id="srcdep" label-hint="Choose Your Option"
+                            label-edge="inside" data="{{PreInsSWListDP}}" value="{{currentOP}}"
+                            class="demo-max-width" >
+                        </oj-select-single>
+
+                                <oj-button id="okdelButton" chroming='solid' on-oj-action="[[SelectSRCDeployment]]">
+                                    Submit
+                                </oj-button>
+                        </oj-form-layout>
+                        <oj-dialog id="SelectSchemaDialog" dialog-title="Working on it ..." modality="modeless"
+                        style="display:none;width:350px;min-width:240px;max-width:450px;">
+                        <div slot="body">
+                            <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+                            </oj-progress-bar>
+                        </div>
+                    </oj-dialog>
+                    </div>
+            </div> -->
+                   
+
+
+            <div class="oj-flex">  
+            
+            <div  class="oj-panel oj-flex-item  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-10x oj-lg-margin-2x oj-lg-padding-7x oj-md-margin-2x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5 bg_grey myClass">
+                                    <oj-form-layout id="fl1" readonly="[[isFormReadonly()]]">
+                                        <div class="oj-panel io-color demo-center-items">
+                                            <h7>Requirement</h7>
+                                        </div></br>
+                                        <span>OS : <strong><oj-bind-text value="[[currentOS]]"></oj-bind-text></strong></span>
+                                        <span>Distribution : <strong><oj-bind-text value="[[distribution]]"></oj-bind-text></strong></span>
+                                        <span>Kernal Version : <strong><oj-bind-text value="[[platformRelease]]"></oj-bind-text></strong></span>
+                                        <span>platformVersion : <strong><oj-bind-text value="[[platformVer]]"></oj-bind-text></strong></span>
+                                        <span><strong>Choose your options</strong></span>
+
+                                        <div class="oj-flex">
+
+                                        <oj-checkboxset value="{{currentChoice}}" on-value-changed="[[SelectDeployment]]" class="oj-flex-item ">
+                                            <oj-option value="nginx">Install Nginx</oj-option>
+                                            <oj-option value="apache">Install Apache</oj-option>
+                                            <oj-option value="mySQL">Install MySQL Server</oj-option>
+                                            <oj-option value="PHP">Install PHP</oj-option>
+                                          </oj-checkboxset>
+                                         
+                                          <div class="oj-flex-item ">
+
+                                          <div id="PHP" style="display:none" >
+                                          <oj-select-single required id="prot" data="[[phpVersionListDP]]"  value="{{phpVersion}}" label-edge="inside" label-hint="Select PHP version"
+                                          style="width: 21em;"  >
+                                         </oj-select-single><br>
+                                         </div>
+
+                                        <div id="apache" style="display:none">
+                                         <oj-select-single required id="prot" data="[[apacheVersionListDP]]"  value="{{apacheVersion}}" label-edge="inside" label-hint="Select Apache version"
+                                              style="width: 21em;" >
+                                         </oj-select-single>
+                                        </div>
+
+                                        <div id="mySQL"  style="display:none">
+                                            <oj-select-single required id="prot" data="[[mysqlVersionListDP]]"  value="{{mysqlVersion}}" label-edge="inside" label-hint="Select mysql version"
+                                            style="width: 21em;"  >
+                                           </oj-select-single><br>
+                                           </div>
+
+                                        </div>
+                                        
+                                        </div>
+            
+                                            <oj-button id="oksubButton" chroming='solid' on-oj-action="[[SelectSRCDeployment1]]" style="float: right;display:none;    margin-right: 6%;" >
+                                                Submit
+                                            </oj-button>
+                                    </oj-form-layout>
+                                    <oj-dialog id="SelectSchemaDialog" dialog-title="Working on it ..." modality="modeless"
+                                    style="display:none;width:350px;min-width:240px;max-width:450px;">
+                                    <div slot="body">
+                                        <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+                                        </oj-progress-bar>
+                                    </div>
+                                </oj-dialog>
+                                </div>
+
+                                <div id="outputBox" class="oj-sm-6 oj-panel oj-flex-item  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-10x oj-lg-margin-2x oj-lg-padding-7x oj-md-margin-2x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x bg_grey" style="display:none">
+                                    <div class="oj-panel io-color demo-center-items">
+                                        <h7>Output</h7>
+                                    </div></br>
+                                    <oj-bind-text value="[[outPutString]]"></oj-bind-text>
+                                </div>
+                        </div>
+
+
+                                           

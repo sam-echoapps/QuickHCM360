@@ -1,0 +1,510 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<div id="sampleDemo"  class="demo-container sampleDemo">
+    <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+      
+      <div id="moduleDemo">    
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1; display: flex;align-items: baseline;">
+          <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp; You can add client bank holidy rates here.
+        </div> 
+        <div slot="body">
+
+          <div
+            class="">
+            <div
+            class="oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+            <div
+              class="oj-sm-3">
+            
+            </div>
+            <div
+              class="oj-sm-5"></br>
+              <oj-validation-group id="bankHolidaySec" role="group" valid="{{groupValid}}"
+              aria-labelledby="grouplabelid">
+              <oj-select-single required label-hint="Holiday Payment Type" 
+                label-edge="inside" data="[[BankHolidayDateListDP]]" value="{{bankHolidayType}}">
+              </oj-select-single></br>
+              <oj-select-single required label-hint="Holiday Rate(£)" label-edge="inside" data="[[clientRateListDP]]" value="{{bankHolidayRate}}">
+              </oj-select-single></br>
+            </oj-validation-group>
+            <oj-bind-if test="[[clientActionBtn() == 'Add']]">
+              <div style="display: flex;justify-content: center;"
+              class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+              <div class="oj-flex-bar">
+                <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[BankHolidayRateAdd]]">Save
+                </oj-button>
+              </div>
+            </div>
+          </oj-bind-if>
+          <oj-bind-if test="[[clientActionBtn() == 'Update']]">
+            <div style="display: flex;justify-content: center;"
+            class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+            <div class="oj-flex-bar">
+              <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[BankHolidayRateUpdate]]">Update
+              </oj-button>
+            </div>
+          </div>
+        </oj-bind-if>
+            </div>
+              </div>
+            </div>
+        
+  </div>
+</div>
+        
+</div> 
+
+  <oj-dialog id="openAddClientProgress" dialog-title="Saving client bank holiday rates..." modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>
+
+    
+
+ 
+
+      
+        
+    
+
+
+
+
+
+
+
+<!-- Old Bank Holiday with Flat and Percentage rate -->
+
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<div id="sampleDemo"  class="demo-container sampleDemo">
+    <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+      
+      <div id="moduleDemo">    
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1; display: flex;align-items: baseline;">
+          <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp; You can set up the charging types for bank holidays here. There are two types - one is a percentage times the normal rate and the other is a fixed hourly flat rate. You can select the bank holiday dates, the user type, the client holiday rate and the staff holiday rate.
+        </div> 
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1; display: flex;align-items: baseline;">
+          <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp; Please choose one of the following charging types for bank holiday rates.
+        </div> 
+      </br>
+      <oj-bind-if test="[[bankHolidayList() === true]]">
+      <div class="oj-panel oj-xl-margin-4x">
+            <oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider1]]"
+            class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+            <template slot="itemTemplate" data-oj-as="item">
+              <div
+              class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+              <li>
+                <oj-list-item-layout :aria-label="[['Details for ' +item.data.name]]">
+                
+                  <div class="oj-typography-body-md">
+                    <div class="oj-flex oj-sm-align-items-center">
+                    
+                  
+                      <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                        <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                          <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                            <oj-bind-text value="Holiday Type & User Type"></oj-bind-text>
+                          </div>
+                          <div slot="tertiary" class="oj-typography-body-lg">
+                          <div>
+                          <oj-bind-text value="[[item.data.holiday_date]]"></oj-bind-text>
+                          </div>
+                          <div>
+                           <oj-bind-text value="[[item.data.user_type]]"></oj-bind-text>
+                          </div>
+                        </div>
+                        </oj-list-item-layout>
+                      </div>
+
+                      <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                        <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                          <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                            <oj-bind-text value="Client Rate"></oj-bind-text>
+                          </div>
+                          <div slot="tertiary" class="oj-typography-body-lg">
+                          <div>
+                            Day : <oj-bind-text value="[[item.data.clientDayRate]]"></oj-bind-text>
+                          </div>
+                          <div>
+                            Night : <oj-bind-text value="[[item.data.clientNightRate]]"></oj-bind-text>
+                          </div>
+                        </div>
+                        </oj-list-item-layout>
+                      </div>
+
+                      <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                        <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                          <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                            <oj-bind-text value="Paye Rate"></oj-bind-text>
+                          </div>
+                          <div slot="tertiary" class="oj-typography-body-lg">
+                          <div>
+                            Day : <oj-bind-text value="[[item.data.clientPayeDayRate]]"></oj-bind-text>
+                          </div>
+                          <div>
+                            Night : <oj-bind-text value="[[item.data.clientPayeNightRate]]"></oj-bind-text>
+                          </div>
+                        </div>
+                        </oj-list-item-layout>
+                      </div>
+                      
+                      <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                        <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                          <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                            <oj-bind-text value="LTD Co. Rate"></oj-bind-text>
+                          </div>
+                          <div slot="tertiary" class="oj-typography-body-lg">
+                            <oj-bind-if test="[[item.data.clientLtdDayRate == '']]">
+                              <div>
+                                Day : <oj-bind-text value="N/A"></oj-bind-text>
+                              </div>
+                            </oj-bind-if>
+                            <oj-bind-if test="[[item.data.clientLtdDayRate != '']]">
+                              <div>
+                                Day : <oj-bind-text value="[[item.data.clientLtdDayRate]]"></oj-bind-text>
+                              </div>
+                            </oj-bind-if>
+                            <oj-bind-if test="[[item.data.clientLtdNightRate == '']]">
+                              <div>
+                                Night : <oj-bind-text value="N/A"></oj-bind-text>
+                              </div>
+                            </oj-bind-if>
+                            <oj-bind-if test="[[item.data.clientLtdNightRate != '']]">
+                              <div>
+                                Night : <oj-bind-text value="[[item.data.clientLtdNightRate]]"></oj-bind-text>
+                              </div>
+                            </oj-bind-if>
+                        </div>
+                        </oj-list-item-layout>
+                      </div>
+
+                      <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                        <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                          <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                            <oj-bind-text value="Self Emp. Rate"></oj-bind-text>
+                          </div>
+                          <div slot="tertiary" class="oj-typography-body-lg">
+                            <oj-bind-if test="[[item.data.clientEmpDayRate == '']]">
+                              <div>
+                                Day : <oj-bind-text value="N/A"></oj-bind-text>
+                              </div>
+                            </oj-bind-if>
+                            <oj-bind-if test="[[item.data.clientEmpDayRate != '']]">
+                              <div>
+                                Day : <oj-bind-text value="[[item.data.clientEmpDayRate]]"></oj-bind-text>
+                              </div>
+                            </oj-bind-if>
+                            <oj-bind-if test="[[item.data.clientEmpNightRate == '']]">
+                              <div>
+                                Night : <oj-bind-text value="N/A"></oj-bind-text>
+                              </div>
+                            </oj-bind-if>
+                            <oj-bind-if test="[[item.data.clientEmpNightRate != '']]">
+                              <div>
+                                Night : <oj-bind-text value="[[item.data.clientEmpNightRate]]"></oj-bind-text>
+                              </div>
+                            </oj-bind-if>
+                        </div>
+                        </oj-list-item-layout>
+                      </div>
+
+                      <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                        <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                          <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                            <oj-bind-text value="Umbrella Co. Rate"></oj-bind-text>
+                          </div>
+                          <div slot="tertiary" class="oj-typography-body-lg">
+                            <oj-bind-if test="[[item.data.clientUmbrellaDayRate == '']]">
+                              <div>
+                                Day : <oj-bind-text value="N/A"></oj-bind-text>
+                              </div>
+                            </oj-bind-if>
+                            <oj-bind-if test="[[item.data.clientUmbrellaDayRate != '']]">
+                              <div>
+                                Day : <oj-bind-text value="[[item.data.clientUmbrellaDayRate]]"></oj-bind-text>
+                              </div>
+                            </oj-bind-if>
+                            <oj-bind-if test="[[item.data.clientUmbrellaNightRate == '']]">
+                              <div>
+                                Night : <oj-bind-text value="N/A"></oj-bind-text>
+                              </div>
+                            </oj-bind-if>
+                            <oj-bind-if test="[[item.data.clientUmbrellaNightRate != '']]">
+                              <div>
+                                Night : <oj-bind-text value="[[item.data.clientUmbrellaNightRate]]"></oj-bind-text>
+                              </div>
+                            </oj-bind-if>
+                        </div>
+                        </oj-list-item-layout>
+                      </div>
+
+                      <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                        <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                        <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                          <oj-bind-text value="Actions"></oj-bind-text>
+                       </div>
+                      <div slot="tertiary" class="oj-typography-body-lg">
+                            &nbsp;&nbsp;&nbsp;
+                            <oj-button
+                          chroming="borderless"
+                          display="icons"
+                          class="oj-button-sm deleteBtn"
+                          on-oj-action="[[deleteConfirm]]">
+                          <span slot="startIcon"></span>
+                          Delete
+                        </oj-button>
+                    </div>
+                      </oj-list-item-layout>
+                    </div>
+                      
+        
+                    </div>
+                  </div>
+                
+                </oj-list-item-layout>
+              </li>
+            </div>
+          </div>
+            </template>
+          </oj-list-view>
+        </oj-bind-if>
+              
+      <oj-validation-group id="bankHolidaySec" role="group" valid="{{groupValid}}"
+    aria-labelledby="grouplabelid">
+      <div
+    class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+    
+    <div
+      class="oj-sm-5">
+      <b><div>Percentage [X times normal rate]</div></b>
+      <oj-switch id="percentageRate" class="oj-flex-item"
+          value="{{percentageChecked}}" label-edge="inside" label-hint=""  on-value-changed="[[checkedPercentage]]">
+      </oj-switch>
+    </div>
+    <div
+      class="oj-sm-2"></div>
+    <div
+      class="oj-sm-5">
+      <b><div>Fixed hourly flat rate</div></b>
+      <oj-switch id="fixedRate" class="oj-flex-item"
+          value="{{fixedChecked}}" label-edge="inside" label-hint="" on-value-changed="[[checkedFixed]]">
+      </oj-switch>
+    </div>
+  </br></br></br></br>
+    <div
+    class="oj-sm-2">
+    <oj-select-single required label-hint="Holiday Payment Type" 
+    label-edge="inside" data="[[BankHolidayDateListDP]]" value="{{bankHolidayDate}}">
+  </oj-select-single>
+  </div>   
+  <div
+    class="oj-sm-1"></div>
+    <div
+    class="oj-sm-2">
+    <oj-select-single required  label-hint="Select User Type" label-edge="inside" data="[[userTypeListDP]]" value="{{selectUserType}}" on-value-changed="[[getBankHolidayInfo]]">
+    </oj-select-single>
+  </div> 
+  <div
+    class="oj-sm-1"></div>
+    <oj-bind-if test="[[percentageChecked() === true]]">
+    <div
+    class="oj-sm-2">
+    <oj-select-single required label-hint="Client Day Rate(£)" label-edge="inside" data="[[clientRateListDP]]" value="{{clientDayRate}}">
+    </oj-select-single>
+  </div> 
+  <div
+  class="oj-sm-1"></div>
+  <div
+  class="oj-sm-2">
+  <oj-select-single required  label-hint="Client Night Rate(£)" label-edge="inside" data="[[clientRateListDP]]" value="{{clientNightRate}}">
+  </oj-select-single>
+</div> 
+
+  </br></br></br> </br></br></br>
+    <div
+    class="oj-sm-2">
+    <oj-select-single required label-hint="Paye Day(£)" 
+      label-edge="inside" data="[[clientRateListDP]]" value="{{clientPayeDayRate}}">
+    </oj-select-single>
+  </div>   
+  <div
+    class="oj-sm-1"></div>
+    <div
+    class="oj-sm-2">
+    <oj-select-single required  label-hint="Paye Night(£)" label-edge="inside" data="[[clientRateListDP]]" value="{{clientPayeNightRate}}">
+    </oj-select-single>
+  </div> 
+  <div
+    class="oj-sm-1"></div>
+    <div
+    class="oj-sm-2">
+    <oj-select-single label-hint="LTD Co. Day(£)" label-edge="inside" data="[[clientRateListDP]]" value="{{clientLtdDayRate}}">
+    </oj-select-single>
+  </div> 
+  <div
+  class="oj-sm-1"></div>
+  <div
+  class="oj-sm-2">
+  <oj-select-single  label-hint="LTD Co. Night(£)" label-edge="inside" data="[[clientRateListDP]]" value="{{clientLtdNightRate}}">
+  </oj-select-single>
+</div>
+</br></br></br> </br></br></br>
+<div
+class="oj-sm-2">
+<oj-select-single label-hint="Self Emp. Day(£)" 
+  label-edge="inside" data="[[clientRateListDP]]" value="{{clientEmpDayRate}}">
+</oj-select-single>
+</div>   
+<div
+class="oj-sm-1"></div>
+<div
+class="oj-sm-2">
+<oj-select-single  label-hint="Self Emp. Night(£)" label-edge="inside" data="[[clientRateListDP]]" value="{{clientEmpNightRate}}">
+</oj-select-single>
+</div> 
+<div
+class="oj-sm-1"></div>
+<div
+class="oj-sm-2">
+<oj-select-single label-hint="Umbrella Co. Day(£)" label-edge="inside" data="[[clientRateListDP]]" value="{{clientUmbrellaDayRate}}">
+</oj-select-single>
+</div> 
+<div
+class="oj-sm-1"></div>
+<div
+class="oj-sm-2">
+<oj-select-single  label-hint="Umbrella Co. Night(£)" label-edge="inside" data="[[clientRateListDP]]" value="{{clientUmbrellaNightRate}}">
+</oj-select-single>
+</div> 
+</oj-bind-if>
+<oj-bind-if test="[[fixedChecked() === true]]">
+  <div
+  class="oj-sm-2">
+  <oj-input-text required label-hint="Client Day Rate(£)" label-edge="inside" value="{{clientDayRate}}">
+  </oj-input-text>
+</div> 
+<div
+class="oj-sm-1"></div>
+<div
+class="oj-sm-2">
+<oj-input-text required  label-hint="Client Night Rate(£)" label-edge="inside" value="{{clientNightRate}}">
+</oj-input-text>
+</div> 
+
+</br></br></br> </br></br></br>
+  <div
+  class="oj-sm-2">
+  <oj-input-text required label-hint="Paye Day(£)" 
+    label-edge="inside" value="{{clientPayeDayRate}}">
+  </oj-input-text>
+</div>   
+<div
+  class="oj-sm-1"></div>
+  <div
+  class="oj-sm-2">
+  <oj-input-text required  label-hint="Paye Night(£)" label-edge="inside" value="{{clientPayeNightRate}}">
+  </oj-input-text>
+</div> 
+<div
+  class="oj-sm-1"></div>
+  <div
+  class="oj-sm-2">
+  <oj-input-text label-hint="LTD Co. Day(£)" label-edge="inside" value="{{clientLtdDayRate}}">
+  </oj-input-text>
+</div> 
+<div
+class="oj-sm-1"></div>
+<div
+class="oj-sm-2">
+<oj-input-text  label-hint="LTD Co. Night(£)" label-edge="inside" value="{{clientLtdNightRate}}">
+</oj-input-text>
+</div>
+</br></br></br> </br></br></br>
+<div
+class="oj-sm-2">
+<oj-input-text label-hint="Self Emp. Day(£)" 
+label-edge="inside" value="{{clientEmpDayRate}}">
+</oj-input-text>
+</div>   
+<div
+class="oj-sm-1"></div>
+<div
+class="oj-sm-2">
+<oj-input-text  label-hint="Self Emp. Night(£)" label-edge="inside" value="{{clientEmpNightRate}}">
+</oj-input-text>
+</div> 
+<div
+class="oj-sm-1"></div>
+<div
+class="oj-sm-2">
+<oj-input-text label-hint="Umbrella Co. Day(£)" label-edge="inside" value="{{clientUmbrellaDayRate}}">
+</oj-input-text>
+</div> 
+<div
+class="oj-sm-1"></div>
+<div
+class="oj-sm-2">
+<oj-input-text  label-hint="Umbrella Co. Night(£)" label-edge="inside" value="{{clientUmbrellaNightRate}}">
+</oj-input-text>
+</div> 
+</oj-bind-if>
+</oj-validation-group>
+      </div>
+      <oj-bind-if test="[[clientActionBtn() == 'Add']]">
+      <div style="display: flex;justify-content: center;"
+      class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+      <div class="oj-flex-bar">
+        <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[clientBankHolidayRateAdd]]">Save
+        </oj-button>
+      </div>
+    </div>
+  </oj-bind-if>
+  <oj-bind-if test="[[clientActionBtn() == 'Update']]">
+    <div style="display: flex;justify-content: center;"
+    class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+    <div class="oj-flex-bar">
+      <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[clientBankHolidayRateUpdate]]">Update
+      </oj-button>
+    </div>
+  </div>
+</oj-bind-if>
+    </div> 
+  </div> 
+</div>   
+
+<oj-dialog id="openAddClientProgress" dialog-title="Saving client bank holiday rates" modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openDeleteConfirm" dialog-title="Delete Staff Details" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+  <div slot="body">
+    <oj-bind-text value='Do you want to delete the selected row?'></oj-bind-text>
+  </div>
+  <div  class="oj-flex-bar" slot="footer">
+    <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[deleteBankHolidayInfo]]">
+      Yes
+    </oj-button>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openDeleteBankHolidayProgress" dialog-title="Please wait!Deleteing...." modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>
+ -->

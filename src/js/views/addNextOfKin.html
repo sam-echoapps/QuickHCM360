@@ -1,0 +1,106 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<div id="sampleDemo"  class="demo-container sampleDemo">
+  <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+    
+    <div id="moduleDemo">    
+      <div class="demo-padding">
+          <div class="demo-controls">
+            <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+              <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;The candidate is requested to provide next of kin details.
+            </div>    
+         <!--    <oj-button id="buttonOpener" display="icons" on-oj-action="[[startToggle]]">
+              <span slot="startIcon" class="fa  fa-bars"></span>
+              Start
+            </oj-button> -->
+          </div>
+          <div
+          class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+          <div
+            class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5">
+            <oj-validation-group id="relativeAddSec1" role="group" valid="{{groupValid}}"
+            aria-labelledby="grouplabelid" disbaled>
+            <oj-input-text required id="relative_first_name" label-hint="Relative First Name" value="{{relative_first_name}}" clear-icon="always">
+            </oj-input-text>
+            <oj-input-text required id="relative_address" label-hint="Relative Address" value="{{relative_address}}" clear-icon="always">
+            </oj-input-text>
+            <oj-input-text required length.max="10" id="relative_contact" label-hint="Reference Contact Number" value="{{relative_contact}}" clear-icon="always" on-value-changed="[[onlyNumberKey]]">
+            </oj-input-text>
+            <div class="oj-text-color-danger"><oj-bind-text value='[[contactError]]'></oj-bind-text></div>
+            </oj-validation-group>
+          </div>
+          <div
+            class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5">
+            <oj-validation-group id="relativeAddSec2" role="group" valid="{{groupValid}}"
+            aria-labelledby="grouplabelid">
+            <oj-input-text required id="relative_last_name" label-hint="Relative Last Name"
+            value="{{relative_last_name}}" clear-icon="always"></oj-input-text>
+            <oj-select-single required id="relationship" label-hint="Relationship" label-edge="inside" data="[[relationshipDP]]" value="{{relationship}}" 
+            >
+            </oj-select-single></br>
+            <oj-input-text required id="relative_email" label-hint="Relative Email" value="{{relative_email}}" clear-icon="always" on-value-changed="[[emailPatternValidator]]">
+            </oj-input-text>
+            <div class="oj-text-color-danger"><oj-bind-text value='[[emailError]]'></oj-bind-text></div>
+          </oj-validation-group>
+          </div>
+        </div>
+      <oj-bind-if test="[[relationActionBtn() === 'Add']]">
+        <div style="display: flex;justify-content: center;"
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+          <div class="oj-flex-bar">
+            <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[relativeInfoSave]]">Save
+            </oj-button>
+          </div>
+        </div>
+      </oj-bind-if>
+      <oj-bind-if test="[[relationActionBtn() === 'Update']]">
+        <div style="display: flex;justify-content: center;"
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+          <div class="oj-flex-bar">
+            <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[relativeInfoUpdate]]">Update
+            </oj-button>
+          </div>
+        </div>
+      </oj-bind-if>
+        </div>
+
+    </div>
+    <div class="oj-panel">
+    <div class="oj-flex">
+      <oj-bind-if test="[[relativeStatus() === 'Pending']]">
+    <oj-button chroming="solid" class="oj-xl-margin-4x" on-oj-action="[[updateRelativeStatus]]">
+         <span slot="startIcon" class=""> Not Audited: Click to mark as audited</span>
+       </oj-button>
+      </oj-bind-if>
+     </div>
+     <div class="oj-flex">
+      <oj-bind-if test="[[relativeStatus() === 'Audited']]">
+    <oj-button chroming="solid" class="oj-xl-margin-4x" on-oj-action="[[updateRelativeStatus]]">
+         <span slot="startIcon" class=""> Audited: Click to mark as audit pending</span>
+       </oj-button>
+      </oj-bind-if>
+     </div>
+    </div>
+    <oj-dialog id="openAddRelativeProgress" dialog-title="Saving Next of Kin Details" modality="modeless"
+    style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+      </oj-progress-bar>
+    </div>
+  </oj-dialog>
+  <oj-dialog id="openRelativeSaveResult" dialog-title="Save Next of Kin Details" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-bind-text value='[[saveRelativeMsg]]'></oj-bind-text>
+    </div>
+    <div  class="oj-flex-bar" slot="footer">
+      <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel" on-oj-action="[[DBErrorOKClose]]">
+        OK
+      </oj-button>
+    </div>
+  </oj-dialog>      
+  </div>
+</div>
+
+    
+      
+  

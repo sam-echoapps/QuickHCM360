@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="css/postcode.css" type="text/css" />
+
+<div id="sampleDemo"  class="demo-container sampleDemo">
+    <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+      
+      <div id="moduleDemo">    
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1; display: flex;align-items: baseline;">
+          <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp; You can add address details of your client here.
+        </div> 
+
+        <div
+        class="">
+        <oj-validation-group id="clientAddSec" role="group" valid="{{groupValid}}"
+        aria-labelledby="grouplabelid">
+        <p class="text-center"></p></br>
+        <div id="context"></div></br>
+        <input type="text" id="line_1" class="form-control" placeholder='Address line 1' spellcheck='false' aria-label='Address line 1' value="">
+        <div class="oj-text-color-danger"><oj-bind-text value='[[addressLine1Error]]'></oj-bind-text></div></br>
+        <input type="text" id="line_2" class="form-control" placeholder='Address line 2' spellcheck='false' aria-label='Address line 1' value="">
+<!--         <div class="oj-text-color-danger"><oj-bind-text value='[[addressLine2Error]]'></oj-bind-text></div></br>
+ --></br>  <input type="text" id="line_3" class="form-control" placeholder='Address line 3' spellcheck='false' aria-label='Address line 1' value=""></br>
+        <input type="text" class="form-control" id="post_town" placeholder='Post town' spellcheck='false' aria-label='Address line 1' value="">
+        <div class="oj-text-color-danger"><oj-bind-text value='[[townError]]'></oj-bind-text></div></br>
+        <input type="text" id="postcode" class="form-control" placeholder='Postcode' spellcheck='false' aria-label='Address line 1' value="">
+        <div class="oj-text-color-danger"><oj-bind-text value='[[postcodeError]]'></oj-bind-text></div></br>      
+      </oj-validation-group>
+      </div>
+      <oj-bind-if test="[[clientActionBtn() === 'Add']]">
+    <div style="display: flex;justify-content: center;"
+    class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+    <div class="oj-flex-bar">
+      <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[clientAddressSave]]">Save
+      </oj-button>
+    </div>
+  </div>
+</oj-bind-if>
+<oj-bind-if test="[[clientActionBtn() === 'Update']]">
+  <div style="display: flex;justify-content: center;"
+  class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+  <div class="oj-flex-bar">
+    <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[clientAddressSave]]">Update
+    </oj-button>
+  </div>
+</div>
+</oj-bind-if>
+  </div>
+
+  
+<oj-dialog id="openAddClientProgress" dialog-title="Saving Client Address Details" modality="modeless"
+style="display:none;width:350px;min-width:240px;max-width:450px;">
+<div slot="body">
+  <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+  </oj-progress-bar>
+</div>
+</oj-dialog>
+      
+
+      <oj-dialog id="openUpdateStaffProgress" dialog-title="Updating Staff Details" modality="modeless"
+      style="display:none;width:350px;min-width:240px;max-width:450px;">
+      <div slot="body">
+        <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+        </oj-progress-bar>
+      </div>
+    </oj-dialog>
+    <!-- <oj-dialog id="openStaffUpdateResult" dialog-title="Update Staff Details" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;">
+      <div slot="body">
+        <oj-bind-text value=''></oj-bind-text>
+      </div>
+      <div  class="oj-flex-bar" slot="footer">
+        <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel" on-oj-action="[[DBErrorOKClose]]">
+          OK
+        </oj-button>
+      </div>
+    </oj-dialog>     -->  
+ 
+
+  <script type="module">
+    import { PostcodeLookup } from "https://cdn.jsdelivr.net/npm/@ideal-postcodes/postcode-lookup-bundled@2/dist/postcode-lookup.esm.js";
+    window.PostcodeLookup = PostcodeLookup;
+    PostcodeLookup.setup({
+      apiKey: "ak_l96o294xFkm5IoleolP19eggRpQyX",
+      context: "#context",
+      outputFields: {
+        line_1: "#line_1",
+        line_2: "#line_2",
+        line_3: "#line_3",
+        post_town: "#post_town",
+        postcode: "#postcode"
+      }
+    });
+  </script>      
+        
+    

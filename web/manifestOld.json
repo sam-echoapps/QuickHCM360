@@ -1,0 +1,11 @@
+{
+    "name": "1Place",
+    "short_name": "1Place",
+    "start_url": "index.html",
+    "background_color": "#fff",
+    "theme_color": "#0572ce",
+    "display": "standalone",
+    "orientation": "portrait",
+    "gcm_sender_id": "232155109576"
+  }
+  

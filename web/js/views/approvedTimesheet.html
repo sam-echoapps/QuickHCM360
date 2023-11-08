@@ -1,0 +1,470 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="css/loader.css" type="text/css" />
+
+<div class="oj-panel oj-xl-margin-4x" style="margin: 10px;padding: 10px;display:none" id="mainView">
+  <div
+  class="oj-flex">
+  <div
+    class="oj-sm-5">
+    <div class="">
+      <div class="hint-div" style="margin: 10px;padding: 10px;">
+          <div style="font-size:large;color:rgb(11, 111, 165)">
+              <b>Generate Invoice for <oj-bind-text value="[[clientName]]"></oj-bind-text></b>
+      </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  
+  <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+    <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;This section lists the staff timesheet for generating invoice.
+  </div>
+
+</div>
+
+<div class="oj-panel oj-xl-margin-4x" style="margin: 10px;padding: 10px;display:none" id="contentView">
+<!--   <div
+class="oj-flex">
+<div
+  class="oj-sm-5">
+  <div class="">
+    <div class="hint-div" style="margin: 10px;padding: 10px;">
+        <div style="font-size:large;color:rgb(11, 111, 165)">
+            <b>Client Name : <oj-bind-text value="[[clientNameCap]]"></oj-bind-text></b>
+    </div>
+</div>
+</div>
+</div>
+</div> -->
+
+<div
+class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+<div
+  class=" oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-3">
+  <oj-validation-group id="filterSec1" role="group" valid="{{groupValid}}"
+  aria-labelledby="grouplabelid" disbaled>
+  <oj-input-date required label-hint="Start Date" autocomplete="off" value="{{selectStartDate}}"></oj-input-date></br></br> 
+</oj-validation-group>
+</div>
+<div
+          class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-3">
+          <oj-validation-group id="filterSec2" role="group" valid="{{groupValid}}"
+          aria-labelledby="grouplabelid" disbaled>
+          <oj-input-date required label-hint="End Date" autocomplete="off" value="{{selectEndDate}}"></oj-input-date></br></br> 
+        </oj-validation-group>
+        </div>
+        <div
+          class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-3">
+          <oj-button id="confirmBtn" style="margin-top:12px;" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[approvedTimesheetFilter]]"><span slot="startIcon" class="demo-icon-search"> Search</span>
+          </oj-button>
+        </div>
+</div>
+
+  <oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider]]"
+  class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+  <template slot="itemTemplate" data-oj-as="item">
+    <div
+    class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+    <li>
+      <oj-list-item-layout>
+      
+        <div class="oj-typography-body-md">
+          <div class="oj-flex">
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Timesheet Serial No"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                <div>
+                  <oj-bind-text value="[[item.data.serial_no]]"></oj-bind-text>
+                </div>
+              </div>
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Shift Info"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                <div>
+                  <oj-bind-text value="[[item.data.shift_name]]"></oj-bind-text>
+                </div>
+              </div>
+              <div slot="tertiary" class="oj-typography-body-lg">
+              <div>
+                <oj-bind-text value="[[item.data.shift_date]]"></oj-bind-text>
+              </div>
+            </div>
+            <div slot="tertiary" class="oj-typography-body-lg">
+              <div>
+                <oj-bind-text value="[[item.data.shift_time]]"></oj-bind-text>
+              </div>
+            </div>
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout2 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Staff Info"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <div>
+                    <a on-click= "[[goToProfile]]" target="_blank" title="Go To Profile">
+                      <oj-bind-text value="[[item.data.staff_name]]"></oj-bind-text>
+                    </a>                  
+                  </div>
+                </div>
+                <!-- <div slot="tertiary" class="oj-typography-body-lg">
+                <div>
+                  <oj-bind-text value="[[item.data.contactEmail]]"></oj-bind-text>
+                </div>
+              </div>
+              <div slot="tertiary" class="oj-typography-body-lg">
+              <div>
+                <oj-bind-text value="[[item.data.contactNumber]]"></oj-bind-text>
+              </div>
+            </div> -->
+              </oj-list-item-layout>
+            </div>
+
+            <!-- <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Timesheet Status"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                <div>
+                  <oj-select-single required label-hint="Select Timesheet Status" 
+                  label-edge="inside" data="[[statusListDP]]" value="{{selected_status}}">
+                  </oj-select-single>
+                </div>
+              </div>
+              </oj-list-item-layout>
+            </div> -->
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Timesheet Status"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                <div>
+                  <span :class="[[getBadgeClass(item.data.timesheet_status)]]">
+                    <oj-bind-text value="[[item.data.timesheet_status]]"></oj-bind-text>
+                  </span>                
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <div>
+                    <oj-bind-text value="[[item.data.approved_by]]"></oj-bind-text>
+                  </div>
+                </div>
+              </div>
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Actions"></oj-bind-text>
+                </div>
+              <div slot="tertiary" class="oj-typography-body-lg">
+                <div>
+                  <oj-button
+                  :id = "[[item.data.staff_id]]"
+                chroming="borderless"
+                display="icons"
+                class="oj-button-sm download"
+                on-oj-action="[[viewTimesheet]]">
+                <span slot="startIcon"></span>
+                Download Timesheet
+              </oj-button> 
+              <oj-button
+              :id = "[[item.data.timesheetId]]"
+              chroming="borderless"
+              display="icons"
+              class="oj-button-sm reject"
+              on-oj-action="[[disapproveTimesheet]]">
+              <span slot="startIcon"></span>
+              Disapprove Timesheet
+            </oj-button> 
+            <oj-bind-if test="[[item.data.document == '']]">
+                <oj-button
+                    :id = "[[item.data.document]]"
+                  chroming="borderless"
+                  display="icons"
+                  class="oj-button-sm viewBtnDisabled"
+                  on-oj-action="[[previewClick]]">
+                  <span slot="startIcon"></span>
+                  Can't view.Not Uploaded Document! 
+                </oj-button> 
+            </oj-bind-if>
+              <oj-bind-if test="[[item.data.document != null]]">
+                <oj-bind-if test="[[item.data.document != '']]">
+                  <oj-button
+                      :id = "[[item.data.document]]"
+                    chroming="borderless"
+                    display="icons"
+                    class="oj-button-sm viewBtn"
+                    on-oj-action="[[previewClick]]">
+                    <span slot="startIcon"></span>
+                    View Timesheet Document 
+                  </oj-button> 
+                </oj-bind-if>
+              </oj-bind-if>
+            </div>
+          </oj-list-item-layout>
+        </div>
+        
+
+        </div>
+        
+          </div>
+      
+      </oj-list-item-layout>
+    </li>
+  </div>
+  </template>
+</oj-list-view>
+
+<center><div id="invoiceGenerate" style="display:none;">
+<oj-button id="confirmBtn" style="margin-top:12px;" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[invoiceCreate]]"><span slot="startIcon" class="demo-icon-next"> Create Invoice</span>
+</oj-button>
+</div></center>
+
+<oj-dialog id="openStaffTimesheetView" dialog-title="Staff Timesheet" modality="modeless"
+cancel-behavior="[[CancelBehaviorOpt]]" style="display:none;width:550px;min-width:240px;max-width:550px;">
+<div id="divToDownload" slot="body">
+  <!-- <oj-avatar
+  role="img"
+  src="[[profilePhoto]]"
+  :title="Pic">
+</oj-avatar>    -->
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    SL NO
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    <oj-bind-text value="[[serialNumber]]"></oj-bind-text>
+   </div>
+</div>
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    Staff Name 
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    <oj-bind-text value="[[name]]"></oj-bind-text>
+   </div>
+</div>
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    Job Role 
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    <oj-bind-text value="[[jobRole]]"></oj-bind-text>
+   </div>
+</div>
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    Client Name 
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-5 oj-flex-item oj-sm-padding-2x-horizontal">
+    <oj-bind-text value="[[clientName]]"></oj-bind-text>
+   </div>
+</div>
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    Shift Name 
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    <oj-bind-text value="[[shiftName]]"></oj-bind-text>
+   </div>
+</div>
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    Shift Date 
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    <oj-bind-text value="[[shiftDate]]"></oj-bind-text>
+   </div>
+</div>
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    Shift Day
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    <oj-bind-text value="[[shiftDay]]"></oj-bind-text>
+   </div>
+</div>
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    Checkin
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    <oj-bind-text value="[[checkin]]"></oj-bind-text>
+   </div>
+</div>
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    Checkout
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    <oj-bind-text value="[[checkout]]"></oj-bind-text>
+   </div>
+</div>
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    Break Time(Unpaid)
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    <oj-bind-text value="[[breakTime]]"></oj-bind-text>
+   </div>
+</div>
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    No.of Hours Worked
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    <oj-bind-text value="[[workedHours]]"></oj-bind-text>
+   </div>
+</div>
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    Total Hours Paid
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    <oj-bind-text value="[[paidHours]]"></oj-bind-text>
+   </div>
+</div>
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    Other Expenses
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    <oj-bind-text value="[[otherExpenses]]"></oj-bind-text>
+   </div>
+</div>
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    Rating 
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    <oj-bind-text value="[[starRate]]"></oj-bind-text>
+   </div>
+</div>
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    Feedback Note
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    <oj-bind-text value="[[rating_note]]"></oj-bind-text>
+   </div>
+</div></br></br>
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    Authorised by Name
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    <oj-bind-text value="[[authoriser]]"></oj-bind-text>
+   </div>
+</div>
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    Position
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    <oj-bind-text value="[[position]]"></oj-bind-text>
+   </div>
+</div>
+<div class="oj-flex">
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+    Signature
+  </div>
+  <div class="oj-sm-1 oj-flex-item oj-sm-padding-2x-horizontal">
+    :
+  </div>
+  <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal" style="font-family: Cedarville Cursive">
+    <oj-bind-text value="[[signature]]"></oj-bind-text>
+   </div>
+</div></br>
+<div style="display: flex;justify-content: center;"
+class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+<div class="oj-flex-bar">
+  <!-- <oj-button id="downloadBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[timesheetPDFGenerate]]">Download
+  </oj-button> -->
+</div>
+</div>
+</div>
+</div>
+</oj-dialog>
+</div>
+
+
+<oj-dialog id="openTimesheetDisapproveProgress" dialog-title="Timesheet disapproving..." modality="modeless"
+style="display:none;width:350px;min-width:240px;max-width:450px;">
+<div slot="body">
+  <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+  </oj-progress-bar>
+</div>
+</oj-dialog>
+
+
+<div class="centered-container" id="loaderView" style="display:none">
+  <div class="loader"></div>
+</div> 

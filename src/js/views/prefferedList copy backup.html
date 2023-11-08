@@ -1,0 +1,273 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<div class="sampleDemo">
+  <div class="oj-xl-margin-4x">
+    <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;">This section allows you to add or remove staff members to the preferred list based on the client's name and job role.
+    </div>     
+  </div>
+  <div
+  class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+  <div
+    class=" oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-3">
+    <oj-validation-group id="filterSec1" role="group" valid="{{groupValid}}"
+    aria-labelledby="grouplabelid" disbaled>
+    <oj-select-single required label-hint="Select Client Name" 
+    label-edge="inside" data="[[ClientDetDP]]" value="{{client_name}}" on-value-changed="[[clientJobRole]]">
+    </oj-select-single>
+  </oj-validation-group>
+  </div>
+  <div
+            class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-3">
+            <oj-validation-group id="filterSec2" role="group" valid="{{groupValid}}"
+            aria-labelledby="grouplabelid" disbaled>
+            <oj-select-single required label-hint="Select Job Role" 
+            label-edge="inside" data="[[JobRoleDP]]" value="{{job_role}}">
+            </oj-select-single>
+          </oj-validation-group>
+          </div>
+          <div
+            class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-3">
+            <oj-button id="confirmBtn" style="margin-top:12px;" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[staffJobRoleFilter]]">Search
+            </oj-button>
+          </div>
+  </div>
+    <div class="oj-panel oj-xl-margin-4x">
+      <oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider1]]"
+      class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+      <template slot="itemTemplate" data-oj-as="item">
+        <div
+        class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+        <li>
+          <oj-list-item-layout :aria-label="[['Details for ' +item.data.name]]">
+          
+            <div class="oj-typography-body-md">
+              <div class="oj-flex oj-sm-align-items-center">
+                
+                <div class="oj-flex-item oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                    :aria-label="[['task ' +item.data.taskName]]">
+                      <oj-avatar
+                        role="img"
+                        src="[[item.data.profilePhoto]]"
+                        :aria-label="[[item.data.name]]"
+                        :title="[[item.data.name]]">
+                      </oj-avatar>   
+                  </oj-list-item-layout>
+                </div>
+                
+                <div class="oj-flex-item demo-list-item-layout2 oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                    :aria-label="[['task ' +item.data.taskName]]">
+                    <oj-bind-text value="[[item.data.taskName]]"></oj-bind-text>
+                    <div slot="secondary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.userName]]">
+                      <oj-bind-text value="[[item.data.name]]"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg oj-text-color-secondary"
+                      :aria-label="[['Main Position ' + item.data.mainPostion]]">
+                      <div>
+                        <oj-bind-text value="[[item.data.mainPostion]]"></oj-bind-text>
+                      </div>
+                    </div>
+                  </oj-list-item-layout>
+                </div>
+                
+                <div class="oj-flex-item demo-list-item-layout2 oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                    :aria-label="[['task ' +item.data.taskName]]">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                      <oj-bind-text value="Contact"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg"
+                    :aria-label="[['Contact Email ' + item.data.contactEmail]]">
+                    <div>
+                      <oj-bind-text value="[[item.data.contactEmail]]"></oj-bind-text>
+                    </div>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg"
+                  :aria-label="[['Contact Phone ' + item.data.contactNumber]]">
+                  <div>
+                    <oj-bind-text value="[[item.data.contactNumber]]"></oj-bind-text>
+                  </div>
+                </div>
+                  </oj-list-item-layout>
+                </div>
+  
+                <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                    :aria-label="[['task ' +item.data.taskName]]">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                      <oj-bind-text value="Address"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg"
+                    :aria-label="[['Postcode ' + item.data.postCode]]">
+                    <div>
+                      <oj-bind-text value="[[item.data.postCode]]"></oj-bind-text>
+                    </div>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg"
+                  :aria-label="[['Post town ' + item.data.postTown]]">
+                  <div>
+                    <oj-bind-text value="[[item.data.postTown]]"></oj-bind-text>
+                  </div>
+                </div>
+                  </oj-list-item-layout>
+                </div>
+
+                <div class="oj-flex-item demo-list-item-layout2 oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                    :aria-label="[['task ' +item.data.taskName]]">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                      <oj-bind-text value="Own Transportation"></oj-bind-text>
+                    </div>
+                  <div slot="tertiary" class="oj-typography-body-lg"
+                  :aria-label="[['Post town ' + item.data.postTown]]">
+                  <div>
+                    <oj-bind-text value="[[item.data.transportation]]"></oj-bind-text>
+                  </div>
+                </div>
+                  </oj-list-item-layout>
+                </div>
+  
+                <div class="oj-flex-item demo-list-item-layout2 oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                    :aria-label="[['task ' +item.data.taskName]]">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                      <oj-bind-text value="Visa Status"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg">
+                    <div>
+                      <oj-bind-if test="[[item.data.visa_status == null]]">
+                      <oj-bind-text value="N/A"></oj-bind-text>
+                      </oj-bind-if>
+                      <oj-bind-if test="[[item.data.visa_status != null]]">
+                        <oj-bind-text value="[[item.data.visa_status]]"></oj-bind-text>
+                      </oj-bind-if>
+                    </div>
+                  </div>
+                  </oj-list-item-layout>
+                </div>
+
+                <div class="oj-flex-item oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                    :aria-label="[['task ' +item.data.taskName]]">
+                    <oj-bind-if test="[[filterClick() === 'No']]">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                      &nbsp;<oj-bind-text value="Actions"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg">
+                      <div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<oj-bind-text value="NIL"></oj-bind-text>
+                      </div>
+                    </div>
+                    </oj-bind-if>
+                <oj-bind-if test="[[filterClick() === 'Yes']]">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<oj-bind-text value="Actions"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg"
+                  :aria-label="[['Contact Phone ' + item.data.PPhone]]">
+                    <div>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <oj-bind-if test="[[item.data.client_id != client_name() ]]">
+                        <oj-bind-if test="[[item.data.client_id == null ]]">
+                          <oj-button
+                          chroming="borderless"
+                          display="icons"
+                          class="oj-button-sm addPrefer"
+                          on-oj-action="[[addStaffPreferrdList]]">
+                          <span slot="startIcon"></span>
+                          Add to preffered list
+                        </oj-button>
+                          </oj-bind-if> 
+                          <!-- <oj-bind-if test="[[item.data.client_id != null ]]">
+                            <oj-button
+                            chroming="borderless"
+                            display="icons"
+                            class="oj-button-sm addPrefer"
+                            on-oj-action="[[addStaffPreferrdList]]">
+                            <span slot="startIcon"></span>
+                            Add to preffered list
+                          </oj-button>
+                          </oj-bind-if>   -->
+                      </oj-bind-if>  
+
+                      <oj-bind-if test="[[item.data.client_id == client_name()  ]]">
+                        <oj-button
+                        chroming="borderless"
+                        display="icons"
+                        class="oj-button-sm removePrefer"
+                        on-oj-action="[[removeStaffPreferrdList]]">
+                        <span slot="startIcon"></span>
+                        Remove from preffered list
+                      </oj-button>
+                        </oj-bind-if> 
+                       
+                       <!-- <oj-switch
+                        :id = "[[ item.data.id ]]"
+                        value="{{isChecked}}"
+                        label-edge="inside"
+                        label-hint="switch component"
+                        on-value-changed="[[removeConfirmPreferredList]]"></oj-switch>  -->
+                    </div>
+                  </div>
+                </oj-bind-if>
+                </div>
+                  </oj-list-item-layout>
+                </div>
+    
+              </div>
+            </div>
+          
+          </oj-list-item-layout>
+        </li>
+      </div>
+    </div>
+      </template>
+    </oj-list-view>
+
+ 
+  </div>
+
+  
+  <oj-dialog id="openAddPreferredListConfirm" dialog-title="Add to Preferred List" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+    <div slot="body">
+      <oj-bind-text value='Do you want to add the selected staff to the preferred list?'></oj-bind-text>
+    </div>
+    <div  class="oj-flex-bar" slot="footer">
+      <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[addStaffPreferrdList]]">
+        Yes
+      </oj-button>
+    </div>
+  </oj-dialog>
+
+  <oj-dialog id="openAddPreferredListProgress" dialog-title="Adding to preferred list..." modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openRemovePreferredListConfirm" dialog-title="Remove from Preferred List" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+  <div slot="body">
+    <oj-bind-text value='Do you want to remove the selected staff from the preferred list?'></oj-bind-text>
+  </div>
+  <div  class="oj-flex-bar" slot="footer">
+    <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[removeStaffPreferrdList]]">
+      Yes
+    </oj-button>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openRemovePreferredListProgress" dialog-title="Removing from preferred list..." modality="modeless"
+style="display:none;width:350px;min-width:240px;max-width:450px;">
+<div slot="body">
+  <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+  </oj-progress-bar>
+</div>
+</oj-dialog>
+  
+
+        
+    

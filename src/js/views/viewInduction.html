@@ -1,0 +1,133 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<div id="sampleDemo"  class="demo-container sampleDemo">
+  <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+  </br><div>
+    <h4>Induction Details</h4>
+  </div>
+  <div id="moduleDemo">    
+    <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+      <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;View and delete inductions you have created. 
+    </div>  
+
+<div class="oj-panel">
+<oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider1]]"
+class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+<template slot="itemTemplate" data-oj-as="item">
+ <div
+ class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+ <li>
+   <oj-list-item-layout :aria-label="[['Details for ' +item.data.name]]">
+   
+     <div class="oj-typography-body-md">
+       <div class="oj-flex oj-sm-align-items-center">
+  
+         <div class="oj-flex-item demo-list-item-layout ">
+           <oj-list-item-layout class="oj-listitemlayout-padding-off"
+             :aria-label="[['task ' +item.data.taskName]]">
+             <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+               <oj-bind-text value="Induction Date"></oj-bind-text>
+             </div>
+             <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.induction_date]]">
+               <oj-bind-text value="[[item.data.induction_date]]"></oj-bind-text>
+             </div>
+             
+           </oj-list-item-layout>
+         </div>
+         
+         <div class="oj-flex-item demo-list-item-layout2 oj-md-padding-4x-end">
+           <oj-list-item-layout class="oj-listitemlayout-padding-off"
+             :aria-label="[['task ' +item.data.taskName]]">
+             <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+               <oj-bind-text value="Induction Time"></oj-bind-text>
+             </div>
+             <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.induction_time]]">
+               <oj-bind-text value="[[item.data.induction_time]]"></oj-bind-text>
+             </div>
+             
+           </oj-list-item-layout>
+         </div>
+
+         <div class="oj-flex-item demo-list-item-layout2 oj-md-padding-4x-end">
+          <oj-list-item-layout class="oj-listitemlayout-padding-off"
+            :aria-label="[['task ' +item.data.taskName]]">
+            <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+              <oj-bind-text value="Total Seats"></oj-bind-text>
+            </div>
+            <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.induction_limit]]">
+              <oj-bind-text value="[[item.data.induction_limit]]"></oj-bind-text>
+            </div>
+            
+          </oj-list-item-layout>
+        </div>
+
+
+           <div class="oj-flex-item demo-list-item-layout2 oj-md-padding-4x-end">
+             <oj-list-item-layout class="oj-listitemlayout-padding-off"
+               :aria-label="[['task ' +item.data.taskName]]">
+               <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                 <oj-bind-text value="Actions"></oj-bind-text>
+               </div>
+             <div slot="tertiary" class="oj-typography-body-lg"
+             :aria-label="[['Contact Phone ' + item.data.PPhone]]">
+               <div>
+    
+               &nbsp;&nbsp;&nbsp;
+               <oj-button
+               chroming="borderless"
+               display="icons"
+               class="oj-button-sm deleteBtn"
+               on-oj-action="[[deleteConfirm]]">
+               <span slot="startIcon"></span>
+               Delete
+             </oj-button> 
+             </div>
+           </div>
+         </oj-list-item-layout>
+       </div>
+
+       </div>
+     </div>
+   
+   </oj-list-item-layout>
+ </li>
+</div>
+</div>
+</template>
+</oj-list-view>
+</div>
+</div>
+</div>
+
+
+<oj-dialog id="openDeleteInductionInfoResult" dialog-title="[[ResultTitle]]" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-bind-text value='[[addInductionMsg]]'></oj-bind-text>
+  </div>
+  <div  class="oj-flex-bar" slot="footer">
+    <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel" on-oj-action="[[DBErrorOKClose]]">
+      OK
+    </oj-button>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openDeleteConfirm" dialog-title="Delete Induction Details" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+  <div slot="body">
+    <oj-bind-text value='Do you want to delete the selected row?'></oj-bind-text>
+  </div>
+  <div  class="oj-flex-bar" slot="footer">
+    <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[deleteInductionInfo]]">
+      Yes
+    </oj-button>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openDeleteProgress" dialog-title="Please wait!Deleteing...." modality="modeless"
+style="display:none;width:350px;min-width:240px;max-width:450px;">
+<div slot="body">
+  <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+  </oj-progress-bar>
+</div>
+</oj-dialog>
+
+

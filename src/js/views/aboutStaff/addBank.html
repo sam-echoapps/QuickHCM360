@@ -1,0 +1,85 @@
+<div id="sampleDemo"  class="demo-container sampleDemo">
+  <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+    
+    <div id="moduleDemo">  
+      <div class="demo-padding">
+          <div class="demo-controls">
+            <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+              <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;
+              <p>The candidate is requested to provide bank details. </p>
+            </div>    
+            <!-- <oj-button id="buttonOpener" display="icons" on-oj-action="[[startToggle]]">
+              <span slot="startIcon" class="fa  fa-bars"></span>
+              Start
+            </oj-button> -->
+          </div>
+          
+          <div
+          class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+          <div
+            class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5">
+            <oj-validation-group id="bankAddSec1" role="group" valid="{{groupValid}}"
+            aria-labelledby="grouplabelid" disbaled>
+            <oj-input-text required id="account_no" length.max="8" label-hint="Account Number" value="{{account_no}}" clear-icon="always" on-value-changed="[[accountLengthCheck]]">
+            </oj-input-text>
+            <div class="oj-text-color-danger"><oj-bind-text value='[[accountError]]'></oj-bind-text></div></br>
+            <oj-input-text required id="bank_name" label-hint="Bank Name" value="{{bank_name}}" clear-icon="always">
+            </oj-input-text>
+            </oj-validation-group>
+          </div>
+          <div
+            class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5">
+            <oj-validation-group id="bankAddSec2" role="group" valid="{{groupValid}}"
+            aria-labelledby="grouplabelid">
+            <oj-input-text required id="sort_code" length.max="6" label-hint="Sort Code Number" value="{{sort_code}}" clear-icon="always" on-value-changed="[[sortCodeLengthCheck]]">
+            </oj-input-text>
+            <div class="oj-text-color-danger"><oj-bind-text value='[[sortCodeError]]'></oj-bind-text></div></br>
+            <oj-input-text required id="account_name" label-hint="Account Name" value="{{account_name}}" clear-icon="always">
+            </oj-input-text>
+          </oj-validation-group>
+          </div>
+        </div>
+      <oj-bind-if test="[[staffActionBtn() === 'Add']]">
+        <div style="display: flex;justify-content: center;"
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+          <div class="oj-flex-bar">
+            <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[bankInfoSave]]">Save
+            </oj-button>
+          </div>
+        </div>
+      </oj-bind-if>
+      <oj-bind-if test="[[staffActionBtn() === 'Update']]">
+        <div style="display: flex;justify-content: center;"
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+          <div class="oj-flex-bar">
+            <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[bankInfoUpdate]]">Update
+            </oj-button>
+          </div>
+        </div>
+      </oj-bind-if>
+        </div>
+  
+    </div>
+    <oj-dialog id="openAddBankProgress" dialog-title="Saving Bank Details" modality="modeless"
+    style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+      </oj-progress-bar>
+    </div>
+  </oj-dialog>
+  <oj-dialog id="openBankSaveResult" dialog-title="Save Bank Details" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-bind-text value='[[saveBankMsg]]'></oj-bind-text>
+    </div>
+    <div  class="oj-flex-bar" slot="footer">
+      <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel" on-oj-action="[[DBErrorOKClose]]">
+        OK
+      </oj-button>
+    </div>
+  </oj-dialog>      
+  </div>
+</div>
+
+    
+      
+  

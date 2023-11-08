@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="../../css/download.css" type="text/css" />
+
+<div id="invoice">
+  <div class="logo-print"> </div>
+ <h2 style="color:#0654b2; text-transform:uppercase; font-weight:bold; text-align:center; margin-top:25px; text-decoration:underline; text-underline-offset:8px;">INVOICE</h2>
+ <div> TONBRIDGE HOUSE CARE HOME </div>
+
+ <h1>Dynamic Table</h1>
+      <div class="input-container">
+        <input type="number" id="columns" min="1" placeholder="Number of Columns">
+        <input type="number" id="rows" min="1" placeholder="Number of Rows">
+        <button onclick="createTable()">Create Table</button></div>
+  <table id="myTable">
+    <!-- Table will be dynamically generated here -->
+  </table>
+</div>
+
+<div style="display: flex;justify-content: center;"
+class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+<div class="oj-flex-bar">
+  <oj-button id="downloadBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[timesheetPDFGenerate]]">Download
+  </oj-button>
+</div>
+</div>
+

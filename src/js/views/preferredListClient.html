@@ -1,0 +1,113 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<div id="sampleDemo"  class="demo-container sampleDemo">
+    <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+      
+      <div id="moduleDemo">    
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1; display: flex;align-items: baseline;">
+          <div><i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp; You can see your preferred client names here. To remove a client from the preferred list, kindly click on the action button. If you would like to add a new client, please
+            <a  on-click= "[[preferredListView]]" title="Go to manage preferred list" target="_blank"><b style="color:rgb(58, 30, 219);">click here</b></a>
+        </div>
+        </div> 
+      </br>
+  
+      <div class="oj-sm-12">
+        <oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider1]]"
+       class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+       <template slot="itemTemplate" data-oj-as="item">
+         <div
+         class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+         <li>
+           <oj-list-item-layout :aria-label="[['Details for ' +item.data.name]]">
+           
+             <div class="oj-typography-body-md">
+               <div class="oj-flex">
+          
+                
+                 
+                <div class="oj-flex-item demo-list-item-layout oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                    <oj-bind-text value="[[item.data.taskName]]"></oj-bind-text>
+                    <div slot="secondary" class="oj-typography-body-lg">
+                      <oj-bind-text value="[[item.data.client_name]]"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg oj-text-color-secondary">
+                      <div>
+                        <oj-bind-text value="[[item.data.contact]]"></oj-bind-text>
+                      </div>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg oj-text-color-secondary">
+                    <div>
+                      <oj-bind-text value="[[item.data.client_type]]"></oj-bind-text>
+                    </div>
+                  </div>
+                  </oj-list-item-layout>
+                </div>
+                
+   
+                 <div class="oj-flex-item demo-list-item-layout oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                      <oj-bind-text value="Contact"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg">
+                    <div>
+                      <oj-bind-text value="[[item.data.email]]"></oj-bind-text>
+                    </div>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg">
+                  <div>
+                      <oj-bind-text value="[[item.data.phone]]"></oj-bind-text>
+                   </div>
+                </div>
+                  </oj-list-item-layout>
+                </div>
+
+   
+                   <div class="oj-flex-item demo-list-item-layout oj-md-padding-4x-end">
+                     <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                       <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                         <oj-bind-text value="Actions"></oj-bind-text>
+                       </div>
+                     <div slot="tertiary" class="oj-typography-body-lg">
+                      &nbsp; <oj-button
+                        :id = "[[ item.data.job_role ]]"
+                        chroming="borderless"
+                        display="icons"
+                        class="oj-button-sm"
+                        on-oj-action="[[removeStaffPreferrdList]]">
+                        <span slot="startIcon"><i class="fa fa-heart" style="font-size:24px;font-weight: 950;color:rgb(240, 76, 76);"></i></span>
+                        Remove from preferred list
+                      </oj-button>
+                      <!-- <div class="oj-text-color-success">    
+                        <a  :id = "[[ item.data.id ]]" on-click= "[[preferredListView]]" title="Go to manage preferred list" target="_blank">Manage</a>
+                    </div> -->
+                   </div>
+                 </oj-list-item-layout>
+               </div>
+   
+               </div>
+             </div>
+           
+           </oj-list-item-layout>
+         </li>
+       </div>
+     </div>
+       </template>
+     </oj-list-view>
+</div> 
+    
+    </div> 
+  </div> 
+</div>   
+
+<oj-dialog id="openRemovePreferredListProgress" dialog-title="Removing from preferred list..." modality="modeless"
+style="display:none;width:350px;min-width:240px;max-width:450px;">
+<div slot="body">
+  <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+  </oj-progress-bar>
+</div>
+</oj-dialog>     
+        
+    

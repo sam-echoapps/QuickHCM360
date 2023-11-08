@@ -1,0 +1,145 @@
+<link rel="stylesheet" href="../../../css/inductionCheck.css">
+<div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+    <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+    <p>If you have attended the following induction programs please select Yes or else you can select No.
+    </p>
+  </div>     
+<div class="inductionCheck" style="border: 1px solid #80808036; margin: 10px; padding: 10px; border-radius: 3px;">
+    <p style="font-weight: bold; font-size: 15px;">Induction checklist</p>
+    <oj-validation-group id="inductionCheck" role="group" valid="{{inductionCheckValid}}">
+        <div class="inductionCheckForm">
+            <div class="form-input">
+                1. History and Culture of Organisation 
+                <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                    data="[[selectOptions]]" value="{{cultureOrganisationVal}}"></oj-select-single>
+            </div>
+            <div class="form-input">
+                2. Philosophy and Principles of Care
+                <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                    data="[[selectOptions]]" value="{{principlesCareVal}}"></oj-select-single>
+            </div>
+            <div class="form-input">
+                3. Introduction to Main Personalities
+                <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                    data="[[selectOptions]]" value="{{personalitiesVal}}"></oj-select-single>
+            </div>
+            <div class="form-input">
+                4. Organisation Structure
+                <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                    data="[[selectOptions]]" value="{{organisationStructureVal}}"></oj-select-single>
+            </div>
+            <div class="form-input">
+                5. Staff Handbook and Employment Agreement
+                <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                    data="[[selectOptions]]" value="{{employeeAgreementVal}}"></oj-select-single>
+            </div>
+            <div class="form-input">
+                6. Emergency and other telephone contacts (official administrators, essential services)
+                <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                    data="[[selectOptions]]" value="{{emergencyVal}}"></oj-select-single>
+            </div>
+            <div class="form-input">
+                7. Policy on Gifts, Wills and Bequests
+                <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                    data="[[selectOptions]]" value="{{policyOnGiftsVal}}"></oj-select-single>
+            </div>
+            <div class="form-input">
+                8. Equal Opportunities Policy
+                <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                    data="[[selectOptions]]" value="{{equalOpprtVal}}"></oj-select-single>
+            </div>
+            <div class="form-input">
+                9. Introduction to Workplace
+                <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                    data="[[selectOptions]]" value="{{workPlaceVal}}"></oj-select-single>
+            </div>
+            <div class="form-input">
+                10. Statement of Main Terms and Conditions
+                <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                    data="[[selectOptions]]" value="{{statementTermsVal}}"></oj-select-single>
+            </div>
+            <div class="form-input">
+                11. Salary and Payment Mode
+                <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                    data="[[selectOptions]]" value="{{salaryAndPaymentVal}}"></oj-select-single>
+            </div>
+        </div>
+        <div class="form-input">
+            12. Absenteeism/ sickness
+            <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                data="[[selectOptions]]" value="{{sicknessVal}}"></oj-select-single>
+        </div>
+        <div class="form-input">
+            13. Duty Rotas
+            <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                data="[[selectOptions]]" value="{{dutyRotasVal}}"></oj-select-single>
+        </div>
+        <div class="form-input">
+            14. Uniform Policy
+            <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                data="[[selectOptions]]" value="{{uniformPolicyVal}}"></oj-select-single>
+        </div>
+        <div class="form-input">
+            15. Staff Availability Policy
+            <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                data="[[selectOptions]]" value="{{staffAvailabilityVal}}"></oj-select-single>
+        </div>
+        <div class="form-input">
+            16. Time Sheet Policy
+            <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                data="[[selectOptions]]" value="{{timeSheetVal}}"></oj-select-single>
+        </div>
+        <div class="form-input">
+            17. Transportation Policy
+            <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                data="[[selectOptions]]" value="{{transportationVal}}"></oj-select-single>
+        </div>
+        <div class="form-input">
+            18. Mobile Phone Policy
+            <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                data="[[selectOptions]]" value="{{mobilePhoneVal}}"></oj-select-single>
+        </div>
+        <div class="form-input">
+            19. General Data Protection Policy
+            <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                data="[[selectOptions]]" value="{{generalDataVal}}"></oj-select-single>
+        </div>
+        <div class="form-input">
+            20. Disciplinary, Grievance and Complaints Procedure
+            <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                data="[[selectOptions]]" value="{{disciplinaryVal}}"></oj-select-single>
+        </div>
+        <div class="form-input">
+            21. Mandatory Trainings
+            <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                data="[[selectOptions]]" value="{{mandatoryTrainingsVal}}"></oj-select-single>
+        </div>
+        <div class="form-input">
+            22. Personal Hygiene
+            <oj-select-single required id="select" label-hint="Select" label-edge="inside" class="oj-form-control-max-width-md" 
+                data="[[selectOptions]]" value="{{personalHygieneVal}}"></oj-select-single>
+        </div>
+        <div class="form-input">
+            <oj-text-area required value="{{comment}}" label-hint="Enter your comments" rows="3"></oj-text-area>
+        </div>
+
+        <div class="declaration">
+            <h3>DECLARATION</h3>
+            <hr>
+            <div style="display: flex;align-items: baseline;">
+                <oj-checkboxset required label-hint="Colors" label-edge="none" value="{{declarationChecked}}">
+                    <oj-option value="Yes" aria-label="declaration"></oj-option>
+                </oj-checkboxset>
+                I confirm that all the information stated above have been read and understood clearly. My signature in this form indicates that I am willing to abide by the Excellent Care Ltd. policies and procedures.
+            </div>
+            <div class="personal-details">
+                <oj-input-text required id="text-input" value="{{name}}" label-hint="Name" label-edge="inside" on-value-changed="[[createSignature]]"></oj-input-text>
+                <oj-input-text id="text-input1" value="{{esignature}}" label-hint="Esignature" label-edge="inside" disabled></oj-input-text>
+                <oj-input-date required label-hint="date" autocomplete="off" value="{{date}}"></oj-input-date>
+            </div>
+        </div>
+    </oj-validation-group>
+    <div class="sub-btn" id="submitBtn" style="display: flex;justify-content: center;">
+        <oj-button id="btn" chroming='callToAction' on-oj-action="[[checkSubmit]]">Submit</oj-button>
+    </div>
+</div>

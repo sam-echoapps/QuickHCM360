@@ -1,0 +1,306 @@
+<div class="oj-panel  oj-xl-margin-4x">
+  <div class="oj-flex">
+    <oj-button chroming="callToAction" class="oj-xl-margin-4x" on-oj-action="[[openAddClientDialog]]">
+      <span slot="startIcon" class="demo-icon-sprite">Add Client</span>
+    </oj-button>
+  </div>
+</div>
+
+<div class="oj-panel oj-xl-margin-4x">
+  <oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider1]]"
+    class="oj-sm-padding-2x-vertical" gridlines.item="visible" selection-mode="multiple">
+    <template slot="itemTemplate" data-oj-as="item">
+      <li>
+        <oj-list-item-layout :aria-label="[['Details for ' +item.data.name]]">
+          <div slot="leading" class="oj-typography-body-sm demo-badge-width"
+            :aria-label="[['Status ' +item.data.status]]">
+            <span :class="[[getBadgeClass(item.data.status)]]">
+              <oj-bind-text value="[[item.data.status]]"></oj-bind-text>
+            </span>
+          </div>
+          <div class="oj-typography-body-md">
+            <div class="oj-flex oj-sm-align-items-center">
+              <div class="oj-flex-item demo-list-item-layout oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                  :aria-label="[['task ' +item.data.taskName]]">
+                  <oj-bind-text value="[[item.data.taskName]]"></oj-bind-text>
+                  <div slot="secondary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.userName]]">
+                    <oj-bind-text value="[[item.data.name]]"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg oj-text-color-secondary"
+                    :aria-label="[['Contact Name ' + item.data.PContact]]">
+                    <div>
+                      <oj-bind-text value="[[item.data.PContact]]"></oj-bind-text>
+                    </div>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg oj-text-color-secondary"
+                  :aria-label="[['Contact Email ' + item.data.PEmail]]">
+                  <div>
+                    <oj-bind-text value="[[item.data.PEmail]]"></oj-bind-text>
+                  </div>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg oj-text-color-secondary"
+                :aria-label="[['Contact Phone ' + item.data.PPhone]]">
+                <div>
+                  <oj-bind-text value="[[item.data.PPhone]]"></oj-bind-text>
+                </div>
+              </div>
+                </oj-list-item-layout>
+              </div>
+              <oj-bind-if test="[[!isSmall()]]">
+                <div class="oj-flex-item demo-list-item-layout1 oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                    :aria-label="[['deatils for ' +item.data.name]]">
+                    <div slot="overline" class="oj-typography-body-lg oj-text-color-secondary"
+                      :aria-label="[['Client Type ' +item.data.ClientType]]">
+                      <oj-bind-text value="[[item.data.ClientType]]"></oj-bind-text>
+                    </div>
+                    <div class="oj-typography-body-md" :aria-label="[['organisation ' +item.data.orgName]]">
+                      <oj-bind-text value="[[item.data.orgName]]"></oj-bind-text>
+                    </div>
+                    <div slot="metadata" class="oj-typography-body-md oj-text-color-secondary"
+                      :aria-label="[['task id ' +item.data.taskCode]]">
+                      <oj-bind-text value="[[item.data.taskCode]]"></oj-bind-text>
+                    </div>
+                  </oj-list-item-layout>
+                </div>
+                <div class="oj-flex-item demo-list-item-layout1">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off" aria-label="list of code">
+                    <div slot="overline" class="oj-typography-body-sm">
+                      <oj-bind-text value="[[item.data.code1]]"></oj-bind-text>
+                    </div>
+                    <div class="oj-typography-body-md">
+                      <oj-bind-text value="[[item.data.code2]]"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-xs oj-text-color-secondary">
+                      <div>
+                        <oj-bind-text value="[[item.data.code3]]"></oj-bind-text>
+                      </div>
+                    </div>
+                  </oj-list-item-layout>
+                </div>
+              </oj-bind-if>
+            </div>
+          </div>
+
+        </oj-list-item-layout>
+      </li>
+    </template>
+  </oj-list-view>
+
+</div>
+
+<oj-dialog id="openAddClientDialog" dialog-title="Add Client Details" modality="modeless" drag-affordance="title-bar"
+  cancel-behavior="[[CancelBehaviorOpt]]" style="display:none;width:900px;min-width:900px;max-width:900px;">
+  <div
+    class="oj-panel oj-flex-bar oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+    <div class="oj-flex-bar-start">
+      <oj-button class="demo-stretched-train-step" on-oj-action="[[previousStep2]]"
+        disabled="[[selectedStep2() == 'stp1']]">
+        Back
+      </oj-button>
+    </div>
+    <div class="oj-flex-bar-middle oj-flex">
+      <oj-train id="train2" class="oj-flex-item oj-train-stretch demo-stretched-train" selected-step="{{selectedStep2}}"
+        steps="[[stepArray2]]" on-selected-step-changed="[[update2]]"></oj-train>
+    </div>
+    <div class="oj-flex-bar-end">
+      <oj-button class="demo-stretched-train-step" on-oj-action="[[nextStep2]]"
+        disabled="[[selectedStep2() == 'stp5']]">
+        Next
+      </oj-button>
+    </div>
+  </div>
+  </div>
+
+
+  <div
+    class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+    <div
+      class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-6">
+      <oj-input-text required id="clientName" label-hint="Client Name" value="{{clientName}}" clear-icon="always">
+      </oj-input-text>
+      <oj-input-text required id="businessUnit" label-hint="Business Unit" value="{{businessUnit}}" clear-icon="always">
+      </oj-input-text>
+      <oj-input-text required id="contactPerson" label-hint="Contact Person (First Name,Last Name)"
+        value="{{contactPerson}}" clear-icon="always"></oj-input-text>
+      <oj-input-text required id="contactEmail" label-hint="Contact Email" value="{{contactEmail}}" clear-icon="always">
+      </oj-input-text>
+      <oj-input-text required id="contactPosition" label-hint="Job Position" value="{{contactPosition}}"
+        clear-icon="always"></oj-input-text>
+    </div>
+    <div
+      class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5 ">
+      <oj-input-text required id="contactPhone" label-hint="Contact Phone" value="{{contactPhone}}" clear-icon="always">
+      </oj-input-text>
+      <oj-label-value label-edge="start" label-width="60%">
+        <oj-label slot="label" id="altradiosetlabel">Add Alternative Contact ?</oj-label>
+        <oj-radioset slot="value" id="altradioSetId" labelled-by="radiosetlabel" value="{{altContactDecision}}"
+          class="oj-choice-direction-row">
+          <oj-option id="altYes" value="Yes">Yes</oj-option>
+          <oj-option id="altNo" value="No">No</oj-option>
+        </oj-radioset>
+      </oj-label-value>
+      <oj-bind-if test="[[altContactDecision() === 'Yes']]">
+        <oj-input-text required id="altcontactname" label-hint="Alternate Contact (First Name,Last Name)" value="{{altContact}}" clear-icon="always">
+        </oj-input-text>
+        <oj-input-text required id="altcontactemail" label-hint="Alt Contact Email" value="{{altContactEmail}}" clear-icon="always">
+        </oj-input-text>
+        <oj-input-text required id="altcontactPhone" label-hint="Alt Contact Phone" value="{{altContactPhone}}" clear-icon="always">
+        </oj-input-text>
+        <oj-input-text required id="altcontactpos" label-hint="Alt Contact Job Title" value="{{altContactPos}}" clear-icon="always">
+        </oj-input-text>
+      </oj-bind-if>
+      <oj-label-value label-edge="start" label-width="50%">
+        <oj-label slot="label" id="grpradiosetlabel">Part of a Group</oj-label>
+        <oj-radioset slot="value" id="grpradioSetId" labelled-by="radiosetlabel" value="{{groupDecision}}"
+          class="oj-choice-direction-row">
+          <oj-option id="groupYes" value="Yes">Yes</oj-option>
+          <oj-option id="groupNo" value="No">No</oj-option>
+        </oj-radioset>
+      </oj-label-value>
+      <oj-bind-if test="[[groupDecision() === 'Yes']]">
+        <oj-combobox-one label-hint="Group" label-edge="inside" options="{{ClientGroupDP}}" value="{{selectedGroup}}"
+          required="true">
+        </oj-combobox-one>
+      </oj-bind-if>
+      <oj-combobox-one label-hint="Client Type" label-edge="inside" options="{{ClientTypeDP}}"
+        value="{{selectedClientType}}" required="true">
+      </oj-combobox-one>
+    </div>
+  </div>
+  </div>
+  <div
+    class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+    <div class="oj-flex-bar">
+      <oj-button id="cancelBtn" class="oj-flex-bar-start" on-oj-action="[[clientAddCancel]]">Cancel
+      </oj-button>
+      <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[clientAddSave]]">Save
+      </oj-button>
+    </div>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openAddClientProgress" dialog-title="Saving Client Details" modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openAddClientResult" dialog-title="Add Client Details" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-bind-text value='[[addClientMsg]]'></oj-bind-text>
+  </div>
+  <div  class="oj-flex-bar" slot="footer">
+    <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel" on-oj-action="[[DBErrorOKClose]]">
+      OK
+    </oj-button>
+  </div>
+</oj-dialog>
+
+
+<!-- new changes -->
+<!-- step2 -->
+<oj-dialog id="openAddClientAddressDialog" dialog-title="Add Client Details" modality="modeless" drag-affordance="title-bar"
+  cancel-behavior="[[CancelBehaviorOpt]]" style="display:none;width:900px;min-width:900px;max-width:900px;">
+  <div
+    class="oj-panel oj-flex-bar oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+    <div class="oj-flex-bar-start">
+      <oj-button class="demo-stretched-train-step" on-oj-action="[[previousStep2]]"
+        disabled="[[selectedStep2() == 'stp1']]">
+        Back
+      </oj-button>
+    </div>
+    <div class="oj-flex-bar-middle oj-flex">
+      <oj-train id="train2" class="oj-flex-item oj-train-stretch demo-stretched-train" selected-step="{{selectedStep2}}"
+        steps="[[stepArray2]]" on-selected-step-changed="[[update2]]"></oj-train>
+    </div>
+    <div class="oj-flex-bar-end">
+      <oj-button class="demo-stretched-train-step" on-oj-action="[[nextStep2]]"
+        disabled="[[selectedStep2() == 'stp5']]">
+        Next
+      </oj-button>
+    </div>
+  </div>
+  </div>
+
+
+  <div
+    class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+    <div
+      class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-6">
+      <oj-input-text required id="postcode" label-hint="Post Code" value="{{clientName}}" clear-icon="always">
+      </oj-input-text>
+      <oj-input-text required id="address1" label-hint="Address1" value="{{businessUnit}}" clear-icon="always">
+      </oj-input-text>
+      <oj-input-text required id="address2" label-hint="Address2"
+        value="{{contactPerson}}" clear-icon="always"></oj-input-text>
+      <oj-input-text required id="city" label-hint="City" value="{{contactEmail}}" clear-icon="always">
+      </oj-input-text>
+    </div>
+  </div>
+  </div>
+  <div
+    class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+    <div class="oj-flex-bar">
+      <oj-button id="cancelBtn" class="oj-flex-bar-start" on-oj-action="[[clientAddCancel]]">Cancel
+      </oj-button>
+      <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[clientAddSave]]">Save
+      </oj-button>
+    </div>
+  </div>
+</oj-dialog>
+
+<!-- step3 -->
+<oj-dialog id="openAddClientPaymentDialog" dialog-title="Add Client Details" modality="modeless" drag-affordance="title-bar"
+  cancel-behavior="[[CancelBehaviorOpt]]" style="display:none;width:900px;min-width:900px;max-width:900px;">
+  <div
+    class="oj-panel oj-flex-bar oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+    <div class="oj-flex-bar-start">
+      <oj-button class="demo-stretched-train-step" on-oj-action="[[previousStep2]]"
+        disabled="[[selectedStep2() == 'stp1']]">
+        Back
+      </oj-button>
+    </div>
+    <div class="oj-flex-bar-middle oj-flex">
+      <oj-train id="train2" class="oj-flex-item oj-train-stretch demo-stretched-train" selected-step="{{selectedStep2}}"
+        steps="[[stepArray2]]" on-selected-step-changed="[[update2]]"></oj-train>
+    </div>
+    <div class="oj-flex-bar-end">
+      <oj-button class="demo-stretched-train-step" on-oj-action="[[nextStep2]]"
+        disabled="[[selectedStep2() == 'stp5']]">
+        Next
+      </oj-button>
+    </div>
+  </div>
+  </div>
+
+
+  <div
+    class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+    <div
+      class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-6">
+      <oj-input-text required id="postcode" label-hint="Post Code" value="{{clientName}}" clear-icon="always">
+      </oj-input-text>
+      <oj-input-text required id="address1" label-hint="Address1" value="{{businessUnit}}" clear-icon="always">
+      </oj-input-text>
+      <oj-input-text required id="address2" label-hint="Address2"
+        value="{{contactPerson}}" clear-icon="always"></oj-input-text>
+      <oj-input-text required id="city" label-hint="City" value="{{contactEmail}}" clear-icon="always">
+      </oj-input-text>
+    </div>
+    <div
+      class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5 ">
+      <oj-input-text required id="invoiceDue" label-hint="Invoice Due on" value="{{clientName}}" clear-icon="always">
+      </oj-input-text>
+      <oj-input-text required id="holidayPayRate" label-hint="Holiday Pay Rate" value="{{businessUnit}}" clear-icon="always">
+      </oj-input-text>
+      <oj-input-text required id="paymentMode" label-hint="PaymentMode"
+        value="{{contactPerson}}" clear-icon="always"></oj-input-text>
+    </div>
+  </div>
+  </div>
+
+

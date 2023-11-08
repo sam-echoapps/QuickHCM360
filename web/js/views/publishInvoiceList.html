@@ -1,0 +1,168 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="css/loader.css" type="text/css" />
+
+<div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+  <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;This section lists the published invoices for the selected client.
+</div>
+
+
+<div class="oj-panel oj-xl-margin-4x" style="margin: 10px;padding: 10px; display:none;" id="mainView">
+  <div
+class="oj-flex">
+<div
+  class="oj-sm-5">
+  <div class="">
+    <div class="hint-div" style="margin: 10px;padding: 10px;">
+        <div style="font-size:large;color:rgb(11, 111, 165)">
+            <b>Client Name : <oj-bind-text value="[[clientNameCap]]"></oj-bind-text></b>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider]]"
+  class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+  <template slot="itemTemplate" data-oj-as="item">
+    <div
+    class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+    <li>
+      <oj-list-item-layout>
+      
+        <div class="oj-typography-body-md">
+          <div class="oj-flex">
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Invoice Serial No"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                <div>
+                  <oj-bind-text value="[[item.data.serial_number]]"></oj-bind-text>
+                </div>
+              </div>
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Invoice Create Date"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                <div>
+                  <oj-bind-text value="[[item.data.invoice_date]]"></oj-bind-text>
+                </div>
+              </div>
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Payment Due Date"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <div>
+                      <oj-bind-text value="[[item.data.payment_due_date]]"></oj-bind-text>
+                  </div>
+                </div>
+              </oj-list-item-layout>
+            </div>
+
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Grand Total"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <div>
+                      <oj-bind-text value="[[item.data.grand_total]]"></oj-bind-text>
+                  </div>
+                </div>
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Payment Status"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <span :class="[[getBadgeClass(item.data.client_pay_status)]]">
+                    <oj-bind-if test="[[item.data.client_pay_status === 'Pending']]">
+                    <oj-bind-text value="Pending"></oj-bind-text>
+                  </oj-bind-if>
+                  <oj-bind-if test="[[item.data.client_pay_status === 'Paid']]">
+                    <oj-bind-text value="Processing"></oj-bind-text>
+                  </oj-bind-if>
+                  </span>
+                </div>
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                   <oj-bind-text value="Actions"></oj-bind-text>
+                </div>
+              <div slot="tertiary" class="oj-typography-body-lg">
+                  <oj-button
+                chroming="borderless"
+                display="icons"
+                class="oj-button-sm viewBtn"
+                on-oj-action="[[viewPublishInvoice]]">
+                <span slot="startIcon"></span>
+                View Publish Invoice
+              </oj-button> 
+              <oj-button
+              chroming="borderless"
+              display="icons"
+              class="oj-button-sm deleteBtn"
+              on-oj-action="[[ConfirmDeleteInvoice]]">
+              <span slot="startIcon"></span>
+              Delete
+            </oj-button>   
+              </div>
+            </div>
+              </oj-list-item-layout>
+            </div>
+        
+  
+        </div>
+        
+          </div>
+      
+      </oj-list-item-layout>
+    </li>
+  </div>
+  </template>
+</oj-list-view>
+
+</div>
+
+<div class="centered-container" id="loaderView" style="display:none">
+  <div class="loader"></div>
+</div> 
+
+<oj-dialog id="openConfirmDeleteInvoice" dialog-title="Confirm Delete Invoicet" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+  <div slot="body">
+    <oj-bind-text value='Do you want to delete this invoice?'></oj-bind-text>
+  </div>
+  <div  class="oj-flex-bar" slot="footer">
+    <oj-button id="okSaveDraftButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[deleteInvoice]]">
+      Yes
+    </oj-button>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openDeleteProgress" dialog-title="Please wait!Deleteing...." modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>

@@ -1,0 +1,175 @@
+<link rel="stylesheet" href="css/register.css" type="text/css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<div class="register-body">
+    <div class="register-div">
+        <div class="register-form">
+            <h1 class="text-center">Welcome to QuickHCM360</h1>
+            <p class="text-center">We're glad you're here 😊 So we can get you set up and running; please enter the following details:</p>
+            <div class="oj-text-color-danger"><oj-bind-text value='[[formError]]'></oj-bind-text></div></br>
+            <oj-validation-group id="staffValidation" role="group" valid="{{groupValid}}">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="input">
+                            <oj-select-single class="register-input" id="title" label-hint="Title" required data="[[titles]]" value="{{title}}"></oj-select-single>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input">
+                            <oj-input-text class="register-input" required id='firstName' placeholder='First Name' spellcheck='false' aria-label='First Name' value='{{firstName}}' required='true'></oj-input-text>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input">
+                            <oj-input-text class="register-input" required id='lastName' placeholder='Last Name' spellcheck='false' aria-label='Last Name' value='{{lastName}}' required='true'></oj-input-text>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input">
+                            <oj-input-text class="register-input" required id='email' placeholder='Email Address' spellcheck='false' aria-label='email' value='{{email}}' required='true' on-value-changed="[[emailPatternValidator]]"></oj-input-text>
+                            <div class="oj-text-color-danger"><oj-bind-text value='[[emailError]]'></oj-bind-text></div></br>
+                        </div>
+                    </div>
+                   <!--  <div class="col-sm-6">
+                        <div class="input">
+                            <oj-input-text class="register-input" required id='ukCountryCode' spellcheck='false' aria-label='email' value="{{ukCountryCode}}" disabled="true"></oj-input-text>
+                        </div>
+                    </div> -->
+                    <div class="col-sm-6">
+                        <div class="input">
+                            <oj-select-single class="register-input" id="countryCode" label-hint="Country Code" required placeholder="Country Code" data="[[countryCodes]]" value="{{countryCode}}"></oj-select-single>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input">
+                            <oj-input-text class="register-input" required id='phone' length.max="10" placeholder='Phone Number' spellcheck='false' aria-label='Phone Number' value='{{phone}}' required='true'  on-value-changed="[[onlyNumberKey]]"></oj-input-text>
+                            <div class="oj-text-color-danger"><oj-bind-text value='[[contactError]]'></oj-bind-text></div></br>
+                        </div>
+                    </div>
+                   <!--  <div class="col-sm-6">
+                        <div class="input">
+                            <oj-select-single class="register-input" id="countryCode" label-hint="Country Code" required placeholder="Country Code" data="[[countryCodes]]" value="{{countryCode}}"></oj-select-single>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" style="margin-top: 8px;">
+                        <div class="input">
+                            <oj-input-text class="register-input" required id='phone' length.max="10" placeholder='Whatsapp Number' spellcheck='false' aria-label='Phone Number' value='{{whatsAppNumber}}' required='true'  on-value-changed="[[whatsAppNumberCheck]]"></oj-input-text>
+                            <div class="oj-text-color-danger"><oj-bind-text value='[[whatsAppError]]'></oj-bind-text></div></br>
+                        </div>
+                    </div> -->
+                    <div class="col-sm-6">
+                        <div class="input">
+                            <oj-select-single class="register-input" id="jobRole" label-hint="Job Applying For" required placeholder="Select your Job role" data="[[jobRoles]]" value="{{mainPost}}" on-value-changed="[[subpostShow]]"></oj-select-single>
+                            <div id="subpost1" style="display:none"><br>
+                                <oj-checkboxset value="{{subpost}}" label-hint="Sub positions (Optional)" class="oj-choice-direction-row">
+                                  <oj-option value="kitchen_assistant">Kitchen Assistant</oj-option>
+                                  <oj-option value="domestic_care">Domestic Care</oj-option>
+                                </oj-checkboxset>
+                            </div>
+                            <div id="subpost2" style="display:none"><br>
+                                <oj-checkboxset value="{{subpost}}" label-hint="Sub positions (Optional)">
+                                  <oj-option value="care_assistant">Care Assistant</oj-option>
+                                </oj-checkboxset>
+                            </div>
+                            <div id="subpost3" style="display:none"><br>
+                                <oj-checkboxset value="{{subpost}}" label-hint="Sub positions (Optional)">
+                                  <oj-option value="living_care">Living care</oj-option>
+                                </oj-checkboxset>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" style="margin-top: 20px;">
+                        <oj-select-single required id="status" label-hint="Work status" label-edge="inside" data="[[statusDP]]" value="{{status}}">
+                        </oj-select-single>
+                    </div>
+                    <div class="col-sm-6" style="margin-top: 20px;">
+                        <div id="context"></div>
+                    </div>
+                    <div class="col-sm-6 mt-4">
+                        <input type="text" id="line_1" class="form-control" placeholder='Address line 1' spellcheck='false' aria-label='Address line 1' value="">
+                        <div class="oj-text-color-danger"><oj-bind-text value='[[addressLine1Error]]'></oj-bind-text></div></br>
+                    </div>
+                    <div class="col-sm-6 mt-4">
+                        <input type="text" id="line_2" class="form-control" placeholder='Address line 2' spellcheck='false' aria-label='Address line 1' value="">
+                        <div class="oj-text-color-danger"><oj-bind-text value='[[addressLine2Error]]'></oj-bind-text></div></br>
+                    </div>
+                    <div class="col-sm-6 mt-4">
+                        <input type="text" id="line_1" class="form-control" placeholder='Address line 3' spellcheck='false' aria-label='Address line 1' value="">
+                    </div>
+                    <div class="col-sm-6 mt-4">
+                        <input type="text" class="form-control" id="post_town" placeholder='Post town' spellcheck='false' aria-label='Address line 1' value="">
+                        <div class="oj-text-color-danger"><oj-bind-text value='[[townError]]'></oj-bind-text></div></br>
+                    </div>
+                    <div class="col-sm-6 mt-3">
+                        <input type="text" id="postcode" class="form-control" placeholder='Postcode' spellcheck='false' aria-label='Address line 1' value="">
+                        <div class="oj-text-color-danger"><oj-bind-text value='[[postcodeError]]'></oj-bind-text></div></br>
+                    </div>
+                    <div class="col-sm-6" style="margin-top: 20px;">
+                        <oj-select-single required label-hint="Gender" 
+                        label-edge="inside" data="[[genderListDP]]" value="{{gender}}">
+                        </oj-select-single>
+                    </div>
+                    <div class="col-sm-6" style="margin-top: 20px;">
+                        <oj-select-single required label-hint="Do you have your own transportation?" 
+                        label-edge="inside" data="[[choiceListDP]]" value="{{have_transportation}}">
+                        </oj-select-single>
+                    </div>
+                </div>
+            </oj-validation-group>
+            <div class="submit-btn">
+                <oj-button id='registerBtn' class='oj-button-lg' chroming='solid'
+                on-oj-action='[[register]]'>Create Account</oj-button>          
+            </div>
+        </div>
+    </div>
+    <a href="?ojr=signin" style="text-decoration: none;">I already have an account.</a>
+</div>
+
+<oj-popup id="loader"  class="demo-popup" auto-dismiss="none" modality="modal" position.my.horizontal="center" position.my.vertical="center"
+    position.at.horizontal="center"
+    position.at.vertical="center"
+    position.of="window"
+    tail="none">
+    <div class="demo-popup-body">
+        <div class="demo-popup-content oj-sm-padding-2x">
+            <oj-progress-circle size="md" value="-1"></oj-progress-circle>
+        </div>
+    </div>
+</oj-popup>
+<oj-popup id="successPopup"  class="demo-popup" auto-dismiss="none" modality="modal" position.my.horizontal="center" position.my.vertical="center"
+    position.at.horizontal="center"
+    position.at.vertical="center"
+    position.of="window"
+    tail="none">
+    <div class="demo-popup-body">
+        <div class="demo-popup-content oj-sm-padding-2x">
+            <oj-bind-text value='Account created, Please check your email for the login credentials'></oj-bind-text>
+            <br><br>
+            <div class="text-center">
+                <a href="?ojr=signin" style="text-decoration: none;"><oj-button id="button1">Ok</oj-button></a>
+            </div>
+        </div>
+    </div>
+</oj-popup>
+
+<script
+  type="module"
+  src="https://cdn.jsdelivr.net/npm/@ideal-postcodes/postcode-lookup-bundled@2/dist/postcode-lookup.esm.js"
+></script>
+
+<script type="module">
+    import { PostcodeLookup } from "https://cdn.jsdelivr.net/npm/@ideal-postcodes/postcode-lookup-bundled@2/dist/postcode-lookup.esm.js";
+    window.PostcodeLookup = PostcodeLookup;
+    PostcodeLookup.setup({
+      apiKey: "ak_l96o294xFkm5IoleolP19eggRpQyX",
+      context: "#context",
+      outputFields: {
+        line_1: "#line_1",
+        line_2: "#line_2",
+        line_3: "#line_3",
+        post_town: "#post_town",
+        postcode: "#postcode"
+      }
+    });
+  </script>
+  

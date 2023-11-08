@@ -1,0 +1,46 @@
+// JAF Generated OJET Based Configuration
+{
+   "base": "$jafcwd",
+   "files": [
+      "./src/**/*.html",
+      "./src/**/*.js",
+      "./src-web/**/*.html",
+      "./src-web/**/*.js",
+      "./src-hybrid/**/*.html",
+      "./src-hybrid/**/*.js",
+      "./src/css/**/*.css",
+      "./src/js/jet-composites/**/component.json"
+   ],
+   "exclude": [
+      "./jet_components/**/*.*",
+      "./src/js/jet-composites/**/extension/**/*.*",
+      "./src/js/jet-composites/**/resources/**/*.*",
+      "./src/**/*-min.js",
+      "./src/**/*-min.css",
+      "./**/node_modules/**/*.*"
+   ],
+   "components": [],
+   "builtinJetRules": true,
+   "jetVer": "10.1",
+   "ecmaVer": 11,
+   "theme": "Redwood",
+   "format": "prose",
+   "severity": "all",
+   "groups": [
+      "all"
+   ],
+   "options": {
+      "verbose": false,
+      "color": true
+   },
+   "title": [
+      "+---------------------------------------------------------------------+",
+      "|                         OJET Application Audit                      |",
+      "+---------------------------------------------------------------------+",
+      "JAF $jafver - Jet $jetver :  ($jafdate, $jaftime)\n"
+   ],
+   "ojet": {
+      "update": true,
+      "md5": "c43171dc843a8166edb0694aff8224e1"
+   }
+}

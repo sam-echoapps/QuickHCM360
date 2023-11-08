@@ -1,0 +1,363 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="css/loader.css" type="text/css" />
+
+ <div class="centered-container" id="loaderView" style="display:none">
+  <div class="loader"></div>
+</div> 
+
+<div class="sampleDemo" id="mainView" style="display:none">
+<!--   <div class="oj-xl-margin-4x">
+    <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;">
+      <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;This section allows you to switch the activated and deactivated staff list.
+    </div>     
+  </div> -->
+  <oj-bind-if test="[[ListAction() === 'Active Staffs']]">
+  <div class="oj-xl-margin-4x">
+    <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;">
+      <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i>&nbsp;&nbsp;This section allows you to switch the activated and deactivated staff list. Here you can view the active staffs and manages your vetted and verified staff members. You can edit and deactivate staffs, manage certificates, documents etc. from here.
+    </div>     
+  </div>
+</oj-bind-if>
+
+<oj-bind-if test="[[ListAction() === 'Inactive Staffs']]">
+  <div class="oj-xl-margin-4x">
+    <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;">
+      <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i>&nbsp;&nbsp;This section allows you to switch the activated and deactivated staff list. Here you can view the Inactive staffs and manages your vetted and verified staff members. You can edit and activate staffs, manage certificates, documents etc. from here.
+    </div>     
+  </div>
+</oj-bind-if>
+
+  <div class="oj-flex">
+    <div class="oj-xl-margin-4x">
+      <h3><strong>&nbsp;&nbsp;<oj-bind-text value="[[ListAction]]"></oj-bind-text></strong></h3>
+    </div>
+    <div class="oj-sm-6"></div>
+    <oj-bind-if test="[[ListAction() === 'Active Staffs']]">
+         <oj-button chroming="solid" class="oj-xl-margin-4x" on-oj-action="[[activatedStaffList]]">
+          <span slot="startIcon" class=""> Active Staffs</span>
+        </oj-button>
+         <div class="oj-sm-1"></div>
+       <oj-button style="background-color: #f1f1f1;" class="oj-xl-margin-4x" on-oj-action="[[deactivatedStaffList]]">
+          <span slot="startIcon" class=""> Inactive Staffs</span>
+        </oj-button>
+      </oj-bind-if>
+      <oj-bind-if test="[[ListAction() === 'Inactive Staffs']]">
+        <oj-button style="background-color: #f1f1f1;" class="oj-xl-margin-4x" on-oj-action="[[activatedStaffList]]">
+         <span slot="startIcon" class=""> Active Staffs</span>
+       </oj-button>
+        <div class="oj-sm-1"></div>
+      <oj-button chroming="solid"  class="oj-xl-margin-4x" on-oj-action="[[deactivatedStaffList]]">
+         <span slot="startIcon" class=""> Inactive Staffs</span>
+       </oj-button>
+     </oj-bind-if>
+      </div>
+      <oj-bind-if test="[[ListAction() === 'Active Staffs']]">
+    <div class="oj-panel oj-xl-margin-4x">
+      <oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider1]]"
+      class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+      <template slot="itemTemplate" data-oj-as="item">
+        <div
+        class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+        <li>
+          <oj-list-item-layout :aria-label="[['Details for ' +item.data.name]]">
+          
+            <div class="oj-typography-body-md">
+              <div class="oj-flex oj-sm-align-items-center">
+                
+                <div class="oj-flex-item oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                    :aria-label="[['task ' +item.data.taskName]]">
+                      <oj-avatar
+                        role="img"
+                        src="[[item.data.profilePhoto]]"
+                        :aria-label="[[item.data.name]]"
+                        :title="[[item.data.name]]">
+                      </oj-avatar>   
+                  </oj-list-item-layout>
+                </div>
+                
+                <div class="oj-flex-item demo-list-item-layout oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                    :aria-label="[['task ' +item.data.taskName]]">
+                    <oj-bind-text value="[[item.data.taskName]]"></oj-bind-text>
+                    <div slot="secondary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.userName]]">
+                      <oj-bind-text value="[[item.data.name]]"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg oj-text-color-secondary"
+                      :aria-label="[['Main Position ' + item.data.mainPostion]]">
+                      <div>
+                        <oj-bind-text value="[[item.data.mainPostion]]"></oj-bind-text>
+                      </div>
+                    </div>
+                  </oj-list-item-layout>
+                </div>
+                
+                <div class="oj-flex-item demo-list-item-layout oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                    :aria-label="[['task ' +item.data.taskName]]">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                      <oj-bind-text value="Contact"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg"
+                    :aria-label="[['Contact Email ' + item.data.contactEmail]]">
+                    <div>
+                      <oj-bind-text value="[[item.data.contactEmail]]"></oj-bind-text>
+                    </div>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg"
+                  :aria-label="[['Contact Phone ' + item.data.contactNumber]]">
+                  <div>
+                    <oj-bind-text value="[[item.data.contactNumber]]"></oj-bind-text>
+                  </div>
+                </div>
+                  </oj-list-item-layout>
+                </div>
+  
+                <div class="oj-flex-item demo-list-item-layout oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                    :aria-label="[['task ' +item.data.taskName]]">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                      <oj-bind-text value="Address"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg"
+                    :aria-label="[['Postcode ' + item.data.postCode]]">
+                    <div>
+                      <oj-bind-text value="[[item.data.postCode]]"></oj-bind-text>
+                    </div>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg"
+                  :aria-label="[['Post town ' + item.data.postTown]]">
+                  <div>
+                    <oj-bind-text value="[[item.data.postTown]]"></oj-bind-text>
+                  </div>
+                </div>
+                  </oj-list-item-layout>
+                </div>
+  
+                <div class="oj-flex-item oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                    :aria-label="[['task ' +item.data.taskName]]">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<oj-bind-text value="Actions"></oj-bind-text>
+                    </div>
+                  <div slot="tertiary" class="oj-typography-body-lg"
+                  :aria-label="[['Contact Phone ' + item.data.PPhone]]">
+                    <div>
+                      <oj-button
+                      chroming="borderless"
+                      display="icons"
+                      class="oj-button-sm editBtn"
+                      on-oj-action="[[editStaff]]">
+                      <span slot="startIcon"></span>
+                      Go to profile
+                    </oj-button> 
+                    <oj-button
+                    chroming="borderless"
+                    display="icons"
+                    class="oj-button-sm userCalender"
+                    on-oj-action="[[StaffCalender]]">
+                    <span slot="startIcon"></span>
+                    My Diary
+                  </oj-button>
+                  <oj-button
+                    chroming="borderless"
+                    display="icons"
+                    class="oj-button-sm preferrenceList"
+                    on-oj-action="[[StaffPreferredList]]">
+                    <span slot="startIcon"></span>
+                    Preferred Clients
+                  </oj-button>
+                    <oj-button
+                    chroming="borderless"
+                    display="icons"
+                    class="oj-button-sm userLockBtn"
+                    on-oj-action="[[deactivateConfirm]]">
+                    <span slot="startIcon"></span>
+                    Deactivate
+                  </oj-button>
+                  </div>
+                </div>
+                  </oj-list-item-layout>
+                </div>
+    
+              </div>
+            </div>
+          
+          </oj-list-item-layout>
+        </li>
+      </div>
+    </div>
+      </template>
+    </oj-list-view>
+  </oj-bind-if>
+
+  <oj-bind-if test="[[ListAction() === 'Inactive Staffs']]">
+  <div class="oj-panel oj-xl-margin-4x">
+    <oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider1]]"
+    class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+    <template slot="itemTemplate" data-oj-as="item">
+      <div
+      class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+      <li>
+        <oj-list-item-layout :aria-label="[['Details for ' +item.data.name]]">
+        
+          <div class="oj-typography-body-md">
+            <div class="oj-flex oj-sm-align-items-center">
+              
+              <div class="oj-flex-item oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                  :aria-label="[['task ' +item.data.taskName]]">
+                    <oj-avatar
+                      role="img"
+                      src="[[item.data.profilePhoto]]"
+                      :aria-label="[[item.data.name]]"
+                      :title="[[item.data.name]]">
+                    </oj-avatar>   
+                </oj-list-item-layout>
+              </div>
+              
+              <div class="oj-flex-item demo-list-item-layout oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                  :aria-label="[['task ' +item.data.taskName]]">
+                  <oj-bind-text value="[[item.data.taskName]]"></oj-bind-text>
+                  <div slot="secondary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.userName]]">
+                    <oj-bind-text value="[[item.data.name]]"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg oj-text-color-secondary"
+                    :aria-label="[['Main Position ' + item.data.mainPostion]]">
+                    <div>
+                      <oj-bind-text value="[[item.data.mainPostion]]"></oj-bind-text>
+                    </div>
+                  </div>
+                </oj-list-item-layout>
+              </div>
+              
+              <div class="oj-flex-item demo-list-item-layout oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                  :aria-label="[['task ' +item.data.taskName]]">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                    <oj-bind-text value="Contact"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg"
+                  :aria-label="[['Contact Email ' + item.data.contactEmail]]">
+                  <div>
+                    <oj-bind-text value="[[item.data.contactEmail]]"></oj-bind-text>
+                  </div>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg"
+                :aria-label="[['Contact Phone ' + item.data.contactNumber]]">
+                <div>
+                  <oj-bind-text value="[[item.data.contactNumber]]"></oj-bind-text>
+                </div>
+              </div>
+                </oj-list-item-layout>
+              </div>
+
+              <div class="oj-flex-item demo-list-item-layout oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                  :aria-label="[['task ' +item.data.taskName]]">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                    <oj-bind-text value="Address"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg"
+                  :aria-label="[['Postcode ' + item.data.postCode]]">
+                  <div>
+                    <oj-bind-text value="[[item.data.postCode]]"></oj-bind-text>
+                  </div>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg"
+                :aria-label="[['Post town ' + item.data.postTown]]">
+                <div>
+                  <oj-bind-text value="[[item.data.postTown]]"></oj-bind-text>
+                </div>
+              </div>
+                </oj-list-item-layout>
+              </div>
+
+              <div class="oj-flex-item oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                  :aria-label="[['task ' +item.data.taskName]]">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                    &nbsp;<oj-bind-text value="Actions"></oj-bind-text>
+                  </div>
+                <div slot="tertiary" class="oj-typography-body-lg"
+                :aria-label="[['Contact Phone ' + item.data.PPhone]]">
+                  <div>
+                    <oj-button
+                    :id = "[['save' + + item.data.id ]]"
+                    chroming="borderless"
+                    display="icons"
+                    class="oj-button-sm editBtn"
+                    on-oj-action="[[editStaff]]">
+                    <span slot="startIcon"></span>
+                  Go to profile
+                  </oj-button> 
+                  <oj-button
+                  chroming="borderless"
+                  display="icons"
+                  class="oj-button-sm userUnLockBtn"
+                  on-oj-action="[[activateConfirm]]">
+                  <span slot="startIcon"></span>
+                  Activate
+                </oj-button>
+                </div>
+              </div>
+                </oj-list-item-layout>
+              </div>
+  
+            </div>
+          </div>
+        
+        </oj-list-item-layout>
+      </li>
+    </div>
+  </div>
+    </template>
+  </oj-list-view>
+</oj-bind-if>
+  </div>
+
+  <oj-dialog id="openDeactivateConfirm" dialog-title="Deactivate Staff" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+    <div slot="body">
+      <oj-bind-text value='Do you want to deactivate the selected staff?'></oj-bind-text>
+    </div>
+    <div  class="oj-flex-bar" slot="footer">
+      <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[deactivateStaff]]">
+        Yes
+      </oj-button>
+    </div>
+  </oj-dialog>
+
+  <oj-dialog id="openDeactivateProgress" dialog-title="Please wait!Deactivating..." modality="modeless"
+    style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+      </oj-progress-bar>
+    </div>
+  </oj-dialog>
+
+  <oj-dialog id="openActivateConfirm" dialog-title="Activate Staff" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+    <div slot="body">
+      <oj-bind-text value='Do you want to activate the selected staff?'></oj-bind-text>
+    </div>
+    <div  class="oj-flex-bar" slot="footer">
+      <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[activateStaff]]">
+        Yes
+      </oj-button>
+    </div>
+  </oj-dialog>
+
+  <oj-dialog id="openActivateProgress" dialog-title="Please wait!Activating..." modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>
+
+
+ 
+
+        
+    

@@ -1,0 +1,99 @@
+<style>
+  .oj-button-toggle.oj-default.oj-button-outlined-chrome, .oj-button-toggle.oj-focus-only.oj-button-outlined-chrome, .oj-button-toggle.oj-disabled.oj-button-outlined-chrome, .oj-button.oj-default.oj-button-outlined-chrome .oj-button-button, .oj-button.oj-focus-only.oj-button-outlined-chrome .oj-button-button, .oj-button.oj-disabled.oj-button-outlined-chrome .oj-button-button {
+    border-color: rgb(241 239 237) !important;
+}
+</style>
+
+            
+        <h6 class="demo-center-items oj-typography-heading-xl" >Installation Monitor</h6>
+        <div class="oj-flex">
+ </div>
+      
+ <div class="oj-flex">
+  <div class="oj-panel" style="width: 50%;"  >
+
+            <div class="oj-panel oj-bg-neutral-30 oj-sm-margin-2x demo-mypanel" id="enableExpdpPanelnginx" style="width: 95%;display: none;" >
+              <oj-collapsible expanded=[[enableExpdp]] data-oj-binding-provider="none">
+                
+                <h6 slot="header">
+                  <span class="oj-md-10" >Install Nginx </span>
+                </h6>
+           
+                  <div class="oj-panel demo-panel-progress">
+                    <span ><oj-bind-text value="Configuring Nginx"></oj-bind-text>                   
+                       <oj-button id='button1' chroming="callToAction" on-oj-action='[[nginxInstallReportAction]]' style="width:60px;float: right;">View Log</oj-button>
+                    </span>
+                    <oj-progress-bar id="progressBar" value="{{progressBarNginx}}" style="margin-top:4%"></oj-progress-bar> 
+                </div>
+              </oj-collapsible>
+            </div>
+
+            <div class="oj-panel oj-bg-neutral-30 oj-sm-margin-2x demo-mypanel" id="enableExpdpPanelapache" style="width: 95%;display: none;" >
+              <oj-collapsible expanded=[[enableExpdp]] data-oj-binding-provider="none">
+                
+                <h6 slot="header">
+                  <span class="oj-md-10" >Install APACHE </span>
+                </h6>
+           
+                  <div class="oj-panel demo-panel-progress">
+                    <span ><oj-bind-text value="Configuring APACHE"></oj-bind-text>                   
+                       <oj-button id='button1' chroming="callToAction" on-oj-action='[[apacheInstallReportAction]]' style="width:60px;float: right;">View Log</oj-button>
+                    </span>
+                    <oj-progress-bar id="progressBar" value="{{progressBarApache}}" style="margin-top:4%"></oj-progress-bar> 
+                </div>
+              </oj-collapsible>
+            </div>
+
+            <div class="oj-panel oj-bg-neutral-30 oj-sm-margin-2x demo-mypanel" id="enableExpdpPanelmySQL" style="width: 95%;display: none;" >
+              <oj-collapsible expanded=[[enableExpdp]] data-oj-binding-provider="none">
+                
+                <h6 slot="header">
+                  <span class="oj-md-10" >Install MySql </span>
+                </h6>
+           
+                  <div class="oj-panel demo-panel-progress">
+                    <span ><oj-bind-text value="Configuring MySql"></oj-bind-text>                   
+                       <oj-button id='button1' chroming="callToAction" on-oj-action='[[MySqlInstallReportAction]]' style="width:60px;float: right;">View Log</oj-button>
+                    </span>
+                    <oj-progress-bar id="progressBar" value="{{progressBarMySql}}" style="margin-top:4%"></oj-progress-bar> 
+                </div>
+              </oj-collapsible>
+            </div>
+
+            <div class="oj-panel oj-bg-neutral-30 oj-sm-margin-2x demo-mypanel" id="enableExpdpPanelPHP" style="width: 95%;display: none;" >
+              <oj-collapsible expanded=[[enableExpdp]] data-oj-binding-provider="none">
+                
+                <h6 slot="header">
+                  <span class="oj-md-10" >Install PHP </span>
+                </h6>
+           
+                  <div class="oj-panel demo-panel-progress">
+                    <span ><oj-bind-text value="Configuring PHP"></oj-bind-text>                   
+                       <oj-button id='button1' chroming="callToAction" on-oj-action='[[phpInstallReportAction]]' style="width:60px;float: right;">View Log</oj-button>
+                    </span>
+                    <oj-progress-bar id="progressBar" value="{{phpProgressValue}}" style="margin-top:4%"></oj-progress-bar> 
+                    <br><br><span id="progressBarMakeId" style="display:none">
+                      <oj-bind-text value="Relinking"></oj-bind-text> 
+                      <oj-button id='button1' chroming="callToAction" on-oj-action='[[phpInstallReportAction]]' style="width:60px;float: right;">View Log</oj-button>
+                      <oj-progress-bar id="progressBar" value="{{progressBarMake}}" style="margin-top:4%"></oj-progress-bar>
+                    </span>
+                    <br><br><span id="progressBarInsatllId" style="display:none">
+                      <oj-bind-text value="Installing"></oj-bind-text> 
+                      <oj-button id='button1' chroming="callToAction" on-oj-action='[[phpInstallReportAction]]' style="width:60px;float: right;">View Log</oj-button>
+                      <oj-progress-bar id="progressBar" value="{{progressBarInsatll}}" style="margin-top:4%"></oj-progress-bar>
+                    </span>
+
+                </div>
+              </oj-collapsible>
+            </div>
+
+  </div>
+
+
+
+    <div class="oj-panel" style="width: 50%;height: 500px; overflow-y: auto;"  >
+      <div  id="outputBox"></div>
+    </div>
+  </div>
+
+

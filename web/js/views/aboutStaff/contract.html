@@ -1,0 +1,236 @@
+<div class="contract oj-panel oj-sm-margin-4x demo-mypanel">
+    <p style="font-weight: bold; font-size: 20px; color: #227e9e;">Contract</p>
+    <oj-bind-if test="[[status() === 'Contract not sent' ]]">
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+            <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+            <p>Contract not sent please wait....</p>
+        </div>
+    </oj-bind-if>
+    <oj-bind-if test="[[status() === 'Contract Submitted' ]]">
+        <oj-bind-if test="[[contractStatus() === 'Pending' ]]">
+            <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+                <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+                <p>Thank you for submitting the contract, our team will get in touch with you soon.</p>
+            </div>
+        </oj-bind-if>
+        <oj-bind-if test="[[contractStatus() === 'Audited' ]]">
+            <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+                <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+                <p>Congratulations! Your contract has been approved, our team will get in touch with you soon.</p>
+            </div>
+        </oj-bind-if>
+    </oj-bind-if>
+
+    <oj-bind-if test="[[status() === 'Contract Sent' ]]">
+        <div style="height: 500px;overflow-y: auto;">
+            <h4 style="display: flex;justify-content: center;">QuickHCM360 Employee Contract</h4>
+
+            <p>Dear <oj-bind-text value='[[staff_name]]'></oj-bind-text>,</p>
+
+            <h5 style="display: flex;justify-content: center;">PRINCIPLE STATEMENT OF TERMS AND CONDITIONS</h5> 
+            <ol>
+                <p>I am pleased to confirm your appointment as the Health Care Assistant (HCA) of QuickHCM360. This document outlines the Terms and Conditions which apply to your contract and other information which is relevant to your employment.</p>
+                <li>
+                    <p>The date of commencement of this contract is <oj-bind-text value='[[commencement_date]]'></oj-bind-text>.</p>
+                </li>
+                <li>
+                    <p>Your base will be in England; however, the Company reserves the right, with appropriate consultation with you, to change your base should the needs of the Company require this.</p>
+                </li>
+                <li>
+                    <p>You are committed to zero hours (0 hours) working contract. If the company requires the service of the staff in the future, you will be placed as temporary or permanent.</p>
+                </li>
+                <li>
+                    <p>Where a client requires you to work additional hours you agree not to enter into any private arrangement with the client but to notify the Employer of the client’s additional requirements in order that appropriate arrangements may be made. If you are working with another employer whilst in employment with QuickHCM360, you must inform the company about your working hours in order to comply with the Health and Safety Regulations.</p>
+                </li>
+                <li>
+                    <p>You will be subject to the terms and conditions as agreed and amended from time to time by the company as outlined in its policies, procedures, handbooks and other relevant documents.</p>
+                </li>
+                <h5>Pay Rates & Other Charges</h5> 
+                <p>Main Post Rate</p>
+
+                <oj-bind-if test="[[requiredSec1() === true]]">
+                    <p>The pay rates confirmed for you will be a minimum of £<oj-bind-text value='[[weekday_longday_type]]'></oj-bind-text> for weekday longday, £<oj-bind-text value='[[weekday_night_type]]'></oj-bind-text> for weekday night, £<oj-bind-text value='[[bank_holiday_type]]'></oj-bind-text> for bank holiday, £<oj-bind-text value='[[weekend_longday_type]]'></oj-bind-text> for weekend longday, £<oj-bind-text value='[[weekend_night_type]]'></oj-bind-text> for weekend night.</p>
+                </oj-bind-if>
+                
+                <oj-bind-if test="[[requiredSec2() === true]]">
+                    <p>The pay rates confirmed for you will be a minimum of £<oj-bind-text value='[[weekday_longday_type]]'></oj-bind-text> for weekday longday, <oj-bind-text value='[[weekday_night_type]]'></oj-bind-text> for weekday night, <oj-bind-text value='[[bank_holiday_type]]'></oj-bind-text> for bank holiday.</p>
+                </oj-bind-if>
+
+                <oj-bind-if test="[[sub_post() === 'Kitchen Assistant']]">
+                    <p><oj-bind-text value='Sub Post Rate - Kitchen Assistant'></oj-bind-text></p>
+                    <p>The pay rates confirmed for you will be a minimum of £<oj-bind-text value='[[kitchen_weekday_longday]]'></oj-bind-text> for weekday longday, £<oj-bind-text value='[[kitchen_weekday_night]]'></oj-bind-text> for weekday night, £<oj-bind-text value='[[kitchen_bank_holiday]]'></oj-bind-text> for bank holiday, £<oj-bind-text value='[[kitchen_weekend_longday]]'></oj-bind-text> for weekend longday, £<oj-bind-text value='[[kitchen_weekend_night]]'></oj-bind-text> for weekend night.</p>
+                </oj-bind-if>
+                
+                <oj-bind-if test="[[sub_post() === 'Domestic Care']]">
+                    <p><oj-bind-text value='Sub Post Rate - Domestic Care'></oj-bind-text></p>
+                    <p>The pay rates confirmed for you will be a minimum of £<oj-bind-text value='[[domestic_weekday_longday]]'></oj-bind-text> for weekday longday, £<oj-bind-text value='[[domestic_weekday_night]]'></oj-bind-text> for weekday night, £<oj-bind-text value='[[domestic_bank_holiday]]'></oj-bind-text> for bank holiday, £<oj-bind-text value='[[domestic_weekend_longday]]'></oj-bind-text> for weekend longday, £<oj-bind-text value='[[domestic_weekend_night]]'></oj-bind-text> for weekend night.</p>
+                </oj-bind-if>
+
+                <oj-bind-if test="[[sub_post() === 'Kitchen Assistant,Domestic Care']]">
+                    <p><oj-bind-text value='Sub Post Rate - Kitchen Assistant'></oj-bind-text></p>
+                    <p>The pay rates confirmed for you will be a minimum of £<oj-bind-text value='[[kitchen_weekday_longday]]'></oj-bind-text> for weekday longday, £<oj-bind-text value='[[kitchen_weekday_night]]'></oj-bind-text> for weekday night, £<oj-bind-text value='[[kitchen_bank_holiday]]'></oj-bind-text> for bank holiday, £<oj-bind-text value='[[kitchen_weekend_longday]]'></oj-bind-text> for weekend longday, £<oj-bind-text value='[[kitchen_weekend_night]]'></oj-bind-text> for weekend night.</p>
+                    <p><oj-bind-text value='Sub Post Rate - Domestic Care'></oj-bind-text></p>
+                    <p>The pay rates confirmed for you will be a minimum of £<oj-bind-text value='[[domestic_weekday_longday]]'></oj-bind-text> for weekday longday, £<oj-bind-text value='[[domestic_weekday_night]]'></oj-bind-text> for weekday night, £<oj-bind-text value='[[domestic_bank_holiday]]'></oj-bind-text> for bank holiday, £<oj-bind-text value='[[domestic_weekend_longday]]'></oj-bind-text> for weekend longday, £<oj-bind-text value='[[domestic_weekend_night]]'></oj-bind-text> for weekend night.</p>
+                </oj-bind-if>
+
+                <oj-bind-if test="[[sub_post() === 'Care Assistant']]">
+                    <p><oj-bind-text value='Sub Post Rate - Care Assistant'></oj-bind-text></p>
+                    <p>The pay rates confirmed for you will be a minimum of £<oj-bind-text value='[[care_weekday_longday]]'></oj-bind-text> for weekday longday, £<oj-bind-text value='[[care_weekday_night]]'></oj-bind-text> for weekday night, £<oj-bind-text value='[[care_bank_holiday]]'></oj-bind-text> for bank holiday, £<oj-bind-text value='[[care_weekend_longday]]'></oj-bind-text> for weekend longday, £<oj-bind-text value='[[care_weekend_night]]'></oj-bind-text> for weekend night.</p>
+                </oj-bind-if>
+                
+                <oj-bind-if test="[[sub_post() === 'Living Care']]">
+                    <p><oj-bind-text value='Sub Post Rate - Living Care'></oj-bind-text></p>
+                    <p>The pay rates confirmed for you will be a minimum of £<oj-bind-text value='[[living_weekday_longday]]'></oj-bind-text> for weekday longday, £<oj-bind-text value='[[living_weekday_night]]'></oj-bind-text> for weekday night, £<oj-bind-text value='[[living_bank_holiday]]'></oj-bind-text> for bank holiday, £<oj-bind-text value='[[living_weekend_longday]]'></oj-bind-text> for weekend longday, £<oj-bind-text value='[[living_weekend_night]]'></oj-bind-text> for weekend night.</p>
+                </oj-bind-if>
+                <li>
+                    <p>The current salary scale for this post is above the UK minimum standards. Rates will vary according to different clients and different locations and it is the sole responsibility of the staff to get confirmation of the rate of pay, the name of the employer and other shift details before confirming the shift so that you can decide whether you want to work the shift or not. When you are on zero hours contract and you work regularly with a single client through QuickHCM360. continuously for more than 90 days, you will be eligible for additional holiday pay, statutory sick pay and other statutory benefits, only if the client pays the agency for these additional benefits.</p>
+                </li>
+                <li>
+                    <p>Where you have accepted an assignment or given your availability and you subsequently fail to attend without 24 hours’ notice or valid reason the employer reserves the right to make an administration charge of £75.00 which may be recovered from your salary. In case your shift cancellation is due to any health problems, you have to submit your GP’s letter within 5 working days. If your absence in a shift is due to an emergency you should inform it 24 hours prior to the shift, wherever possible.</p>
+                </li>
+                <li>
+                    <p>It is your responsibility to get the present standard rates at which you will be working when you give your availability for work.</p>
+                </li>
+                <li>
+                    <p>If the staff is absent from work for a minimum of 1 month for any reason, we may automatically remove the staff from our database. However, the staff personal records will be maintained in the agency as required under the policy.</p>
+                </li>
+                <li>
+                    <p>Employment references shall be provided only if the candidate has completed their probation and serving the resignation notice period (where applicable). The minimum notice periods during probation is 2 weeks and after completion of probation, it is 1 month. We will only be providing references to candidates’ up to a period of 3 months from the last day of their working with us. After this period, you may obtain references with our prior consent, but administration charges may apply.</p>
+                </li>
+                <li>
+                    <p>If the Company makes an overpayment to you to which you are not entitled to, you agree to allow the Company to recover the overpayment by deductions from your salary or other payments to you. Any deductions will normally be made from the following periods that the overpayment was made. It is in your interests to regularly check your pay slips and confirm all your working hours and transportation are paid in full.</p>
+                <li>
+                    <p>You will be paid monthly or weekly in arrears either as BACS payment to your bank account or as a cheque payable to you based on your contract hours provided, hours worked or based on your agreed pay scale.</p>
+                </li>
+                <b>Trainings</b></br></br>
+                <li>
+                    <p>The employer will arrange necessary trainings and DBS checks for which you will have to pay the respective fees. Yearly refreshers will be required for both trainings and DBS for which the candidate will be charged.</p>
+                </li>
+                <li>
+                    <p>Prior to your commencing a new assignment you may be required by the employer to attend at a client’s home or place of business or at the premises of the Employer to receive specific instructions or training relating to the new assignment. You agree that attendance for this purpose shall be undertaken in your own time and you shall not be entitled to receive wages in respect of it. The induction training will be unpaid unless otherwise specified.</p>
+                </li>
+                <li>
+                    <p>The Company leave year runs from 1st of April to the 31st of March. You are entitled to statutory/local holidays as agreed annually by the Company and in accordance with the law in the UK. The staff pay rates under zero-hour contract is inclusive of statutory holiday pay and you will not be entitled to sick pay and other benefits.</p>
+                </li>
+                <li>
+                    <p>You will have a probationary/training period of 6 months, within which the company shall be taking efforts to convert you as a regular employee. During this period, all employees are entitled to our free services including application, referencing, registration & administration services, induction programme plus discounted transportation charges (unless you are using your own transportation). If you are an experienced candidate holding more than 2 years of experience in healthcare sector in England, your probationary period will be cut reduced to 1 month.</p>
+                </li>
+                <li>
+                    <p>You can leave the company at any time during this probationary period by giving a minimal notice of two weeks. However, if you leave in the probationary period or within 6 months and if you were not an experienced candidate at the start, your discount for all the services mentioned in Clause 17 will be revoked automatically and the staff will be liable to pay administration charges incurred by the agency which equates to £500 (one-off). You may clarify this at any time with our office and obtain a written confirmation for the same.</p>
+                </li>
+                <b>Termination</b></br></br>
+                <li>
+                    <p>After the completion of your probationary period, you are obliged to give the Company one month notice to terminate your contract of employment. If the candidate leaves the job after probation without giving the minimum notice then the company is entitled to charge an administration and documentation fee. This amount will be doubled if you are joining a company with which QuickHCM360 holds a business relation. This payment is to compensate the company loss of business from the client and it may be discounted depending on the individual circumstances.</p>
+                </li>
+                <li>
+                    <p>While serving the notice period, a full-time staff must provide a minimum of 4-5 days availability, a part-time staff must provide a minimum of 3 days availability and bank staffs do not have any restrictions on the minimum availability to be provided (the availability needs to be in the same pattern as before). Your last working day with us will be counted as the last day in notice period for termination purposes.</p>
+                </li>
+                <li>
+                    <p>Company is obliged to give you one month’s notice before terminating your contract (not applicable for zero hour’s contracts) after probation. During probation, company can decide to terminate you at any point of time. However, if the termination is due to a disciplinary issue, no notice whatsoever shall be served to you.</p>
+                </li>
+                <li>
+                    <p>If an employee decides to join one of our client organizations where we have introduced them, they have to pay an introduction fee of £1000 to QuickHCM360. An employee must not work at any client locations where QuickHCM360 has introduced them for work in any capacity (including working from other agencies, as limited company or self- employment directly or indirectly). This applies anytime when you leave us & is applicable up to six months after your resignation or leaving from QuickHCM360.</p>
+                </li>
+                <li>
+                    <p>Once you have gone to a client through us, you are not supposed to work at the same client through any other agencies or directly without notifying us, the failure of which will result in a penalty of £1000 in addition to the other penalties according to the contract terms.</p>
+                </li>
+                <li>
+                    <p>If an employee decides to quit the employment, they will have to return their ID cards, name badges and all timesheets back to the head office, failing of which may lead to with holding of their final payment and necessary actions will be taken against them as per the UK standard laws.</p>
+                </li>
+                <li>
+                    <p>You are expected to comply with the Company dress code, your line manager will explain the details of this, and provide you with any relevant company policy on this.</p>
+                </li>
+                <li>
+                    <p>You will have to submit your timesheets and required documents every Monday, once you are informed to do so and it is your sole responsibility to check your working hours before the pay date. If fail to do so an amount of £5 administration cost each day will be charged per timesheet. It will be reimbursed when the staff cleared all the pending timesheets from their end. Any disputes arising after 14 days of receiving the payment regarding this will not be dealt by the office.</p>
+                </li>
+                <li>
+                    <p>All correspondence with the company must be in written format. No verbal communications that are recorded without the consent of either party shall be deemed valid. Electronic form of communications (emails) between either party will be deemed to be valid for legal purposes. It is the responsibility of the candidate to ensure that they receive acknowledgements from the company for postal or any other forms of correspondence. Company will issue amendments to policies or memos to staff from time to time either as emails or letters. All staffs are required to agree to the amendments as a part of this agreement. Any concerns with respect of the same, must be emailed. If in case, staffs have not agreed to the correspondences sent from the company and have not raised any concerns, it will be assumed that they agree to all changes/amendments as suggested/instructed by the company.</p>
+                </li>
+                <li>
+                    <p>Should the need for disciplinary action be deemed necessary, this will be taken in line with the Company Policy and Procedure on Disciplinary Action. You may have a right of appeal against this as outlined in the company policy. However, if the disciplinary action results in suspension or dismissal due to a safeguarding issue, misbehavior or other complaints, you are not entitled to claim against the company for your personal losses.</p>
+                </li>
+                <li>
+                    <p>If you have a grievance in relation to your employment, then you should follow the procedure outlined in the Company Grievance Policy and Procedure. You should initially discuss any grievance with your immediate supervisor.</p>
+                </li>
+                <li>
+                    <p>Smoking in Company premises and work place is prohibited (except in those external areas specifically designated for that purpose). Breach of this regulation may result in disciplinary action being taken.</p>
+                </li>
+                <li>
+                    <p>In the course of your employment, you may have access to confidential material both in paper and electronic form. On no account should this information be divulged to any unauthorized person. Breaches of confidentiality will be dealt with through the Company Policy and Procedure on Disciplinary action.</p>
+                </li>
+                <li>
+                    <p>The Company has a strict anti-bribery and corruption policy in line with the Bribery Act (2010). If you bribe (or attempt to bribe) another person, intending either to obtain or retain business for the company, or to obtain or retain an advantage in the conduct of the Company’s business, this will be considered as gross misconduct. Similarly accepting or allowing another person to accept a bribe will be considered as gross misconduct. In these circumstances you will be subject to formal investigation under the Company’s disciplinary procedures, and disciplinary action up to and including dismissal may be applied.</p>
+                </li>
+                <li>
+                    <p>If the company has to bear any kind of losses due to any malpractice done by the staff, the concerned staff will have to pay for it if it does not fall under the insurance.</p>
+                </li>
+                <li>
+                    <p>It is a condition of your employment that the Company is satisfied on your medical fitness to carry out your duties. This appointment is conditional on a satisfactory Occupational Health Service check. Should it be deemed necessary during the course of your employment, you may be required to attend a medical examination from a GP or Occupational Health Service.</p>
+                </li>
+                <li>
+                    <p>Your employment with the Company may be dependent upon the possession of particular qualifications or registration with a statutory Body or other Authority; evidence of this must be produced on request. Failure to produce such evidence may lead to the termination of your employment. If you are terminated from the agency as part of a disciplinary, misconduct or safeguarding issue, we may publish this information on all reference requests that we receive following this.</p>
+                </li>
+                <li>
+                    <p>Access to all policies and procedures and handbook is available through your line manager or the HR department, and copies can be provided on request.</p>
+                </li>
+                <li>
+                    <p>Any party that is subject to a Force Majeure Event shall not be in breach of this agreement, nor liable for any failure or delay in performance of any obligations, provided that it promptly notifies the other party in writing of the nature and extent of the Force Majeure Event causing its failure or delay in performance, arising from or attributable to acts, events, omissions or accidents beyond its reasonable control including acts of God, fire, explosion, flood, collapse of building structures, earthquake, windstorm or other natural disaster.</p>
+                </li>
+                <li>
+                    <p>If the Force Majeure Event prevails for a continuous period of more than 1 month or causes the business to close down, this agreement shall be treated as terminated.</p>
+                </li>
+                <li>
+                    <p>If any dispute arises in connection with this agreement, either party shall, within 15 days of a written request from the other party, meet in good faith effort to resolve the dispute and both parties agree that they will attempt to settle it by mediation in accordance with the Model Mediation Procedure.</p>
+                </li>
+                <li>
+                    <p>This agreement and any dispute or claim arising out of or in connection with it or its subject matter, shall be governed by, and construed in accordance with, the law of England and Wales (where the Head Office is based); the parties irrevocably agree that the courts of England and Wales shall have exclusive jurisdiction to settle any dispute or claim that arises out of or in connection with this agreement or its subject matter. Full written details of the claim or dispute must be sent to us to info@QuickHCM360.com before proceeding for any court related procedures.</p>
+                </li>
+                </br>
+            </ol>
+            <p>If you are in agreement with the above terms and conditions and policies of the company as outlined in above clauses, please sign this statement and return to QuickHCM360. It is the responsibility of the staff to retain a copy in their personal file.</p>
+            </br></br>
+            <p>
+                Yours sincerely,
+            </p>
+            <p>
+                Manager
+            </p>
+            <p>
+                QuickHCM360.
+            </p>
+
+            <oj-validation-group id="contaratcValidation" role="group" valid="{{contractValid}}">
+                <oj-checkboxset value="{{declaration}}" required label-hint="Declaration">
+                    <oj-option value="agree">
+                        I confirm that the information given within this form is true and accurate. I hereby give consent for this information being used for personnel administration and business purposes.
+                    </oj-option>
+                </oj-checkboxset>
+                <div class="oj-flex">
+                    <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+                        <oj-input-text required id="text-input" value="{{name}}" label-hint="Name" label-edge="inside" on-value-changed="[[createSignature]]"></oj-input-text>
+                    </div>
+                    <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal" style="font-family: Cedarville Cursive">
+                        <oj-input-text id="text-input1" value="{{esignature}}" label-hint="Esignature" label-edge="inside" disabled></oj-input-text>
+                    </div>
+                    <div class="oj-sm-4 oj-flex-item oj-sm-padding-2x-horizontal">
+                        <oj-input-date required label-hint="date" autocomplete="off" value="{{date}}"></oj-input-date>
+                    </div>
+                </div>
+            </oj-validation-group>
+            <div style="display: flex; justify-content: center;padding-right: 100px;">
+                <oj-button id="icon_button1" display="icons" style="width: 100px;" on-oj-action="[[contractSubmit]]">
+                    Submit
+                </oj-button>
+            </div>
+        </div>
+    </oj-bind-if>
+
+    <oj-popup id="popup1" class="demo-popup" auto-dismiss="none" modality="modal" position.my.horizontal="center"
+        position.my.vertical="center" position.at.horizontal="center" position.at.vertical="center" position.of="window" tail="none">
+        <div class="demo-popup-body">
+            <div class="demo-popup-content oj-sm-padding-2x">
+                <oj-progress-circle size="md" value="-1"></oj-progress-circle>
+            </div>
+        </div>
+    </oj-popup>
+</div>

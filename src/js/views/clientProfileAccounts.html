@@ -1,0 +1,19 @@
+<div class="oj-flex  oj-sm-flex-items-1">
+    <div style="width:250px; background-color: #e9ecef; height: 100vh; color: gray;padding: 20px;">
+        <h3><strong>Accounts Manager</strong></h3>
+        <p>Please go through the following steps to complete your application.</p>
+        <oj-list-view data="[[dataProvider]]" selection-mode="single" selection="{{selection}}">
+            <template slot="itemTemplate" data-oj-as="item">
+                <span style="color: black;display: flex; flex-direction: row;justify-content: space-between;">
+                    <oj-bind-text value="[[item.data.label]]"></oj-bind-text>
+                </span>
+            </template>
+        </oj-list-view>
+    </div>
+    <div class="oj-flex-item oj-panel" style="margin: 0px;">
+        <div class="hint-div oj-sm-margin-4x demo-mypanel">
+            <h2>Client Accountant Home</h2>
+        </div>
+        <oj-module config="[[module.koObservableConfig]]"></oj-module>
+    </div>
+</div>

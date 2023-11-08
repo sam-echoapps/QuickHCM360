@@ -1,0 +1,61 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<div id="sampleDemo"  class="demo-container sampleDemo">
+    <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+      
+      <div id="moduleDemo">    
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1; display: flex;align-items: baseline;">
+          <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp; You can add job roles here.
+        </div> 
+
+        <div
+        class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+       <!--  <div
+        class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-8"> -->
+          <oj-checkboxset value="{{jobRole}}" label-hint="" class="oj-choice-direction-row">
+            <oj-option value="Nurse">Nurse (RGN)</oj-option>
+            <oj-option value="Care Assistant">Care Assistant</oj-option>
+            <oj-option value="Senior Care Assistant">Senior Care Assistant</oj-option>
+            <oj-option value="Domiciliary Care">Domiciliary Care</oj-option>
+            <oj-option value="Chefs">Chefs</oj-option>
+            <oj-option value="Kitchen Assistant">Kitchen Assistant</oj-option>
+            <oj-option value="Domestic Care">Domestic Care</oj-option>
+            <oj-option value="Living Care">Living Care</oj-option>
+          </oj-checkboxset>
+          </div>
+          <oj-bind-if test="[[clientActionBtn() === 'Add']]">
+            <div style="display: flex;justify-content: center;"
+            class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+            <div class="oj-flex-bar">
+              <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[clientRoleSave]]">Save
+              </oj-button>
+            </div>
+          </div>
+        </oj-bind-if>
+        <oj-bind-if test="[[clientActionBtn() === 'Update']]">
+          <div style="display: flex;justify-content: center;"
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+          <div class="oj-flex-bar">
+            <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[clientRoleSave]]">Update
+            </oj-button>
+          </div>
+        </div>
+        </oj-bind-if>
+  </div>
+      
+
+      <oj-dialog id="openAddClientProgress" dialog-title="Saving Job Roles..." modality="modeless"
+      style="display:none;width:350px;min-width:240px;max-width:450px;">
+      <div slot="body">
+        <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+        </oj-progress-bar>
+      </div>
+    </oj-dialog>
+    
+
+ 
+
+      
+        
+    

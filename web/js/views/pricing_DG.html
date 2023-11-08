@@ -1,0 +1,91 @@
+<div class="oj-flex">
+  <div  class="oj-panel oj-flex-item  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-10x oj-lg-margin-2x oj-lg-padding-7x oj-md-margin-2x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-2 bg_grey">
+                          <oj-form-layout id="fl1" readonly="[[isFormReadonly()]]">
+                              <div class="oj-panel io-color demo-center-items">
+                                  <h7>Region & Requirement</h7>
+                              </div>
+                              <oj-select-single required id="srcdep" label-hint="Choose Your AWS Region"
+                                  label-edge="inside" data="{{AWSRegionsDP}}" value="{{currentAWSRegion}}"
+                                  class="demo-max-width" >
+                              </oj-select-single>
+                              <oj-select-single required id="srcdep" label-hint="Choose Your Operating System"
+                              label-edge="inside" data="{{OperatingSystemsDP}}" value="{{currentOS}}"
+                              class="demo-max-width" >
+                          </oj-select-single>
+                          <oj-select-single required id="srcdep" label-hint="PreInstalled Software"
+                          label-edge="inside" data="{{PreInsSWListDP}}" value="{{currentSW}}"
+                          class="demo-max-width" >
+                      </oj-select-single>
+                              <oj-input-text  required id="VPCU" value="{{vcpu}}"
+                                  length.max="4" label-hint="Number of VPCU" ></oj-input-text>
+                                  <oj-input-text  required id="Memory Size" value="{{memory}}"
+                                  length.max="4" label-hint="Memory" ></oj-input-text>
+  
+  
+                                  <oj-button id="okdelButton" chroming='solid' on-oj-action="[[SelectSRCDeployment]]">
+                                      Submit
+                                  </oj-button>
+                          </oj-form-layout>
+                          <oj-dialog id="SelectSchemaDialog" dialog-title="Working on it ..." modality="modeless"
+                          style="display:none;width:350px;min-width:240px;max-width:450px;">
+                          <div slot="body">
+                              <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+                              </oj-progress-bar>
+                          </div>
+                      </oj-dialog>
+                      </div>
+                      <div class="oj-panel oj-flex-item oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-10x oj-lg-margin-2x oj-lg-padding-7x oj-md-margin-2x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x overwrite-sm5 oj-sm-8 bg_grey">
+                          <div class="oj-panel io-color demo-center-items">
+                              <h7>Instance Pricing Detail</h7>
+                          </div>
+                          <oj-data-grid
+                          id="attributeDatagrid"
+                          class="demo-data-grid"
+                          aria-label="Data Grid Nested Header Data Provider Demo"
+                          data="[[NewdataGridProvider]]"
+                          selection-mode="[[selectionMode]]"
+                          on-selection-changed="[[selectionChangedListener]]"
+                          scroll-policy="loadMoreOnScroll"
+                          header.column.class-name="[[getColumnHeaderClassName]]"
+                          header.column.style="[[getColumnHeaderStyle]]"
+                          header.row.style="width:120px;"
+                          cell.class-name="[[getCellClassName]]"
+                          on-oj-sort-request="[[handleSortRequest]]">
+                          <template slot="columnHeaderTemplate" data-oj-as="header">
+                            <oj-bind-text value="[[formatColumnHeader(header)]]"></oj-bind-text>
+                          </template>
+                          <template slot="cellTemplate" data-oj-as="cell">
+                            <oj-bind-if test="[[cell.item.columnIndex === 4 || cell.item.columnIndex===7 ||cell.item.columnIndex===9 || cell.item.columnIndex===10 || cell.item.columnIndex===11 ||cell.item.columnIndex===12]]">
+                              <oj-bind-if test="[[cell.item.data.data !== 'NA']]">
+                                <span class="oj-text-color-success">
+                                  <oj-bind-text value="[[numberConverter.format(cell.item.data.data)]]"></oj-bind-text>
+                                </span>
+                                </oj-bind-if>
+                                <oj-bind-if test="[[cell.item.data.data === 'NA']]">
+                                        <oj-bind-text value="[[cell.item.data.data]]"></oj-bind-text>
+                                  </span>
+                                  </oj-bind-if>
+                            </oj-bind-if>
+                            <oj-bind-if test="[[cell.item.columnIndex!==4 && cell.item.columnIndex!==7 && cell.item.columnIndex!==9 && cell.item.columnIndex!==10 && cell.item.columnIndex!==11 && cell.item.columnIndex!==12]]">
+                            <span>
+                              <oj-bind-text value="[[cell.item.data.data]]"></oj-bind-text>
+                            </span>
+                          </oj-bind-if>
+                        </template>
+                            </template>
+
+                        </oj-data-grid>
+                      </div>
+
+                      <label for="selectedInfo">Current Selection:</label>
+                      <oj-table
+                        id="table"
+                        aria-label="Departments Table"
+                        data="[[dataprovider]]"
+                        columns-default.sortable="disabled"
+                        columns="{{columnForTable}}"
+                        scroll-policy="loadAll"
+                        class="demo-data-grid-table"></oj-table>
+                    </div>
+                      </div>
+  

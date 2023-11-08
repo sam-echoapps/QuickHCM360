@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<div class="oj-flex  oj-sm-flex-items-1">
+    <div style="width:250px; background-color: #e9ecef; height: 100vh; color: gray;padding: 20px;">
+        <h3><strong>USER PROGRESS</strong></h3>
+        <p>Please go through the following steps to complete the <oj-bind-text value="[[staffName]]"></oj-bind-text>'s application.</p>
+        <hr>
+        <oj-list-view data="[[dataProvider]]" selection-mode="single" selection="{{selection}}">
+            <template slot="itemTemplate" data-oj-as="item">
+                <span style="color: black;display: flex; flex-direction: row;justify-content: space-between;">
+                    <oj-bind-text value="[[item.data.label]]"></oj-bind-text>
+                    <oj-bind-if test="[[item.data.status]] == 'Not Submitted'">
+                        <i class="bi bi-check-circle-fill status-not-submitted"></i>
+                    </oj-bind-if> 
+                    <oj-bind-if test="[[item.data.status]] == 'Pending'">
+                        <i class="bi bi-check-circle-fill status-pending"></i>
+                    </oj-bind-if> 
+                    <oj-bind-if test="[[item.data.status]] == 'Audited'">
+                        <i class="bi bi-check-circle-fill status-audit"></i>
+                    </oj-bind-if>
+                    <oj-bind-if test="[[item.data.status]] == 'Staff Manager'">
+                        <i class="bi bi-circle-fill staff-manager"></i>
+                    </oj-bind-if> 
+                </span>
+            </template>
+        </oj-list-view>
+    </div>
+    <div class="oj-flex-item oj-panel" style="margin: 0px;">
+        <div class="hint-div" style="border: 1px solid #80808036; margin: 10px;padding: 10px;">
+            <div style="font-size:large;color:rgb(11, 111, 165)"><oj-bind-text value="[[staffNameCap]]"></oj-bind-text> </div>
+            <p>Here you can see the progress of the <oj-bind-text value="[[staffName]]"></oj-bind-text>'s application.</p>
+            <div class="oj-flex-bar-start">
+                <p style="font-weight: bold;"><oj-bind-text value="[[progressValue]]"></oj-bind-text>%</p>
+            </div>
+            <oj-progress-bar id="progressBar" value="{{progressValue}}" style="height: 20px;"></oj-progress-bar>
+            
+            <br>
+            <i class="bi bi-check-circle-fill status-audit"></i> Approved &nbsp;
+            <i class="bi bi-check-circle-fill status-pending"></i> Under review/Submitted &nbsp;
+            <i class="bi bi-check-circle-fill status-not-submitted"></i> Not submitted
+        </div>
+        <oj-module config="[[module.koObservableConfig]]"></oj-module>
+    </div>
+</div>

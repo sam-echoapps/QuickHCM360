@@ -1,0 +1,9 @@
+.head { 
+    color:#0654b2;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    margin-top : 25px;
+    text-decoration: underline;
+    text-underline-offset: 8px;
+}

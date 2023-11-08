@@ -1,0 +1,487 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="css/loader.css" type="text/css" />
+
+<div class="oj-panel oj-xl-margin-4x" style="margin: 10px;padding: 10px; display:none;" id="mainView">
+  <div
+  class="oj-flex">
+  <div
+    class="oj-sm-5">
+    <div class="">
+      <div class="hint-div" style="margin: 10px;padding: 10px;">
+          <div style="font-size:large;color:rgb(11, 111, 165)">
+              <b>Client Name : <oj-bind-text value="[[clientNameCap]]"></oj-bind-text></b>
+      </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  
+  <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+    <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;This section lists the staff timesheet details of the selected invoice.
+  </div>
+  </div>
+
+<div class="oj-panel oj-xl-margin-4x" style="margin: 10px;padding: 10px;display:none;" id="contentView">
+  <div style="font-size:large;color:rgb(11, 111, 165);margin: 10px;padding: 10px;">
+    Approved timesheet list of selected date range
+  </div>
+
+  <oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider]]"
+  class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+  <template slot="itemTemplate" data-oj-as="item">
+    <div
+    class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+    <li>
+      <oj-list-item-layout>
+      
+        <div class="oj-typography-body-md">
+          <div class="oj-flex">
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Timesheet Serial No"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                <div>
+                  <oj-bind-text value="[[item.data.serial_no]]"></oj-bind-text>
+                </div>
+              </div>
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Shift Info"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                <div>
+                  <oj-bind-text value="[[item.data.shift_name]]"></oj-bind-text>
+                </div>
+              </div>
+              <div slot="tertiary" class="oj-typography-body-lg">
+                <div>
+                  <oj-bind-text value="[[item.data.job_role]]"></oj-bind-text>
+                </div>
+              </div>
+              <div slot="tertiary" class="oj-typography-body-lg">
+              <div>
+                <oj-bind-text value="[[item.data.shift_date]]"></oj-bind-text>
+              </div>
+              <!-- <div>
+                <oj-bind-text value="[[item.data.holidayType]]"></oj-bind-text>
+              </div> -->
+            </div>
+            <div slot="tertiary" class="oj-typography-body-lg">
+              <div>
+                <oj-bind-text value="[[item.data.shift_time]]"></oj-bind-text>
+              </div>
+            </div>
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Staff Info"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <div>
+                    <a on-click= "[[goToProfile]]" target="_blank" title="Go To Profile">
+                      <oj-bind-text value="[[item.data.staff_name]]"></oj-bind-text>
+                    </a>                  
+                  </div>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <div>
+                    <oj-bind-text value="[[item.data.worked_time]]"></oj-bind-text>
+                  </div>
+                </div>
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Break Time"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <div>
+                      <oj-bind-text value="[[item.data.break_time]]"></oj-bind-text>
+                  </div>
+                </div>
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Worked Hours"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <div>
+                      <oj-bind-text value="[[item.data.worked_hours]]"></oj-bind-text>
+                  </div>
+                </div>
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Total Hours"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <div>
+                      <oj-bind-text value="[[item.data.total_hours]]"></oj-bind-text>
+                  </div>
+                </div>
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Hourly Paid"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                <div>
+                  <oj-bind-text value="[[item.data.rate]]"></oj-bind-text>
+                </div>
+              </div>
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Amount Payable"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                <div>
+                  <oj-bind-text value="[[item.data.amount]]"></oj-bind-text>
+                </div>
+              </div>
+              </oj-list-item-layout>
+            </div>
+  
+
+        </div>
+        
+          </div>
+      
+      </oj-list-item-layout>
+    </li>
+  </div>
+  </template>
+</oj-list-view>
+</div>
+
+<div id="invoiceDateSec" style="margin: 10px;padding: 10px;display:none;">
+  <div class="oj-panel">
+    <div style="font-size:large;color:rgb(11, 111, 165);margin: 10px;padding: 10px;">
+      Invoice Date Details
+    </div>
+    <div class="row" style="margin-top: 10px;margin-bottom: 10px;padding: 10px;">
+      <div class="col-md-3">
+        <oj-input-date label-hint="Invoice create date" autocomplete="off" value="{{invoiceDate}}" disabled></oj-input-date>
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-3">
+        <oj-input-date label-hint="Payment due date" autocomplete="off" value="{{dueDate}}" disabled></oj-input-date>
+      </div>
+  </div>
+  </div>
+  </div>
+
+  <div id="invoiceGenerate" style="margin: 10px;padding: 10px;display:none;">
+    <div class="oj-panel">
+      <div style="font-size:large;color:rgb(11, 111, 165);margin: 10px;padding: 10px;">
+        Additional amounts
+      </div>
+      <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+        <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+        <p>Here listing the additional amount details that added to the invoice.</p>
+      </div>  </br>  
+      
+      <oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider1]]"
+  class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+  <template slot="itemTemplate" data-oj-as="item">
+    <div
+    class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+    <li>
+      <oj-list-item-layout>
+      
+        <div class="oj-typography-body-md">
+          <div class="oj-flex">
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Extra Expense"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                <div>
+                  <oj-bind-text value="[[item.data.type]]"></oj-bind-text>
+                </div>
+              </div>
+              </oj-list-item-layout>
+            </div>
+
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Extra Rate"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <div>
+                      <oj-bind-text value="[[item.data.additionalRate]]"></oj-bind-text>
+                  </div>
+                </div>
+              </oj-list-item-layout>
+            </div>
+
+            <!-- <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Action"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <div>
+                    <oj-button
+                    chroming="borderless"
+                    display="icons"
+                    class="oj-button-sm deleteBtn"
+                    on-oj-action="[[deleteAdditionalAmount]]">
+                    <span slot="startIcon"></span>
+                    Delete
+                  </oj-button>                 
+                 </div>
+                </div>
+              </oj-list-item-layout>
+            </div>
+ -->
+
+        </div>
+        
+          </div>
+      
+      </oj-list-item-layout>
+    </li>
+  </div>
+  </template>
+</oj-list-view>
+
+    <!-- <div id="have_additional">
+      <oj-validation-group id="additionalSec" role="group" valid="{{groupValid}}"
+        aria-labelledby="grouplabelid" disbaled>
+      <div class="row">
+        <div class="col-md-3"></br></br>
+         &nbsp; &nbsp; Additional Amount(Optional)
+        </div>
+        <div class="col-md-3"></br>
+          <oj-input-text required id="note" label-hint="Please specify" value="{{additionalNote}}" clear-icon="always">
+          </oj-input-text>
+        </div>
+      <div class="col-md-2"></br>
+        <oj-input-number required id="amount" value="{{amountAdditional}}" min=1 label-hint="Amount to add(£)">
+        </oj-input-number>
+      </div> 
+      <div  class="oj-sm-2">
+      </br></br>
+      <oj-button id="confirmBtn"  chroming='callToAction' on-oj-action="[[invoiceSave]]"> Save
+      </oj-button>
+    </div>
+  </div>
+  </div> -->
+</oj-validation-group>           
+</div> 
+
+<div class="oj-panel" style="margin-top: 10px;margin-bottom: 10px;padding: 10px;">
+  <div style="font-size:large;color:rgb(11, 111, 165);margin: 10px;padding: 10px;">
+    Comment to customer
+  </div>
+  <div class="row">
+    <div class="col-md-3"></br>
+     &nbsp; &nbsp; Comment(Optional)
+    </div>
+    <div class="col-md-3">
+      <oj-input-text required id="comments" label-hint="Please specify" value="{{comments}}" clear-icon="always" disabled>
+      </oj-input-text>
+    </div>
+</div>
+</div>
+
+<div class="oj-panel" style="margin-top: 10px;margin-bottom: 10px;padding: 10px;">
+  <div style="font-size:large;color:rgb(11, 111, 165);margin: 10px;padding: 10px;">
+    Client Pay Status
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+     &nbsp; &nbsp; &nbsp; Client Pay Status
+    </div>
+    <div class="col-md-3">
+      <span :class="[[getBadgeClass(clientPayStatus())]]">
+        <oj-bind-if test="[[clientPayStatus() === 'Pending']]">
+        <oj-bind-text value="Pending"></oj-bind-text>
+      </oj-bind-if>
+      <oj-bind-if test="[[clientPayStatus() === 'Paid']]">
+        <oj-bind-text value="Processing"></oj-bind-text>
+      </oj-bind-if>
+      </span>
+    </div>
+</div>
+</div>
+
+<div class="oj-panel" style="margin-top: 10px;margin-bottom: 10px;padding: 10px;">
+  <h3 style="display: flex; justify-content: flex-end">Invoice Amount : <oj-bind-text value="[[grandTotal() + '(£)']]"></oj-bind-text>
+  </h3>
+</div>
+
+
+    <div class="oj-flex oj-panel">
+      <div class="oj-sm-4"></div>
+      <oj-button id="paidBtn" class="oj-xl-margin-4x" chroming='callToAction' on-oj-action="[[confirmPaid]]"><span style="color:white" slot="startIcon" class="demo-icon-paid"> Confirm Invoice Pay</span>
+      </oj-button>
+      <div  class="oj-sm-2"></div>
+      <oj-button  id="downloadBtn" style="background-color:#5470ff;" class="oj-xl-margin-4x" on-oj-action="[[downloadInvoice]]"><span style="color:white" slot="startIcon" class="demo-icon-download"> Download Invoice</span>
+      </oj-button>
+           <div class="oj-sm-3"></div>
+        </div>
+        </div>
+
+        <div id="invoice" style="display: none;">
+          <div class="logo-print"> </div>
+         <h2 style="color:#0654b2; text-transform:uppercase; font-weight:bold; text-align:center; margin-top:25px; text-decoration:underline; text-underline-offset:8px; font-family:Verdana, Geneva, sans-serif;">INVOICE</h2>
+         <div style="margin: 0 auto; width: 90%;"></br></br></br>
+         <div style="font-family:Verdana, Geneva, sans-serif;color:rgb(1, 13, 20)">
+          <b><oj-bind-text value="[[clientNameCap]]"></oj-bind-text></b>
+          <span style="float: right;">
+            <div style="color:#0654b2;font-family:Verdana, Geneva, sans-serif;font-weight:bold;"><oj-bind-text value="[[invoiceId]]"></oj-bind-text></div></br>
+            <div style="color:rgb(1, 13, 20);font-family:Verdana, Geneva, sans-serif;font-weight:bold;">Invoice Date</div>
+            <oj-bind-text value="[[invoiceDate]]"></oj-bind-text></br>
+            <div style="color:rgb(1, 13, 20);font-family:Verdana, Geneva, sans-serif;font-weight:bold;">Payment Due Date</div>
+            <oj-bind-text value="[[dueDate]]"></oj-bind-text>
+            </span>
+        </div>
+        <div style="font-family:Verdana, Geneva, sans-serif;color:rgb(59, 60, 61)">
+        <oj-bind-text value="[[address1]]"></oj-bind-text><br>
+        <oj-bind-text value="[[address2]]"></oj-bind-text><br>
+        <oj-bind-text value="[[city]]"></oj-bind-text><br>
+        <oj-bind-text value="[[postcode]]"></oj-bind-text>
+        </div><br><br>
+         <table id="myTable" style="border-collapse: collapse; width: 100%;">
+          <thead>
+            <tr>
+              <th style="border: 1px solid #000; padding: 8px;">Shift Name</th>
+              <th style="border: 1px solid #000; padding: 8px;">Shift Date</th>
+              <th style="border: 1px solid #000; padding: 8px;">Worked Hours</th>
+              <th style="border: 1px solid #000; padding: 8px;">Hourly Rate</th>
+              <th style="border: 1px solid #000; padding: 8px;">Amount</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody" style="border: 1px solid #000;">
+            <tr style="border: 1px solid #000; padding: 8px;"></tr>
+          </tbody>
+        </table><br><br>
+        
+        <table id="extraTable" style="border-collapse: collapse; width: 60%;">
+          <thead>
+            <tr>
+              <th style="border: 1px solid #000; padding: 8px;">Extra Expense</th>
+              <th style="border: 1px solid #000; padding: 8px;">Extra Rate</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody" style="border: 1px solid #000;">
+            <tr style="border: 1px solid #000; padding: 8px;"></tr>
+          </tbody>
+        </table><br><br>
+        
+        <div>
+          <h5 style="font-family:Verdana, Geneva, sans-serif;color:#0654b2; font-weight:bold;">Invoice Amount : <oj-bind-text value="[[grandTotal]]"></oj-bind-text></h5>
+        </div></br></br>
+        <hr></br></br>
+        <center><div>
+          QuickHCM360, Company No. Not updated.</br>
+          Address : Walnut Tree Close, Guildford, GU1 4TX.</br>
+          Sales & Support – +44785213205</br>
+          admin@QuickHCM360.com</br>
+        </div>
+        </center>
+        </div>
+        
+        
+         </div>
+
+<div class="centered-container" id="loaderView">
+  <div class="loader"></div>
+</div> 
+
+
+<oj-dialog id="openConfirmPaidInvoice" dialog-title="Confirm Invoice Pay" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+  <div slot="body">
+    <oj-bind-text value='Do you want to pay this invoice?'></oj-bind-text>
+  </div>
+  <div  class="oj-flex-bar" slot="footer">
+    <oj-button id="okPayButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[confirmPaid]]">
+      Yes
+    </oj-button>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openInvoicePaidProgress" dialog-title="Please wait..." modality="modeless"
+style="display:none;width:350px;min-width:240px;max-width:450px;">
+<div slot="body">
+  <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+  </oj-progress-bar>
+</div>
+</oj-dialog>
+
+
+<!-- <div id="invoice">
+  <div class="logo-print"> </div>
+ <h2 style="color:#0654b2; text-transform:uppercase; font-weight:bold; text-align:center; margin-top:25px; text-decoration:underline; text-underline-offset:8px; font-family:Verdana, Geneva, sans-serif;">INVOICE</h2>
+ <div style="margin: 0 auto; width: 90%;"></br></br></br>
+ <div style="font-family:Verdana, Geneva, sans-serif;color:rgb(1, 13, 20)">
+  <b><oj-bind-text value="[[clientNameCap]]"></oj-bind-text></b>
+</div>
+<div style="font-family:Verdana, Geneva, sans-serif;color:rgb(59, 60, 61)">
+<oj-bind-text value="[[address1]]"></oj-bind-text><br>
+<oj-bind-text value="[[address2]]"></oj-bind-text><br>
+<oj-bind-text value="[[city]]"></oj-bind-text><br>
+<oj-bind-text value="[[postcode]]"></oj-bind-text>
+</div><br><br>
+ <table id="myTable" style="border-collapse: collapse; width: 100%;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid #000; padding: 8px;">Shift Name</th>
+      <th style="border: 1px solid #000; padding: 8px;">Shift Date</th>
+      <th style="border: 1px solid #000; padding: 8px;">Worked Hours</th>
+      <th style="border: 1px solid #000; padding: 8px;">Hourly Rate</th>
+      <th style="border: 1px solid #000; padding: 8px;">Amount</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody" style="border: 1px solid #000;">
+    <tr style="border: 1px solid #000; padding: 8px;"></tr>
+  </tbody>
+</table><br><br>
+
+<div>
+  <h5 style="font-family:Verdana, Geneva, sans-serif;color:#0654b2; font-weight:bold;">Invoice Amount : <oj-bind-text value="[[grandTotal]]"></oj-bind-text></h5>
+</div>
+</div>
+
+
+ </div>
+
+
+<div style="display: flex;justify-content: center;"
+class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+<div class="oj-flex-bar">
+  <oj-button id="downloadBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[timesheetPDFGenerate]]">Download
+  </oj-button>
+</div>
+</div> -->

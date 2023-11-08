@@ -1,0 +1,25 @@
+.reference-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #fff;
+    margin: 20px 200px;
+}
+
+.form-input{
+    margin-bottom: 30px;
+}
+
+.heading{
+    font-size: 25px;
+    font-weight: bold;
+    color: #204691;
+}
+
+@media (max-width: 768px) {
+    
+    .reference-body{
+      margin: 20px 10px;
+    }
+  }
+  

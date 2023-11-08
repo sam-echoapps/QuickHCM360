@@ -1,0 +1,243 @@
+define(['ojs/ojcore',"knockout","jquery","appController", "ojs/ojarraydataprovider", "ojs/ojresponsiveutils", "ojs/ojresponsiveknockoututils", "ojs/ojknockout", "ojs/ojlistitemlayout", "ojs/ojtrain",
+        "ojs/ojlistview","ojs/ojradioset","ojs/ojlabelvalue","ojs/ojlabel" ,"ojs/ojselectcombobox","ojs/ojbutton" ,"ojs/ojprogress-bar"], 
+function (oj,ko,$, app, ArrayDataProvider, ResponsiveUtils, ResponsiveKnockoutUtils) {
+    
+    class addClientViewModel {
+        constructor(context) {
+            var self = this;
+            self.DepName = context.DepName;
+            self.buttonValue = ko.observable('add');
+            self.currentChromingValue =ko.observable('solid');
+            self.CancelBehaviorOpt = ko.observable('icon');
+            self.clientName = ko.observable();
+            self.businessUnit = ko.observable();
+            self.contactPerson = ko.observable();
+            self.contactEmail = ko.observable();
+            self.contactPhone = ko.observable();
+            self.altContactDecision = ko.observable('No');
+            self.altContact = ko.observable('') ;
+            self.altContactPhone = ko.observable('') ;
+            self.altContactEmail = ko.observable('') ;
+            self.altContactPos = ko.observable('') ;
+            self.groupDecision = ko.observable('No');
+            self.group = ko.observableArray([]);
+            self.groupDP = new ArrayDataProvider(self.group, {
+                keyAttributes: "value",
+            });
+            self.selectedGroup = ko.observable();
+
+            self.selectedClientType = ko.observable();
+            self.contactPosition = ko.observable();
+            self.addClientMsg = ko.observable();
+
+            self.ClientType = ko.observableArray([]);
+            self.ClientGroup = ko.observableArray([]);
+
+            self.ClientDet = ko.observableArray([]);
+
+
+
+            function getClient() {
+                self.ClientDet([]);
+                $.ajax({
+                    url: self.DepName() + "/jpclientdetget",
+                    type: 'GET',
+                    dataType: 'json',
+                    timeout: sessionStorage.getItem("timeInetrval"),
+                    context: self,
+                    error: function (xhr, textStatus, errorThrown) {
+                        if(textStatus == 'timeout' || textStatus == 'error'){
+                            document.querySelector('#TimeoutSup').open();
+                        }
+                    },
+                    success: function (data) {
+                        console.log(data)
+                        for (var i = 0; i < data[0].length; i++) {
+                            self.ClientDet.push({'name' : data[0][i][0], 'BU' : data[0][i][1].business_unit , 'ClientType' : data[0][i][2] , 'Department' :data[0][i][3] , 'ClientGroup' : data[0][i][4] , 
+                              'PContact' : data[0][i][5] , 'PEmail' : data[0][i][6] ,'PPhone' : data[0][i][7] ,'PPos' : data[0][i][8] , 'status' : 'Active' });
+                    }
+
+  
+                    self.ClientDet.valueHasMutated();
+                    return self;
+                }
+                })
+            }
+
+            self.ClientTypeDP = new ArrayDataProvider(self.ClientType, {
+                keyAttributes: "value",
+            });
+
+            self.ClientGroupDP = new ArrayDataProvider(self.ClientGroup, {
+                keyAttributes: "value",
+            });
+
+
+
+            this.smQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.SM_ONLY);
+            this.isSmall = ResponsiveKnockoutUtils.createMediaQueryObservable(this.smQuery);
+            this.dataProvider1 = new ArrayDataProvider(this.ClientDet, { keyAttributes: "name"});
+            this.getBadgeClass = (status) => {
+                switch (status) {
+                    case "Active":
+                        return "oj-badge oj-badge-success";
+                    default:
+                        return "oj-badge";
+                }
+            };
+
+
+            this.nextStep2 = () => {
+                const train = document.getElementById('train2');
+                const next = train.getNextSelectableStep();
+                if (next != null) {
+                    if(next=="stp2"){
+                        document.querySelector('#openAddClientAddressDialog').open();
+                        document.querySelector('#openAddClientDialog').close();
+                    }else if(next=="stp3"){
+                        document.querySelector('#openAddClientPaymentDialog').open();  
+                        document.querySelector('#openAddClientAddressDialog').close();
+                    }  else{
+                        alert("jhhkj")
+                    }          
+                    this.selectedStep2(next);
+                    this.selectedLabel2(train.getStep(next).label);
+                }
+            };
+
+            this.previousStep2 = () => {
+                const train = document.getElementById('train2');
+                const prev = train.getPreviousSelectableStep();
+                if (prev != null) {
+                    if(prev=="stp1"){
+                        document.querySelector('#openAddClientAddressDialog').close();
+                        document.querySelector('#openAddClientDialog').open();
+                    }
+                    if(prev=="stp2"){
+                        document.querySelector('#openAddClientPaymentDialog').close();
+                        document.querySelector('#openAddClientAddressDialog').open();
+                    }
+                    this.selectedStep2(prev);
+                    this.selectedLabel2(train.getStep(prev).label);
+                }
+            };
+
+            this.selectedStep2 = ko.observable('stp1');
+            this.selectedLabel2 = ko.observable('Basic Details');
+
+            this.stepArray2 = ko.observableArray([
+                { label: 'Basic Details', id: 'stp1' },
+                { label: 'Client Address', id: 'stp2' },
+                { label: 'Payment Info', id: 'stp3' },
+                { label: 'Rate & Rules', id: 'stp4' },
+                { label: 'Staff Allocation', id: 'stp5' }
+            ]);
+
+            this.update2 = (event) => {
+                var train = document.getElementById('train2');
+                let selectedStep2 = train.getStep(event.detail.value);
+                if (selectedStep2 != null) {
+                    this.selectedLabel2(selectedStep2.label);
+                }
+            };
+
+            self.openAddClientDialog = function (data, event) {
+                document.querySelector('#openAddClientDialog').open();
+                self.ClientType([]);
+                self.ClientGroup([]);
+                $.ajax({
+                    url: self.DepName() + "/jpclienttype",
+                    type: 'GET',
+                    dataType: 'json',
+                    timeout: sessionStorage.getItem("timeInetrval"),
+                    context: self,
+                    error: function (xhr, textStatus, errorThrown) {
+                        if(textStatus == 'timeout' || textStatus == 'error'){
+                            document.querySelector('#TimeoutSup').open();
+                        }
+                    },
+                    success: function (data) {
+                        for (var i = 0; i < data[0].length; i++) {
+                            self.ClientType.push({'value' : data[0][i], 'label' : data[0][i]});
+                    }
+                    for (var i = 0; i < data[0].length; i++) {
+                        self.ClientGroup.push({'value' : data[1][i], 'label' : data[1][i]});
+                }
+    
+                    self.ClientType.valueHasMutated();
+                    self.ClientGroup.valueHasMutated();
+                    return self;
+                }
+                })
+            }
+
+
+            self.clientAddCancel = function () {
+                document.querySelector('#openAddClientDialog').close();
+            }
+
+
+            self.clientAddSave = function (event,data) {
+                document.querySelector('#openAddClientDialog').close();
+                document.querySelector('#openAddClientProgress').open();
+                self.addClientMsg('');
+                $.ajax({
+                    url: self.DepName() + "/jpclientadd",
+                    type: 'POST',
+                    data: JSON.stringify({
+                        clientName : self.clientName(),
+                        businessUnit : self.businessUnit(),
+                        contactPerson : self.contactPerson(),
+                        contactEmail : self.contactEmail(),
+                        contactPhone : self.contactPhone(),
+                        contactPosition : self.contactPosition(),
+                        altContactDecision : self.altContactDecision(),
+                        altContact : self.altContact(),
+                        altContactEmail : self.altContactEmail(),
+                        altContactPhone : self.altContactPhone(),
+                        altContactPos : self.altContactPos(),
+                        groupDecision : self.groupDecision(),
+                        selectedGroup : self.selectedGroup(),
+                        selectedClientType : self.selectedClientType()
+                    }),
+                    dataType: 'json',
+                    timeout: sessionStorage.getItem("timeInetrval"),
+                    context: self,
+                    error: function (xhr, textStatus, errorThrown) {
+                        if(textStatus == 'timeout'){
+                            document.querySelector('#openAddClientProgress').close();
+                            document.querySelector('#Timeout').open();
+                        }
+                    },
+                    success: function (data) {
+                        document.querySelector('#openAddClientProgress').close();
+                        document.querySelector('#openAddClientResult').open();
+                        self.addClientMsg(data[0]);
+
+                        return self;
+                    }
+                })
+            }
+
+            self.DBErrorOKClose = function (event) {
+                document.querySelector('#openAddClientResult').close();
+                getClient();
+            };
+
+            self.connected = function () {
+                if (sessionStorage.getItem("userName") == null) {
+                    self.router.go({ path: 'signin' });
+                }
+                else {
+                   app.onAppSuccess();
+                   getClient();
+                }
+            };
+
+
+            
+        }
+
+    }
+    return  addClientViewModel;
+});

@@ -1,0 +1,338 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<div id="sampleDemo"  class="demo-container sampleDemo">
+  <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+    <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+      <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;The candidate is requested to provide an Enhanced DBS (PVG) Certificate.
+    </div>  
+    <oj-bind-if test="[[dbsRequested() === 'yes']]">
+      <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+        <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;<b style="color:red;">User has requested DBS certificate.</b>
+      </div>  
+    </oj-bind-if>
+    <div id="moduleDemo">              
+        <div
+        class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+        <div
+        class="oj-sm-6" id="dbsQuestion">
+        <oj-select-single  id="" label-hint="Do you have a current DBS certificate and update service" 
+        label-edge="inside" data="[[choiceListDP]]" value="{{dbsSec}}" on-value-changed="[[DBSSecShow]]">
+        </oj-select-single>
+      </div>
+      <div
+        class="oj-sm-6"></div>
+        <div id="no_dbs" style="display:none;">
+          <br><br>
+          We will contact you to organise your DBS check. Please get in touch with us if you do not hear within 3 working days. Please click on the below button.<br><br>
+          <div class="requestBtn-div" style="display: flex; justify-content: center;">
+            <oj-button id="confirmBtn" class="" on-oj-action="[[dbsRequestMailSend]]" style="color: aliceblue;">Request
+            </oj-button>
+          </div>
+        </div>
+        <div class="col-md-12" id="have_dbs" style="display:none;">
+          <br>
+          <div id="dbsHint">
+          <hr>
+          Kindly upload the certificates you have, we can help you arrange training for the missing certificates.<br/>&nbsp;    
+        </div>
+          <div class="row">
+            <div class="col-md-5"></br>
+            <oj-input-date label-hint="DBS Expiry Date" autocomplete="off" value="{{dbs_expiry_date}}"></oj-input-date>
+
+        </div>
+        <div  class="col-md-1"></div>            
+        <div class="col-md-5"></br>
+          <oj-validation-group id="dbsNumSec" role="group" valid="{{groupValid}}"
+          aria-labelledby="grouplabelid">
+       <oj-input-text id="dbsNumber" label-hint="DBS Number" value="{{dbsNumber}}" clear-icon="always" required="[[requiredDBS]]">
+       </oj-input-text></br>
+       </oj-validation-group>
+    </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5">
+            <div class="oj-text-color-danger"><oj-bind-text value='[[uploadError]]'></oj-bind-text></div>
+              <oj-file-picker  primary-text="[[dbsFileText]]"
+                secondary-text="[[DBSCustomText]]" on-oj-select="[[dbsSubmit]]">
+                </oj-file-picker>
+                <div class="oj-text-color-danger"><oj-bind-text value='[[typeError]]'></oj-bind-text></div>
+           </div>
+      <div  class="col-md-1"></div>            
+      <div class="col-md-5"></br>
+        <oj-file-picker  primary-text="[[updateFileText]]"
+        secondary-text="[[secondaryCustomText]]" on-oj-select="[[updateService]]">
+        </oj-file-picker>
+        <div class="oj-text-color-danger"><oj-bind-text value='[[typeError1]]'></oj-bind-text></div>
+  </div>
+      </div></br>
+
+  <oj-bind-if test="[[DBSActionBtn() === 'Add']]">
+    <div style="display: flex;justify-content: center;"
+    class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+    <div class="oj-flex-bar">
+      <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[staffDBSSave]]">Save
+      </oj-button>
+    </div>
+  </div>
+  </oj-bind-if>
+</div>
+
+<div id="listDBS">
+<oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider1]]"
+class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+<template slot="itemTemplate" data-oj-as="item">
+ <div
+ class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+ <li>
+   <oj-list-item-layout :aria-label="[['Details for ' +item.data.name]]">
+   
+     <div class="oj-typography-body-md">
+       <div class="oj-flex oj-sm-align-items-center">
+  
+         <div class="oj-flex-item demo-list-item-layout1 oj-md-padding-4x-end">
+           <oj-list-item-layout class="oj-listitemlayout-padding-off"
+             :aria-label="[['task ' +item.data.taskName]]">
+             <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+               <oj-bind-text value="DBS Number"></oj-bind-text>
+             </div>
+             <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.dbs_number]]">
+               <oj-bind-text value="[[item.data.dbs_number]]"></oj-bind-text>
+             </div>
+             
+           </oj-list-item-layout>
+         </div>
+         
+         <div class="oj-flex-item demo-list-item-layout1 oj-md-padding-4x-end">
+           <oj-list-item-layout class="oj-listitemlayout-padding-off"
+             :aria-label="[['task ' +item.data.taskName]]">
+             <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+               <oj-bind-text value="Expiry Date"></oj-bind-text>
+             </div>
+             <oj-bind-if test="[[dbs_expiry_date() === '1990-01-01']]">
+             <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.expiry_date]]">
+               <oj-bind-text value="N/A"></oj-bind-text>
+             </div>
+            </oj-bind-if>
+            <oj-bind-if test="[[dbs_expiry_date() != '1990-01-01']]">
+              <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.expiry_date]]">
+                <oj-bind-text value="[[item.data.expiry_date]]"></oj-bind-text>
+              </div>
+             </oj-bind-if>
+ 
+           </oj-list-item-layout>
+         </div>
+
+         <div class="oj-flex-item demo-list-item-layout1 oj-md-padding-4x-end">
+           <oj-list-item-layout class="oj-listitemlayout-padding-off"
+             :aria-label="[['task ' +item.data.taskName]]">
+             <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+               <oj-bind-text value="DBS Document"></oj-bind-text>
+             </div>
+             <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.dbs_certificate]]">
+               <oj-bind-if test="[[ item.data.dbs_certificate != 'Not Uploaded']]">
+               <div class="oj-text-color-success"><a  :id = "[[ item.data.dbs_certificate ]]" on-click= "[[previewClick]]" target="_blank">Click here</a></div>
+              
+  </oj-bind-if>
+             </div>
+             
+           </oj-list-item-layout>
+         </div>
+
+         <div class="oj-flex-item demo-list-item-layout1 oj-md-padding-4x-end">
+          <oj-list-item-layout class="oj-listitemlayout-padding-off"
+            :aria-label="[['task ' +item.data.taskName]]">
+            <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+              <oj-bind-text value="Update Document"></oj-bind-text>
+            </div>
+            <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.update_certificate]]">
+              <oj-bind-if test="[[ item.data.update_certificate != 'Not Uploaded']]">
+               <div class="oj-text-color-success"><a  :id = "[[ item.data.update_certificate ]]" on-click= "[[previewClick]]" target="_blank">Click here</a></div>
+             </oj-bind-if>
+             <oj-bind-if test="[[ item.data.update_certificate == 'Not Uploaded']]">
+              <oj-bind-text value="N/A"></oj-bind-text>
+            </oj-bind-if>
+            </div>
+            
+          </oj-list-item-layout>
+        </div>
+
+
+           <div class="oj-flex-item demo-list-item-layout1 oj-md-padding-4x-end">
+             <oj-list-item-layout class="oj-listitemlayout-padding-off"
+               :aria-label="[['task ' +item.data.taskName]]">
+               <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                 <oj-bind-text value="Actions"></oj-bind-text>
+               </div>
+             <div slot="tertiary" class="oj-typography-body-lg"
+             :aria-label="[['Contact Phone ' + item.data.PPhone]]">
+               <div>
+                 <oj-button
+                 :id = "[['save' + + item.data.id ]]"
+                 chroming="borderless"
+                 display="icons"
+                 class="oj-button-sm editBtn"
+                 on-oj-action="[[editDBSInfo]]"
+                 >
+                 <span slot="startIcon"></span>
+               Edit
+               </oj-button> 
+                <oj-button
+               chroming="borderless"
+               display="icons"
+               class="oj-button-sm deleteBtn"
+               on-oj-action="[[deleteConfirm]]">
+               <span slot="startIcon"></span>
+               Delete
+             </oj-button> 
+             </div>
+           </div>
+         </oj-list-item-layout>
+       </div>
+
+       </div>
+     </div>
+   
+   </oj-list-item-layout>
+ </li>
+</div>
+</template>
+</oj-list-view>
+ 
+
+    </div>
+  </div>
+  <div class="oj-panel">
+  <div class="oj-flex">
+    <oj-bind-if test="[[dbsStatus() === 'Pending']]">
+  <oj-button chroming="solid" class="oj-xl-margin-4x" on-oj-action="[[updateDBSStatus]]">
+       <span slot="startIcon" class=""> Not Audited: Click to mark as audited</span>
+     </oj-button>
+    </oj-bind-if>
+   </div>
+   <div class="oj-flex">
+    <oj-bind-if test="[[dbsStatus() === 'Audited']]">
+  <oj-button chroming="solid" class="oj-xl-margin-4x" on-oj-action="[[updateDBSStatus]]">
+       <span slot="startIcon" class=""> Audited: Click to mark as audit pending</span>
+     </oj-button>
+    </oj-bind-if>
+   </div>
+  </div>
+    <oj-dialog id="openAddUploadingProgress" dialog-title="Please wait!Uploading...." modality="modeless"
+    style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+      </oj-progress-bar>
+    </div>
+  </oj-dialog>
+
+  <oj-dialog id="openFileUploadResult" dialog-title="Upload Document" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-bind-text value='[[uploadDocumentMsg]]'></oj-bind-text>
+    </div>
+    <div  class="oj-flex-bar" slot="footer">
+      <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel" on-oj-action="[[DBErrorOKClose]]">
+        OK
+      </oj-button>
+    </div>
+  </oj-dialog> 
+
+  <oj-dialog id="openAddDBSResult" dialog-title="[[ResultTitle]]" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-bind-text value='[[addDBSMsg]]'></oj-bind-text>
+    </div>
+    <div  class="oj-flex-bar" slot="footer">
+      <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel" on-oj-action="[[DBErrorOKClose]]">
+        OK
+      </oj-button>
+    </div>
+  </oj-dialog>
+
+  <oj-dialog id="openAddDBSProgress" dialog-title="[[progressDialog]]" modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>
+
+
+<oj-dialog id="openUpdateDBSDialog" dialog-title="Update DBS Info" modality="modeless" drag-affordance="title-bar"
+cancel-behavior="[[CancelBehaviorOpt]]" style="display:none;width:900px;min-width:900px;max-width:900px;">
+<div slot="body">
+
+<div
+  class="oj-panel">
+  <div class="row">
+    <div class="col-md-5"></br></br>
+    <oj-input-date label-hint="DBS Expiry Date" autocomplete="off" value="{{dbs_expiry_date}}"></oj-input-date>
+
+</div>
+<div  class="col-md-2"></div>            
+<div class="col-md-5"></br>
+<!--   <div class="oj-text-color-danger"><oj-bind-text value='[[uploadError]]'></oj-bind-text></div>
+ -->    <oj-file-picker  primary-text="[[dbsFileText]]"
+      secondary-text="[[DBSCustomText]]" on-oj-select="[[dbsSubmit]]">
+      </oj-file-picker>
+      <div class="oj-text-color-danger"><oj-bind-text value='[[typeError]]'></oj-bind-text></div>
+ </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <oj-validation-group id="dbsNumSec" role="group" valid="{{groupValid}}"
+    aria-labelledby="grouplabelid">
+ <oj-input-text id="dbsNumber" label-hint="DBS Number" value="{{dbsNumber}}" clear-icon="always" required="[[requiredDBS]]">
+ </oj-input-text></br>
+ </oj-validation-group>
+</div>
+<div  class="col-md-2"></div>            
+<div class="col-md-5"></br>
+  <oj-file-picker  primary-text="[[updateFileText]]"
+  secondary-text="[[secondaryCustomText]]" on-oj-select="[[updateService]]">
+  </oj-file-picker>
+  <div class="oj-text-color-danger"><oj-bind-text value='[[typeError1]]'></oj-bind-text></div>
+ </div>
+</div>
+<oj-bind-if test="[[DBSActionBtn() === 'Update']]">
+  <div style="display: flex;justify-content: center;"
+  class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+  <div class="oj-flex-bar">
+    <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[staffDBSUpdate]]">Update
+    </oj-button>
+  </div>
+</div>
+</oj-bind-if>
+</div>
+</div>
+</oj-dialog>
+
+<oj-dialog id="openAddDBSProgress" dialog-title="[[progressDialog]]" modality="modeless"
+style="display:none;width:350px;min-width:240px;max-width:450px;">
+<div slot="body">
+  <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+  </oj-progress-bar>
+</div>
+</oj-dialog>
+
+<oj-dialog id="openDeleteConfirm" dialog-title="Delete DBS Details" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+  <div slot="body">
+    <oj-bind-text value='Do you want to delete the selected row?'></oj-bind-text>
+  </div>
+  <div  class="oj-flex-bar" slot="footer">
+    <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[deleteDBSInfo]]">
+      Yes
+    </oj-button>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openDeleteDBSProgress" dialog-title="Please wait!Deleteing...." modality="modeless"
+style="display:none;width:350px;min-width:240px;max-width:450px;">
+<div slot="body">
+  <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+  </oj-progress-bar>
+</div>
+</oj-dialog>
+    
+
+  

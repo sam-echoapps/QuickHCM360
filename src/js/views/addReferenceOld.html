@@ -1,0 +1,114 @@
+<div id="sampleDemo"  class="demo-container sampleDemo">
+  <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+    
+    <div id="moduleDemo">    
+      <div class="demo-padding">
+          <div class="demo-controls">
+            <!-- <oj-button id="buttonOpener" display="icons" on-oj-action="[[startToggle]]">
+              <span slot="startIcon" class="fa  fa-bars"></span>
+              Start
+            </oj-button> -->
+          </div> 
+          <div
+          class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+          Please give the names and contact details of two referees. One should be your previous employer. If you are a student or a fresher, kindly give 2 reference from your education. Please make sure that the below contact information are correct and they can be contacted at any time.</br>
+          <div
+            class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5">
+            <oj-validation-group id="referAddSec1" role="group" valid="{{groupValid}}"
+            aria-labelledby="grouplabelid" disbaled>
+            <oj-input-text required id="refer1_name" label-hint="Reference Name" value="{{refer1_name}}" clear-icon="always">
+            </oj-input-text>
+            <oj-select-single required id="refer1_job" label-hint="Position/Job" label-edge="inside" data="[[jobListDP]]" value="{{refer1_job}}" 
+            >
+            </oj-select-single>
+            <oj-input-text required id="refer1_address" label-hint="Reference Address" value="{{refer1_address}}" clear-icon="always">
+            </oj-input-text>
+            <oj-input-text required id="refer1_company" label-hint="Reference Company Name" value="{{refer1_company}}" clear-icon="always">
+            </oj-input-text>
+            <oj-input-text required id="refer1_email" label-hint="Reference Contact Email" value="{{refer1_email}}" clear-icon="always" on-value-changed="[[emailPatternValidator1]]">
+            </oj-input-text>
+            <div class="oj-text-color-danger"><oj-bind-text value='[[emailError1]]'></oj-bind-text></div></br>
+            <oj-input-text required length.max="10" id="refer1_contact" label-hint="Reference Contact Number" value="{{refer1_contact}}" clear-icon="always" on-value-changed="[[onlyNumberKey1]]">
+            </oj-input-text>
+            <div class="oj-text-color-danger"><oj-bind-text value='[[contactError1]]'></oj-bind-text></div></br>
+            </oj-validation-group>
+          </div>
+          <div
+            class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5">
+            <oj-validation-group id="referAddSec2" role="group" valid="{{groupValid}}"
+            aria-labelledby="grouplabelid">
+            <oj-input-text required id="refer2_name" label-hint="Reference Name" value="{{refer2_name}}" clear-icon="always">
+            </oj-input-text>
+            <oj-select-single required id="refer2_job" label-hint="Position/Job" label-edge="inside" data="[[jobListDP]]" value="{{refer2_job}}" 
+            >
+            </oj-select-single>
+            <oj-input-text required id="refer2_address" label-hint="Reference Address" value="{{refer2_address}}" clear-icon="always">
+            </oj-input-text>
+            <oj-input-text required id="refer2_company" label-hint="Reference Company Name" value="{{refer2_company}}" clear-icon="always">
+            </oj-input-text>
+            <oj-input-text required id="refer2_email" label-hint="Reference Contact Email" value="{{refer2_email}}" clear-icon="always" on-value-changed="[[emailPatternValidator2]]">
+            </oj-input-text>
+            <div class="oj-text-color-danger"><oj-bind-text value='[[emailError2]]'></oj-bind-text></div></br>
+            <oj-input-text required length.max="10" id="refer2_contact" label-hint="Reference Contact Number" value="{{refer2_contact}}" clear-icon="always" on-value-changed="[[onlyNumberKey2]]">
+            </oj-input-text>
+            <div class="oj-text-color-danger"><oj-bind-text value='[[contactError2]]'></oj-bind-text></div></br>
+          </oj-validation-group>
+          </div>
+        </div>
+      <oj-bind-if test="[[clientActionBtn() === 'Add']]">
+        <div
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+          <div class="oj-flex-bar">
+            <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[referenceInfoSave]]">Save
+            </oj-button>
+          </div>
+        </div>
+      </oj-bind-if>
+      <oj-bind-if test="[[clientActionBtn() === 'Update']]">
+        <div
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+          <div class="oj-flex-bar">
+            <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[referenceInfoUpdate]]">Update
+            </oj-button>
+          </div>
+        </div>
+      </oj-bind-if>
+        </div>
+    </div>
+    <div class="oj-flex">
+      <oj-bind-if test="[[referenceStatus() === 'Pending']]">
+    <oj-button chroming="solid" class="oj-xl-margin-4x" on-oj-action="[[updateReferenceStatus]]">
+         <span slot="startIcon" class=""> Not Audited: Click to mark as audited</span>
+       </oj-button>
+      </oj-bind-if>
+     </div>
+     <div class="oj-flex">
+      <oj-bind-if test="[[referenceStatus() === 'Audited']]">
+    <oj-button chroming="solid" class="oj-xl-margin-4x" on-oj-action="[[updateReferenceStatus]]">
+         <span slot="startIcon" class=""> Audited: Click to mark as audit pending</span>
+       </oj-button>
+      </oj-bind-if>
+     </div>
+    <oj-dialog id="openAddReferenceProgress" dialog-title="Saving Reference Details" modality="modeless"
+    style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+      </oj-progress-bar>
+    </div>
+  </oj-dialog>
+  <oj-dialog id="openReferenceSaveResult" dialog-title="Save Reference Details" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-bind-text value='[[saveReferenceMsg]]'></oj-bind-text>
+    </div>
+    <div  class="oj-flex-bar" slot="footer">
+      <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel" on-oj-action="[[DBErrorOKClose]]">
+        OK
+      </oj-button>
+    </div>
+  </oj-dialog>      
+  </div>
+</div>
+
+    
+      
+  

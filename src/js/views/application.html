@@ -1,0 +1,254 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<div id="sampleDemo"  class="demo-container sampleDemo">
+  <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+    
+    <div id="moduleDemo">  
+      <div class="demo-padding">
+          <div class="demo-controls">
+            <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+              <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;The candidate is requested to provide application details.
+            </div>    
+          </div>
+          <oj-validation-group id="applicationSec1" role="group" valid="{{groupValid}}"
+          aria-labelledby="grouplabelid">
+          <div id="detailsSec"
+          class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+          <div
+            class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5">
+            <oj-input-date required label-hint="Date Of Birth" autocomplete="off" value="{{date_of_birth}}"></oj-input-date></br>
+            <oj-input-text required id="nationality" label-hint="Nationality" value="{{nationality}}" clear-icon="always">
+            </oj-input-text></br>
+            <oj-select-single  required id="ni_number_sec" label-hint="Do you have NI Number?" 
+            label-edge="inside" data="[[choiceListDP]]" value="{{ni_number_sec}}"  on-value-changed="[[NISecShow]]">
+            </oj-select-single>
+          </div>
+          <div
+            class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5">
+            <oj-select-single required label-hint="Marital Status" label-edge="inside" data="[[maritalStatusDetDP]]" value="{{marital_status}}"> 
+            </oj-select-single></br>
+            <oj-input-text id="nmc_pin" label-hint="NMC Pin(Applicable Only for RGN's)" value="{{nmc_pin}}" length.max="8" clear-icon="always">
+            </oj-input-text></br></br>
+            <oj-bind-if test="[[have_ni() === true]]">
+              <oj-input-text required id="ni_number" label-hint="NI Number" value="{{ni_number}}" length.max="9" clear-icon="always">
+              </oj-input-text>
+            </oj-bind-if>
+            <oj-bind-if test="[[have_ni() === false]]">
+              <oj-input-text required id="ni_reference_number" label-hint="NI Reference Number" length.max="8" value="{{ni_reference_number}}" clear-icon="always">
+              </oj-input-text>
+            </oj-bind-if>
+          </div>
+        </div>
+      </oj-validation-group>
+      <div id="formsSec" style="display:none">
+      <oj-validation-group id="applicationSec2" role="group" valid="{{groupValid}}"
+      aria-labelledby="grouplabelid">
+        <div
+        class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+        <div
+          class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-12">
+          <b>EQUAL OPPORTUNITY MONITORING FORM</b></br></br>
+          <div>
+            The information on this form will be used in total confidence and accordance with current data protection legislation. It will help to ensure
+            that the company property monitors and confirms with its policies relating to equality of opportunity. Information will be used for monitoring
+            only. Our commitment aims to allow our staff to develop their skills and realize their maximum potential as individuals without any wish on
+            the part of the company to limit their opportunity.
+          </div>
+        </div>
+        <div
+            class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5">
+            <oj-select-single  required id="ethinic" label-hint="Ethinic Groups" 
+            label-edge="inside" data="[[ethinicListDP]]" value="{{ethinic}}">
+            </oj-select-single>
+            <oj-select-single  required id="disable" label-hint="Do you consider yourself to have a disability of some kind?" 
+            label-edge="inside" data="[[choiceListDP]]" value="{{disable}}" on-value-changed="[[disableSecShow]]">
+            </oj-select-single>
+          </div>
+          <div
+            class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5">
+          <oj-select-single  required id="age" label-hint="Age Range" 
+          label-edge="inside" data="[[ageListDP]]" value="{{age}}">
+          </oj-select-single>
+          <oj-bind-if test="[[disability_note_show() === true]]">
+            <oj-input-text required id="disability_note" label-hint="Please specify" value="{{disability_note}}" clear-icon="always">
+            </oj-input-text>
+          </oj-bind-if>
+          </div>
+      </div>
+      <div
+      class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+      <div
+        class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-12">
+        <b>Protection Of Children and Vulnerable Adults Declaration</b></br>
+      </div>
+      <div
+      class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-4">
+      <b>a)</b>Has any Social Service Department or Police Service ever conducted an enquiry or investigation into any allegations or that you may pose an actual or potential risk to children or vulnerable adults?
+    </div>
+      <div
+          class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-2">
+          <oj-select-single  required id="service" label-hint="Choose one" 
+          label-edge="inside" data="[[choiceListDP]]" value="{{service}}" on-value-changed="[[serviceSecShow]]">
+          </oj-select-single>
+        </div>
+        <div
+          class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-2">
+        <oj-bind-if test="[[service_note_show() === true]]">
+          <oj-input-text required id="service_note" label-hint="Please specify" value="{{service_note}}" clear-icon="always">
+          </oj-input-text>
+        </oj-bind-if>
+        </div>
+        <div
+        class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-4">
+        <b>b)</b>Have you ever been convicted of any offence relating to children or vulnerable adults?
+      </div>
+        <div
+            class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-2">
+            <oj-select-single  required id="offence" label-hint="Choose one" 
+            label-edge="inside" data="[[choiceListDP]]" value="{{offence}}" on-value-changed="[[offenceSecShow]]">
+            </oj-select-single>
+          </div>
+          <div
+            class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-2">
+          <oj-bind-if test="[[offence_note_show() === true]]">
+            <oj-input-text required id="offence_note" label-hint="Please specify" value="{{offence_note}}" clear-icon="always">
+            </oj-input-text>
+          </oj-bind-if>
+          </div>
+          <div
+          class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-4">
+          <b>c)</b>Have you ever been the subject of any disciplinary procedure or been asked to leave employment or voluntary activity due fo inappropriate behavior towards a child or vulnerable adult?
+        </div>
+          <div
+              class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-2">
+              <oj-select-single  required id="disciplinary" label-hint="Choose one" 
+              label-edge="inside" data="[[choiceListDP]]" value="{{disciplinary}}" on-value-changed="[[disciplinarySecShow]]">
+              </oj-select-single>
+            </div>
+            <div
+              class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-2">
+            <oj-bind-if test="[[disciplinary_note_show() === true]]">
+              <oj-input-text required id="disciplinary_note" label-hint="Please specify" value="{{disciplinary_note}}" clear-icon="always">
+              </oj-input-text>
+            </oj-bind-if>
+            </div>
+    </div>
+    <div
+    class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+    <div
+      class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-12">
+      <b>REHABILATION OF OFFENDERS</b></br></br>
+      <div>
+        Because of the nature of the work for which youare applying, this post is exempt from the provisions of Section 4(2} of the Rehabilitation of Offenders Act 1974, by virtue of the Rehabilitation of Offenders Act 1974 (Exemptions) Order 1975. Applicants are therefore not entitled to withhold information about convictions, which for other purposes are spent under the provisions of the act and in the event of employment any failure to disclose such convictions could result in dismissal or disciplinary action by the employer. All Successful candidates will be required to obtain an enhanced disclosure report from the Disclosure and Barring Service. 
+      </div>
+    </div>
+    <div
+    class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-4">
+    <b>a)</b>Have you ever been convicted of a criminal offence, or been subject to any confidential discharge, bind overs or caution.
+  </div>
+    <div
+        class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-2">
+        <oj-select-single  required id="criminal" label-hint="Choose one" 
+        label-edge="inside" data="[[choiceListDP]]" value="{{criminal}}" on-value-changed="[[criminalSecShow]]">
+        </oj-select-single>
+      </div>
+      <div
+        class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-2">
+      <oj-bind-if test="[[criminal_note_show() === true]]">
+        <oj-input-text required id="criminal_note" label-hint="Please specify" value="{{criminal_note}}" clear-icon="always">
+        </oj-input-text>
+      </oj-bind-if>
+      </div>
+    <div>
+      <oj-checkboxset
+      id="checkboxSetAgreeId"
+      label-hint=""
+      label-edge="inside"
+      value="{{agreement}}"
+      required>
+      <oj-option value="agree"><b>I declare that I do not possess, nor have I ever possessed a criminal conviction, not have I been subject to any conditional discharges, bindovers or cautions.</b></oj-option>
+    </oj-checkboxset>
+  </div></br></br></br></br>
+  <div style="color:#494848"><i>Any information contained in this form will be treated in confidence. Failure to disclose any relevant information or providing false or inaccurate
+    information may be regarded as a breach of any subsequent contract of employment, resulting in disciplinary action and/or dismissal. </i></div>
+  </div>
+  <div
+  class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+  <div
+    class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-12">
+    <b>PANEL AGENCY MEMBERSHIP</b></br></br>
+    <div>
+      If you like to work through our panel agencies in various locations please sign the declaration below. This will help you to work with different clients in various locations through other agencies who are our partners. The related staff pay and other benefits are availed through the panel agency members directly. Please tick the box below if youare interested.    </div>
+  </div>
+  <div>
+    <oj-checkboxset
+    id="checkboxSetDeclarationId"
+    label-hint=""
+    label-edge="inside"
+    value="{{declaration}}"
+    required>
+    <oj-option value="declaration"><b> I have no objections in working with the panel agencies through Excellent Care solutions.</b></oj-option>
+  </oj-checkboxset>
+</div>
+</div>
+</oj-validation-group>
+</div>
+      <div id="nextButton" style="display: flex;justify-content: end;"
+        class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+        <div class="oj-flex-bar">
+          <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='solid' on-oj-action="[[nextPage]]">Next
+          </oj-button>
+        </div>
+      </div>
+      <div id = "actionButtons" style="display:none">
+      <oj-bind-if test="[[staffActionBtn() === 'Add']]">
+        <div style="display: flex;justify-content: center;"
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+          <div class="oj-flex-bar">
+            <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[applicationInfoSave]]">Save
+            </oj-button>
+          </div>
+        </div>
+      </oj-bind-if>
+      <oj-bind-if test="[[staffActionBtn() === 'Update']]">
+        <div style="display: flex;justify-content: center;"
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+          <div class="oj-flex-bar">
+            <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[applicationInfoUpdate]]">Update
+            </oj-button>
+          </div>
+        </div>
+      </oj-bind-if>
+    </div>
+        </div>
+  
+    </div>
+    <div class="oj-panel">
+    <div class="oj-flex">
+      <oj-bind-if test="[[applicationStatus() === 'Pending']]">
+    <oj-button chroming="solid" class="oj-xl-margin-4x" on-oj-action="[[updateApplicationStatus]]">
+         <span slot="startIcon" class=""> Not Audited: Click to mark as audited</span>
+       </oj-button>
+      </oj-bind-if>
+     </div>
+     <div class="oj-flex">
+      <oj-bind-if test="[[applicationStatus() === 'Audited']]">
+    <oj-button chroming="solid" class="oj-xl-margin-4x" on-oj-action="[[updateApplicationStatus]]">
+         <span slot="startIcon" class=""> Audited: Click to mark as audit pending</span>
+       </oj-button>
+      </oj-bind-if>
+     </div>
+    </div>
+    <oj-dialog id="openAddApplicationProgress" dialog-title="Saving Application Details" modality="modeless"
+    style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+      </oj-progress-bar>
+    </div>
+  </oj-dialog>      
+  </div>
+</div>
+
+    
+      
+  

@@ -1,0 +1,235 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<div id="sampleDemo"  class="demo-container sampleDemo">
+    <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+      
+      <div id="moduleDemo">    
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1; display: flex;align-items: baseline;">
+          <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp; This is an important setting for the client to define their shift name, set client and staff rates etc.
+        </div> 
+        <div id="defaultActive">
+        <oj-button chroming="solid" class="oj-xl-margin-4x" on-oj-action="[[clientConfSelect]]">
+          <span slot="startIcon" class=""> Configuration</span>
+        </oj-button>&nbsp;&nbsp;&nbsp;
+        <oj-button style="background-color: #f1f1f1;" class="oj-xl-margin-4x" on-oj-action="[[clientShiftSelect]]">
+          <span slot="startIcon" class=""> Client Rate & Shift</span>
+        </oj-button>&nbsp;&nbsp;&nbsp;
+      </div>
+      <div id="clickActive" style="display:none">
+        <oj-button  style="background-color: #f1f1f1;" class="oj-xl-margin-4x" on-oj-action="[[clientConfSelect]]">
+          <span slot="startIcon" class=""> Configuration</span>
+        </oj-button>&nbsp;&nbsp;&nbsp;
+        <oj-button chroming="solid" class="oj-xl-margin-4x" on-oj-action="[[clientShiftSelect]]">
+          <span slot="startIcon" class=""> Client Rate & Shift</span>
+        </oj-button>&nbsp;&nbsp;&nbsp;
+      </div>
+    </div>
+  </div>
+</br></br>
+  <div style="display: flex;justify-content: center;">
+  <div class="oj-panel oj-sm-8">
+    <oj-validation-group id="clientConf" role="group" valid="{{groupValid}}"
+    aria-labelledby="grouplabelid">
+    <oj-bind-if test="[[clientButton() === 'conf']]">
+      
+      <oj-select-single required id="Database" label-hint="Paperless timesheet" label-edge="inside" data="[[timesheetDP]]" value="{{timeSheet}}">
+      </oj-select-single>
+      <oj-select-single required id="Database" label-hint="Paper time sheet photo capture" label-edge="inside" data="[[photoDP]]" value="{{photoCapture}}">
+      </oj-select-single>
+      <oj-select-single required id="Database" label-hint="Finger signature on the mobile app" label-edge="inside" data="[[signatureDP]]" value="{{fingSign}}">
+      </oj-select-single>
+      <oj-select-single required id="Database" label-hint="Sleeping Night Shift Applicable" label-edge="inside" data="[[nighShiftDP]]" value="{{nighShift}}">
+      </oj-select-single>
+      <oj-select-single required id="Database" label-hint="Staff payment calculation" label-edge="inside" data="[[paymentDP]]" value="{{staffPay}}">
+      </oj-select-single>
+      <oj-bind-if test="[[clientActionBtn() === 'Add']]">
+      <div style="display: flex;justify-content: center;"
+      class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+      <div class="oj-flex-bar">
+      <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[clientConfUpdate]]">Save
+      </oj-button>
+    </div>
+  </div>
+</oj-bind-if>
+<oj-bind-if test="[[clientActionBtn() === 'Update']]">
+      <div style="display: flex;justify-content: center;"
+      class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+      <div class="oj-flex-bar">
+      <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[clientConfUpdate]]">Update
+      </oj-button>
+    </div>
+  </div>
+</oj-bind-if>
+    </oj-bind-if>
+  </oj-validation-group>
+  <oj-bind-if test="[[clientButton() === 'rate']]">
+        
+    <div id="moduleDemo">          
+      <oj-buttonset-one class="oj-buttonset-width-auto" value="{{shiftModule}}" style="width:100%" >
+        <oj-option id="sv1" value="conf-shift">Add New Shift</oj-option>
+        <oj-option id="sv2" value="add-rate">Add/Edit Shift Rate</oj-option>
+        <oj-option id="sv6" value="edit-shift">View/Edit Shift</oj-option>
+      </oj-buttonset-one>
+    </div>
+
+    <oj-bind-if test="[[shiftModule() === 'shift']]">
+    
+      <oj-table id='table' aria-label='All Table' data='[[shiftDetDP]]' display='grid' selection-mode='{"row": "single"}'
+      columns='{{shifColoumnArray}}' style='width: 100%;'>
+     </oj-table>
+
+    </oj-bind-if>
+
+    <oj-bind-if test="[[shiftModule() === 'conf-shift']]">
+    <oj-validation-group id="clientShift" role="group" valid="{{groupValid}}"
+      aria-labelledby="grouplabelid">
+      <oj-input-text required id="shiftname" label-hint="Shift name" value="{{shiftName}}" clear-icon="always">
+      </oj-input-text>
+      <oj-select-single required id="Database" label-hint="Shift type" label-edge="inside" data="[[shiftTypeDP]]" value="{{shiftType}}">
+      </oj-select-single>
+      <oj-input-time required id="time" value="{{startTime}}" label-hint="Shift start time"></oj-input-time>
+      <oj-input-time required id="time" value="{{endTime}}" label-hint="Shift end time"></oj-input-time>
+      <!-- <oj-select-single id="time" required label-hint="Shift ends at" label-edge="inside" data="[[shiftEndDP]]" value="{{shiftEnd}}">
+      </oj-select-single> -->
+
+      <oj-select-single required id="Database" label-hint="Client break status" label-edge="inside" data="[[clientBreakDP]]" value="{{clientBreak}}">
+      </oj-select-single>
+      <oj-select-single required id="Database" label-hint="Client break time" label-edge="inside" data="[[clientBreakTimeDP]]" value="{{clientBreakTime}}">
+      </oj-select-single>
+
+      <oj-select-single required id="Database" label-hint="Staff break status" label-edge="inside" data="[[staffBreakDP]]" value="{{staffBreak}}">
+      </oj-select-single>
+      <oj-select-single required id="Database" label-hint="Staff break time" label-edge="inside" data="[[staffBreakTimeDP]]" value="{{staffBreakTime}}">
+      </oj-select-single>
+
+      <!-- <oj-select-single required id="Database" label-hint="Client Pay" label-edge="inside" data="[[clientPayDP]]" value="{{clientPay}}">
+      </oj-select-single> -->
+      <!-- <oj-bind-if test="[[clientPay() === 'Hourly']]">
+      <oj-select-single required id="Database" label-hint="Are weekend rates different from week day rates?
+      " label-edge="inside" data="[[rateTypeDP]]" value="{{rateType}}" >
+      </oj-select-single>
+    </oj-bind-if> -->
+       <div style="display: flex;justify-content: center;"
+    class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+    <div class="oj-flex-bar">
+    <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[configShift]]">Save
+    </oj-button>
+  </div>
+</div>
+
+</oj-validation-group>
+     </oj-bind-if>
+
+     <oj-bind-if test="[[shiftModule() === 'edit-shift']]">
+      <oj-validation-group id="clientShift" role="group" valid="{{groupValid}}"
+      aria-labelledby="grouplabelid">
+      <oj-select-single required id="Database" label-hint="Select Shift name" label-edge="inside" data="[[shiftNameDP]]" value="{{selectedShift}}" on-value-changed="[[shiftByName]]">
+      </oj-select-single>
+      <oj-select-single required id="Database" label-hint="Shift type" label-edge="inside" data="[[shiftTypeDP]]" value="{{editShiftType}}" disabled>
+      </oj-select-single>
+      <oj-input-time required id="time" value="{{editStartTime}}" label-hint="Shift start time"></oj-input-time>
+      <oj-input-time required id="time" value="{{editEndTime}}" label-hint="Shift end time"></oj-input-time>
+      <!-- <oj-select-single id="time" required label-hint="Shift ends at" label-edge="inside" data="[[shiftEndDP]]" value="{{editShiftEnd}}">
+      </oj-select-single> -->
+
+      <oj-select-single required id="Database" label-hint="Client break status" label-edge="inside" data="[[clientBreakDP]]" value="{{editClientBreak}}">
+      </oj-select-single>
+      <oj-select-single required id="Database" label-hint="Client break time" label-edge="inside" data="[[clientBreakTimeDP]]" value="{{editClientBreakTime}}">
+      </oj-select-single>
+
+      <oj-select-single required id="Database" label-hint="Staff break status" label-edge="inside" data="[[staffBreakDP]]" value="{{editStaffBreak}}">
+      </oj-select-single>
+      <oj-select-single required id="Database" label-hint="Staff break time" label-edge="inside" data="[[staffBreakTimeDP]]" value="{{editStaffBreakTime}}">
+      </oj-select-single>
+      <!-- <oj-select-single required id="Database" label-hint="Client Pay" label-edge="inside" data="[[clientPayDP]]" value="{{editClientPay}}">
+      </oj-select-single> -->
+      <!-- <oj-bind-if test="[[editClientPay() === 'Hourly']]">
+      <oj-select-single required id="Database" label-hint="Are weekend rates different from week day rates?
+      " label-edge="inside" data="[[rateTypeDP]]" value="{{editRateType}}" >
+      </oj-select-single>
+    </oj-bind-if> -->
+  </oj-validation-group>
+    <div style="display: flex;justify-content: center;"
+    class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+    <div class="oj-flex-bar">
+    <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[configShiftEditAction]]">Update
+    </oj-button>
+  </div>
+</div>
+      </oj-bind-if>
+
+     <oj-bind-if test="[[shiftModule() === 'add-rate']]">
+      <oj-validation-group id="clientRateSec" role="group" valid="{{groupValid}}"
+      aria-labelledby="grouplabelid">
+      <oj-select-single required id="Database" label-hint="Select Shift name" label-edge="inside" data="[[shiftNameDP]]" value="{{selectShift}}" on-value-changed="[[AddRateEditAction]]">
+      </oj-select-single></br>
+      <oj-bind-if test="[[clientActionBtn() === 'Add']]">
+        <oj-input-text required id="shift_type" label-hint="Select Shift Type" value="{{selectedShiftType}}" clear-icon="always" disabled>
+        </oj-input-text>
+      </oj-bind-if>
+      <oj-bind-if test="[[clientActionBtn() === 'Update']]">
+      <oj-input-text required id="shift_type" label-hint="Select Shift Type" value="{{selectedShiftType}}" clear-icon="always" disabled>
+      </oj-input-text>
+    </oj-bind-if></br>
+      <oj-bind-if test="[[clientActionBtn() === 'Add']]">
+        <oj-select-single required id="Database" label-hint="Select Staff Type" label-edge="inside" data="[[staffTypeListDP]]" value="{{selectShiftType}}">
+        </oj-select-single>
+      </oj-bind-if>
+      <oj-bind-if test="[[clientActionBtn() === 'Update']]">
+      <oj-select-single required id="Database" label-hint="Select Staff Type" label-edge="inside" data="[[staffTypeListDP]]" value="{{selectShiftType}}" disabled>
+      </oj-select-single>
+    </oj-bind-if></br>
+      <!-- <oj-select-single required id="Database" label-hint="Select Staff Type" label-edge="inside" data="[[staffTypeListDP]]" value="{{selectShiftType}}" on-value-changed="[[AddRateEditAction]]">
+      </oj-select-single> -->
+
+      <!-- <oj-select-many required id="srcschema" label-hint="Choose Day" label-edge="inside"
+        options="{{dayListDP}}" value="{{dayList}}" class="demo-max-width">
+    </oj-select-many> -->
+
+    <oj-input-number required id="threads" value="{{clientRate}}" min=1 label-hint="Client rate(£)/hour">
+   </oj-input-number>
+  </oj-validation-group>
+  <oj-bind-if test="[[clientActionBtn() === 'Add']]">
+      <div style="display: flex;justify-content: center;"
+   class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+   <div class="oj-flex-bar">
+    <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[AddRate]]">Save
+    </oj-button>
+  </div>
+</div>
+</oj-bind-if>
+<oj-bind-if test="[[clientActionBtn() === 'Update']]">
+  <div style="display: flex;justify-content: center;"
+class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+<div class="oj-flex-bar">
+<oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[UpdateRate]]">Update
+</oj-button>
+</div>
+</div>
+</oj-bind-if>
+
+     </oj-bind-if>
+
+  </oj-bind-if>
+</div>
+
+</div>
+</oj-bind-if>
+  </div>
+</div>
+
+
+<oj-dialog id="openAddClientProgress" dialog-title="Saving shift configuration details..." modality="modeless"
+style="display:none;width:350px;min-width:240px;max-width:450px;">
+<div slot="body">
+  <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+  </oj-progress-bar>
+</div>
+</oj-dialog>
+    
+ 
+
+      
+        
+    

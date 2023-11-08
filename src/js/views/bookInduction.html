@@ -1,0 +1,504 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="../../../css/bookInduction.css">
+<div id="induction">
+    <oj-bind-if test="[[userCheck() === 'Not available' ]]">
+      <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+        <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+        <p>Induction dates are highlighted in blue circles.</p>
+    </div>  
+        <p style="font-weight: bold; font-size: 15px;">Office Induction</p>
+        <div class="induction-form">
+            <oj-validation-group id="inductionUpdate" role="group" valid="{{inductionValid}}">
+                <oj-label for="datepicker">Choose induction Date :</oj-label>
+                
+                <oj-input-date required id="date" value="{{day}}" day-formatter="[[dayFormatter]]" autocomplete="off"
+                    label-hint="Input Date No Visual Label" label-edge="none" on-value-changed="[[showTime]]"></oj-input-date>
+                <oj-select-single required id="timeSlots" label-hint="Select your time slot" label-edge="inside" class="oj-form-control-max-width-md" 
+                    data="[[timeSlots]]" value="{{inductionId}}" style="display: none;"></oj-select-single>
+            </oj-validation-group>
+            <div class="sub-btn" id="submitBtn">
+                <oj-button id="btn" chroming='callToAction' on-oj-action="[[inductionSubmit]]">Submit</oj-button>
+            </div>
+        </div>
+    </oj-bind-if>
+    <oj-bind-if test="[[userCheck() === 'Rejected' ]]">
+      <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+        <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+        <p>
+          User's requested induction Date is <oj-bind-text value="[[bookedDate]]"></oj-bind-text> 
+          <oj-bind-text value="[[bookedTime]]"></oj-bind-text> Rejected
+      </p>
+      <p style="font-size: 15px;font-weight: 500;"> . Please book again</p>
+    </div>
+        
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+          <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+          <p>Induction dates are highlighted in blue circles.</p>
+      </div>  
+        <div class="induction-form">
+            <oj-validation-group id="inductionUpdate1" role="group" valid="{{inductionValid}}">
+                <oj-label for="datepicker">Choose induction Date :</oj-label>
+                
+                <oj-input-date required id="date" value="{{day}}" day-formatter="[[dayFormatter]]" autocomplete="off"
+                    label-hint="Input Date No Visual Label" label-edge="none" on-value-changed="[[showTime]]"></oj-input-date>
+                <oj-select-single required id="timeSlots" label-hint="Select your time slot" label-edge="inside" class="oj-form-control-max-width-md" 
+                    data="[[timeSlots]]" value="{{inductionId}}" style="display: none;"></oj-select-single>
+            </oj-validation-group>
+            <div class="sub-btn" id="submitBtn">
+                <oj-button id="btn" chroming='callToAction' on-oj-action="[[inductionUpdate]]">Submit</oj-button>
+            </div>
+        </div>
+    </oj-bind-if>
+    <oj-bind-if test="[[userCheck() === 'Requested' ]]">
+      <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+        <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+        <p>
+          User's requested induction date is <oj-bind-text value="[[bookedDate]]"></oj-bind-text> 
+          <oj-bind-text value="[[bookedTime]]"></oj-bind-text>
+      </p>
+      <p style="font-size: 15px;font-weight: 500;">. Please wait for the response.</p>
+    </div>
+    </oj-bind-if>
+    <oj-bind-if test="[[userCheck() === 'Confirmed' ]]">
+      <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+        <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+        <p>
+          User's induction booked date is <oj-bind-text value="[[bookedDate]]"></oj-bind-text> 
+          <oj-bind-text value="[[bookedTime]]"></oj-bind-text>
+      </p>
+      <p style="font-size: 15px;font-weight: 500;">
+          . User's induction program has been confirmed.
+      </p>
+    </div>
+    </oj-bind-if>
+    <oj-bind-if test="[[userCheck() === 'Attended' ]]">
+      <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+        <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+        <p style="font-size: 15px;font-weight: 500;">
+          User has successfully attended the office induction. Please fill out the induction checklist form. 
+          <a href="?ojr=staffView%2FinductionCheck%3Bindex%3D11">Click here</a>
+      </p>
+    </div>
+    </oj-bind-if>
+    <oj-bind-if test="[[userCheck() === 'Checklist Submitted' ]]">
+      <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+        <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+        <p style="font-size: 15px;font-weight: 500;">
+          User has attended the induction program and submitted the induction checklist.
+      </p>
+    </div>
+    </oj-bind-if>
+</div>
+<oj-bind-if test="[[existData() === 'yes']]">
+<div id="moduleDemo">    </br>
+    <div class="oj-panel">
+        <oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider1]]"
+        class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+        <template slot="itemTemplate" data-oj-as="item">
+         <div
+         class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+         <li>
+           <oj-list-item-layout :aria-label="[['Details for ' +item.data.name]]">
+           
+             <div class="oj-typography-body-md">
+               <div class="oj-flex oj-sm-align-items-center">
+        
+                <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                    :aria-label="[['task ' +item.data.taskName]]">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                      <oj-bind-text value="Name"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.name]]">
+                      <oj-bind-text value="[[item.data.name]]"></oj-bind-text>
+                    </div>
+                    
+                  </oj-list-item-layout>
+                </div>
+          
+                 <div class="oj-flex-item demo-list-item-layout3 ">
+                   <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                     :aria-label="[['task ' +item.data.taskName]]">
+                     <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                       <oj-bind-text value="Induction Date"></oj-bind-text>
+                     </div>
+                     <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.induction_date]]">
+                       <oj-bind-text value="[[item.data.induction_date]]"></oj-bind-text>
+                     </div>
+                     
+                   </oj-list-item-layout>
+                 </div>
+                 
+                 <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                   <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                     :aria-label="[['task ' +item.data.taskName]]">
+                     <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                       <oj-bind-text value="Induction Time"></oj-bind-text>
+                     </div>
+                     <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.induction_time]]">
+                       <oj-bind-text value="[[item.data.induction_time]]"></oj-bind-text>
+                     </div>
+                     
+                   </oj-list-item-layout>
+                 </div>
+        
+                 <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                    :aria-label="[['task ' +item.data.taskName]]">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                      <oj-bind-text value="Induction Status"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.status]]">
+                      <oj-bind-text value="[[item.data.status]]"></oj-bind-text>
+                    </div>
+                    
+                  </oj-list-item-layout>
+                </div>
+        
+        
+                <oj-bind-if test="[[item.data.status === 'Requested']]">
+                   <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                     <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                       :aria-label="[['task ' +item.data.taskName]]">
+                       <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<oj-bind-text value="Actions"></oj-bind-text>
+                       </div>
+                     <div slot="tertiary" class="oj-typography-body-lg"
+                     :aria-label="[['Contact Phone ' + item.data.PPhone]]">
+                       <div>
+            
+                       <oj-button on-oj-action="[[inductionConfirm]]">
+                       <span slot="startIcon"></span>
+                       Confirm
+                       </oj-button> 
+                       <oj-button
+                       on-oj-action="[[inductionReject]]">
+                       <span slot="startIcon"></span>
+                       Reject
+                     </oj-button>
+                     </div>
+                   </div>
+                 </oj-list-item-layout>
+               </div>
+              </oj-bind-if>
+        
+              <oj-bind-if test="[[item.data.status === 'Confirmed']]">
+                <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                    :aria-label="[['task ' +item.data.taskName]]">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<oj-bind-text value="Actions"></oj-bind-text>
+                    </div>
+                  <div slot="tertiary" class="oj-typography-body-lg"
+                  :aria-label="[['Contact Phone ' + item.data.PPhone]]">
+                    <div>
+         
+                    <oj-button on-oj-action="[[inductionAttended]]">
+                    <span slot="startIcon"></span>
+                    Attended
+                    </oj-button> 
+                  </div>
+                </div>
+              </oj-list-item-layout>
+            </div>
+           </oj-bind-if>
+
+           <oj-bind-if test="[[item.data.status === 'Attended']]">
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                :aria-label="[['task ' +item.data.taskName]]">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<oj-bind-text value="Actions"></oj-bind-text>
+                </div>
+              <div slot="tertiary" class="oj-typography-body-lg"
+              :aria-label="[['Contact Phone ' + item.data.PPhone]]">
+              <div class="oj-text-color-success">   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                <a href="?ojr=staffView%2FinductionCheck%3Bindex%3D11" title="Click to go to the Checklist Form" target="_blank">Checklist Form</a>
+              </div>
+            </div>
+          </oj-list-item-layout>
+        </div>
+       </oj-bind-if>
+
+        
+<!--            <oj-bind-if test="[[item.data.status === 'Attended']]">
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                :aria-label="[['task ' +item.data.taskName]]">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<oj-bind-text value="Actions"></oj-bind-text>
+                </div>
+              <div slot="tertiary" class="oj-typography-body-lg"
+              :aria-label="[['Contact Phone ' + item.data.PPhone]]">
+              <oj-bind-if test="[[item.data.document_status == null]]">
+                <div>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  <oj-button
+                  chroming="borderless"
+                  display="icons"
+                  class="oj-button-sm uploadBtn"
+                  on-oj-action="[[UploadDocument]]">
+                  <span slot="startIcon"></span>
+                  Upload
+                </oj-button>
+              </div>
+            </oj-bind-if>
+            <oj-bind-if test="[[item.data.document_status == 'Uploaded']]">
+              <div>
+                <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.referrer_status]]">
+                  <div class="oj-text-color-success">    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                    <a  :id = "[[ item.data.document ]]" on-click= "[[previewClick]]" title="View uploaded document" target="_blank">Click here</a></div>
+                </div>
+            </div>
+          </oj-bind-if>
+            </div>
+          </oj-list-item-layout>
+        </div>
+        </oj-bind-if> -->
+        
+        <oj-bind-if test="[[item.data.status === 'Checklist Submitted']]">
+          <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+            <oj-list-item-layout class="oj-listitemlayout-padding-off"
+              :aria-label="[['task ' +item.data.taskName]]">
+              <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                &nbsp;&nbsp;<oj-bind-text value="Actions"></oj-bind-text>
+              </div>
+            <div slot="tertiary" class="oj-typography-body-lg"
+            :aria-label="[['Contact Phone ' + item.data.PPhone]]">
+              <div>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <oj-button
+                :id = "[[item.data.id]]"
+                chroming="borderless"
+                display="icons"
+                class="oj-button-sm viewBtn"
+                on-oj-action="[[handleOpen]]">
+                <span slot="startIcon"></span>
+                View
+              </oj-button> 
+        
+        <!--    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NIL
+         -->      <!-- <oj-button on-oj-action="[[inductionConfirm]]">
+              <span slot="startIcon"></span>
+              Confirm
+              </oj-button> 
+              <oj-button
+              on-oj-action="[[inductionReject]]">
+              <span slot="startIcon"></span>
+              Reject
+            </oj-button> -->
+            </div>
+          </div>
+        </oj-list-item-layout>
+        </div>
+        </oj-bind-if>
+        
+        <oj-bind-if test="[[item.data.status === 'Rejected']]">
+          <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+            <oj-list-item-layout class="oj-listitemlayout-padding-off"
+              :aria-label="[['task ' +item.data.taskName]]">
+              <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+          &nbsp;&nbsp;<oj-bind-text value="Actions"></oj-bind-text>
+              </div>
+            <div slot="tertiary" class="oj-typography-body-lg"
+            :aria-label="[['Contact Phone ' + item.data.PPhone]]">
+              <div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NIL
+                <!-- <oj-button on-oj-action="[[inductionConfirm]]">
+              <span slot="startIcon"></span>
+              Confirm
+              </oj-button> 
+              <oj-button
+              on-oj-action="[[inductionReject]]">
+              <span slot="startIcon"></span>
+              Reject
+            </oj-button> -->
+            </div>
+          </div>
+        </oj-list-item-layout>
+        </div>
+        </oj-bind-if>
+        
+               </div>
+             </div>
+           
+           </oj-list-item-layout>
+         </li>
+        </div>
+        </div>
+        </template>
+        </oj-list-view>
+        </div>
+    </oj-bind-if>
+<!--     <div>
+    <oj-bind-if test="[[item.data.status === 'Attended']]">
+      <oj-bind-if test="[[item.data.document_status == null]]">
+   Test
+    </oj-bind-if>
+    <oj-bind-if test="[[item.data.document_status == 'Uploaded']]">
+    View
+  </oj-bind-if>
+</oj-bind-if>
+</div> -->
+<div class="oj-panel"></br>
+  <oj-bind-if test="[[documentStatus() === null]]">
+  <oj-file-picker  primary-text="[[inductionFileText]]"
+  secondary-text="[[inductionCustomText]]" on-oj-select="[[inductionDocUpload]]">
+</oj-file-picker>
+<div class="oj-text-color-danger"><oj-bind-text value='[[typeError]]'></oj-bind-text></div></br> 
+</oj-bind-if>
+<oj-bind-if test="[[documentStatus() === 'Uploaded']]">
+  <oj-file-picker  primary-text="[[inductionFileText]]"
+  secondary-text="[[inductionCustomText]]" on-oj-select="[[inductionDocUpload]]">
+</oj-file-picker>
+<div class="oj-text-color-danger"><oj-bind-text value='[[typeError]]'></oj-bind-text></div></br> 
+    <b style="color:red;"><a  :id = "[[ document() ]]" on-click= "[[previewClick]]" title="View uploaded document" target="_blank">Click here to see the uploaded document.</a></b>
+</oj-bind-if>
+</div> 
+<div class="oj-panel">
+    <div class="oj-flex">
+      <oj-bind-if test="[[inductionStatus() === 'Pending']]">
+    <oj-button chroming="solid" class="oj-xl-margin-4x" on-oj-action="[[updateInductionStatus]]">
+         <span slot="startIcon" class=""> Not Audited: Click to mark as audited</span>
+       </oj-button>
+      </oj-bind-if>
+     </div>
+     <div class="oj-flex">
+      <oj-bind-if test="[[inductionStatus() === 'Audited']]">
+    <oj-button chroming="solid" class="oj-xl-margin-4x" on-oj-action="[[updateInductionStatus]]">
+         <span slot="startIcon" class=""> Audited: Click to mark as audit pending</span>
+       </oj-button>
+      </oj-bind-if>
+     </div>
+    </div>
+
+    <oj-dialog id="openActionResult" dialog-title="[[ResultTitle]]" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;">
+        <div slot="body">
+          <oj-bind-text value='[[addInductionMsg]]'></oj-bind-text>
+        </div>
+        <div  class="oj-flex-bar" slot="footer">
+          <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel" on-oj-action="[[DBErrorOKClose]]">
+            OK
+          </oj-button>
+        </div>
+      </oj-dialog>
+
+    <oj-dialog id="openRejectConfirm" dialog-title="Reject Induction Program" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+        <div slot="body">
+          <oj-bind-text value='Do you want to reject the induction for the selected staff?'></oj-bind-text>
+        </div>
+        <div  class="oj-flex-bar" slot="footer">
+          <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[rejectInductionProgram]]">
+            Yes
+          </oj-button>
+        </div>
+      </oj-dialog>
+      
+      <oj-dialog id="openRejectProgress" dialog-title="Please wait!Canceling...." modality="modeless"
+      style="display:none;width:350px;min-width:240px;max-width:450px;">
+      <div slot="body">
+        <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+        </oj-progress-bar>
+      </div>
+      </oj-dialog>
+      
+      <oj-dialog id="openInductionConfirm" dialog-title="Confirm Induction Program" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+        <div slot="body">
+          <oj-bind-text value='Do you want to confirm the induction for the selected staff?'></oj-bind-text>
+        </div>
+        <div  class="oj-flex-bar" slot="footer">
+          <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[confirmInductionRequest]]">
+            Yes
+          </oj-button>
+        </div>
+      </oj-dialog>
+      
+      <oj-dialog id="openConfirmProgress" dialog-title="Please wait!Confirming...." modality="modeless"
+      style="display:none;width:350px;min-width:240px;max-width:450px;">
+      <div slot="body">
+        <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+        </oj-progress-bar>
+      </div>
+      </oj-dialog>
+      
+      <oj-dialog id="openFileUpload" dialog-title="Upload Induction Document" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+        <div slot="body">
+          <oj-file-picker  primary-text="[[inductionFileText]]"
+            secondary-text="[[inductionCustomText]]" on-oj-select="[[inductionDocUpload]]">
+          </oj-file-picker>
+          <div class="oj-text-color-danger"><oj-bind-text value='[[typeError]]'></oj-bind-text></div></br> 
+        </div>
+      </oj-dialog>
+      
+      <oj-dialog id="openAddUploadingProgress" dialog-title="[[progressText]]" modality="modeless"
+      style="display:none;width:350px;min-width:240px;max-width:450px;">
+      <div slot="body">
+        <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+        </oj-progress-bar>
+      </div>
+      </oj-dialog>
+      
+              <oj-dialog id="scrollingDialog" dialog-title="Induction Checklist Form Details">
+                  <div slot="body">
+                      <h4>1. History and culture of organisation</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[cultureOrganisationVal]]"></oj-bind-text></h6>
+                      <h4>2. Philosophy and Principles of Care</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[principlesCareVal]]"></oj-bind-text></h6>
+                      <h4>3. Introduction to Main Personalities</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[personalitiesVal]]"></oj-bind-text></h6>
+                      <h4>4. Organisation Structure</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[organisationStructureVal]]"></oj-bind-text></h6>
+                      <h4>5. Staff Handbook and Employment Agreement</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[employeeAgreementVal]]"></oj-bind-text></h6>
+                      <h4>6. Emergency and other telephone contacts (official administrators, essential services)</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[emergencyVal]]"></oj-bind-text></h6>
+                      <h4>7. Policy on Gifts, Wills and Bequests</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[policyOnGiftsVal]]"></oj-bind-text></h6>
+                      <h4>8. Equal Opportunities Policy</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[equalOpprtVal]]"></oj-bind-text></h6>
+                      <h4>9. Introduction to Workplace</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[workPlaceVal]]"></oj-bind-text></h6>
+                      <h4>10. Statement of Main Terms and Conditions</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[statementTermsVal]]"></oj-bind-text></h6>
+                      <h4>11. Salary and Payment Mode</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[salaryAndPaymentVal]]"></oj-bind-text></h6>
+                      <h4>12. Absenteeism/ sickness</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[sicknessVal]]"></oj-bind-text></h6>
+                      <h4>13. Duty Rotas</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[dutyRotasVal]]"></oj-bind-text></h6>
+                      <h4>14. Uniform Policy</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[uniformPolicyVal]]"></oj-bind-text></h6>
+                      <h4>15. Staff Availability Policy</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[staffAvailabilityVal]]"></oj-bind-text></h6>
+                      <h4>16. Time Sheet Policy</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[timeSheetVal]]"></oj-bind-text></h6>
+                      <h4>17. Transportation Policy</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[transportationVal]]"></oj-bind-text></h6>
+                      <h4>18. Mobile Phone Policy</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[mobilePhoneVal]]"></oj-bind-text></h6>
+                      <h4>19. General Data Protection Policy</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[generalDataVal]]"></oj-bind-text></h6>
+                      <h4>20. Disciplinary, Grievance and Complaints Procedure</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[disciplinaryVal]]"></oj-bind-text></h6>
+                      <h4>21. Mandatory Trainings</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[mandatoryTrainingsVal]]"></oj-bind-text></h6>
+                      <h4>22. Personal Hygiene</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[personalHygieneVal]]"></oj-bind-text></h6>
+                      <h4>Comments</h4>
+                      <h6 style="margin-left: 20px;"> <oj-bind-text value="[[comment]]"></oj-bind-text></h6>
+                  </div>
+                  <div slot="footer">
+                    <oj-button id="okButton" on-oj-action="[[handleOKClose]]">OK</oj-button>
+                  </div>
+                </oj-dialog>
+      
+  <oj-dialog id="openBookingProgress" dialog-title="Please wait!Induction booking...." modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+  </oj-dialog>
+
+

@@ -1,0 +1,121 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<div id="sampleDemo"  class="demo-container sampleDemo">
+    <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+      
+      <div id="moduleDemo">    
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1; display: flex;align-items: baseline;">
+          <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp; You can update basic information about your client here.
+        </div> 
+
+        <div
+        class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+        <div
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-6">
+          <oj-validation-group id="clientAddSec1" role="group" valid="{{groupValid}}"
+          aria-labelledby="grouplabelid" disbaled>
+          <oj-input-text id="clientId" label-hint="Client Id" value="{{clientId}}" clear-icon="always"  style="display:none">
+          </oj-input-text>
+          <oj-input-text required id="clientName" label-hint="Client Name" value="{{clientName}}" clear-icon="always">
+          </oj-input-text>
+          <oj-input-text required id="businessUnit" label-hint="Business Unit" value="{{businessUnit}}" clear-icon="always">
+          </oj-input-text>
+          <oj-input-text required id="contactPerson" label-hint="Contact Person (First Name,Last Name)"
+            value="{{contactPerson}}" clear-icon="always" ></oj-input-text>
+          <oj-input-text required id="contactEmail" label-hint="Contact Email" value="{{contactEmail}}" clear-icon="always" on-value-changed="[[emailPatternValidator]]">
+          </oj-input-text>
+          <div class="oj-text-color-danger"><oj-bind-text value='[[emailError]]'></oj-bind-text></div></br>
+          <oj-input-text required id="contactPosition" label-hint="Job Position" value="{{contactPosition}}"
+            clear-icon="always"></oj-input-text>
+          </oj-validation-group>
+        </div>
+        <div
+          class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5 ">
+          <oj-validation-group id="clientAddSec2" role="group" valid="{{groupValid}}"
+          aria-labelledby="grouplabelid">
+          <oj-select-single id="countryCode" label-hint="Country Code" required  data="[[countryCodes]]" value="{{countryCode}}"></oj-select-single>
+          <oj-input-text required required length.max="10" id="contactPhone" label-hint="Contact Phone" value="{{contactPhone}}" clear-icon="always" on-value-changed="[[onlyNumberKey]]">
+          </oj-input-text>
+          <div class="oj-text-color-danger"><oj-bind-text value='[[contactError]]'></oj-bind-text></div></br>
+          <oj-label-value label-edge="start" label-width="60%">
+            <oj-label slot="label" id="altradiosetlabel">Add Alternative Contact ?</oj-label>
+            <oj-radioset slot="value" id="altradioSetId" labelled-by="radiosetlabel" value="{{altContactDecision}}"
+              class="oj-choice-direction-row">
+              <oj-option id="altYes" value="Yes">Yes</oj-option>
+              <oj-option id="altNo" value="No">No</oj-option>
+            </oj-radioset>
+          </oj-label-value>
+          <oj-bind-if test="[[altContactDecision() === 'Yes']]">
+            <oj-input-text required id="altcontactname" label-hint="Alternate Contact (First Name,Last Name)" value="{{altContact}}" clear-icon="always">
+            </oj-input-text>
+            <oj-input-text required id="altcontactemail" label-hint="Alt Contact Email" value="{{altContactEmail}}" clear-icon="always">
+            </oj-input-text>
+            <oj-select-single id="countryCode" label-hint="Country Code" required  data="[[countryCodes]]" value="{{altCountryCode}}"></oj-select-single>
+            <oj-input-text required id="altcontactPhone" label-hint="Alt Contact Phone" value="{{altContactPhone}}" clear-icon="always">
+            </oj-input-text>
+            <oj-input-text required id="altcontactpos" label-hint="Alt Contact Job Title" value="{{altContactPos}}" clear-icon="always">
+            </oj-input-text>
+          </oj-bind-if>
+          <oj-label-value label-edge="start" label-width="50%">
+            <oj-label slot="label" id="grpradiosetlabel">Part of a Group</oj-label>
+            <oj-radioset slot="value" id="grpradioSetId" labelled-by="radiosetlabel" value="{{groupDecision}}"
+              class="oj-choice-direction-row">
+              <oj-option id="groupYes" value="Yes">Yes</oj-option>
+              <oj-option id="groupNo" value="No">No</oj-option>
+            </oj-radioset>
+          </oj-label-value>
+          <oj-bind-if test="[[groupDecision() === 'Yes']]">
+            <oj-combobox-one label-hint="Group" label-edge="inside" options="{{ClientGroup}}" value="{{selectedGroup}}" required="[[requiredGroup]]">
+            </oj-combobox-one>
+          </oj-bind-if>
+          <oj-combobox-one label-hint="Client Type" label-edge="inside" options="{{ClientType}}"
+            value="{{selectedClientType}}" required="true">
+          </oj-combobox-one>
+         <!--  <oj-select-single required label-hint="Client Type" 
+          label-edge="inside" data="[[ClientTypeListDP]]" value="{{selectedClientType}}">
+          </oj-select-single> -->
+        </oj-validation-group>
+      </div>
+    </div>
+    <div style="display: flex;justify-content: center;"
+    class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+    <div class="oj-flex-bar">
+      <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[clientBasicUpdate]]">Update
+      </oj-button>
+    </div>
+  </div>
+  </div>
+      
+
+      <oj-dialog id="openUpdateStaffProgress" dialog-title="Updating Staff Details" modality="modeless"
+      style="display:none;width:350px;min-width:240px;max-width:450px;">
+      <div slot="body">
+        <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+        </oj-progress-bar>
+      </div>
+    </oj-dialog>
+    <oj-dialog id="openStaffUpdateResult" dialog-title="Update Staff Details" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;">
+      <div slot="body">
+        <oj-bind-text value=''></oj-bind-text>
+      </div>
+      <div  class="oj-flex-bar" slot="footer">
+        <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel" on-oj-action="[[DBErrorOKClose]]">
+          OK
+        </oj-button>
+      </div>
+    </oj-dialog>      
+ 
+
+  <oj-dialog id="openAddUploadingProgress" dialog-title="Please wait!Uploading...." modality="modeless"
+    style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+      </oj-progress-bar>
+    </div>
+  </oj-dialog>
+ 
+
+      
+        
+    

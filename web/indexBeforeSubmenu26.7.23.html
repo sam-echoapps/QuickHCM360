@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+
+<html lang="en-us">
+
+<head>
+  <title>JobsPlus </title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
+<!--   <link rel="icon" href="css/images/favicon.ico" type="image/x-icon" />
+ -->  <link rel="icon" href="css/images/jobsplus.png" type="image/x-icon" />
+<!-- Status icons in drawer menu bootstrap -->
+ <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>    
+
+
+
+  <!-- This is the main css file for the default Alta theme -->
+  <!-- injector:theme -->
+  <link rel="stylesheet" href="css/redwood/12.1.2/web/redwood.css" id="basestyles" />
+  <!-- endinjector -->
+
+  <!-- This contains icon fonts used by the starter template -->
+  <link rel="stylesheet" href="css/demo-alta-site-min.css" type="text/css" />
+
+  <!-- This is where you would add any app specific styling -->
+  <link rel="stylesheet" href="css/app.css" type="text/css" />
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body class="oj-web-applayout-body">
+  <!-- Template for rendering navigation items -->
+  <script type="text/html" id="navTemplate">
+      <li><a href="#">
+        <span :class="[[$data.detail['iconClass']]]"></span>
+        <oj-bind-text value="[[$data.detail['label']]]"></oj-bind-text>
+      </a></li>
+    </script>
+
+  <div id="globalBody" class="oj-web-applayout-page">
+
+    <header role="banner" class="oj-web-applayout-header">
+      <oj-bind-if test="[[SignIn() === 'Y' ]]">
+        <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+          <oj-button display='icons' chroming='borderless' on-oj-action='[[toggleDrawer]]'>
+            <span slot='startIcon' class="fa  fa-bars"></span>
+            Start Here
+          </oj-button>
+          <div class="oj-flex-bar-middle oj-sm-align-items-center ">
+            <span role="img" class="oj-icon demo-icon-1place" title="" alt="JobsPlus"></span>
+            <h1 style="margin-left: 2%;color:#495671;font-weight: 500;" class="oj-sm-only-hide oj-web-applayout-header-title" title="">
+              <oj-bind-text value="[[appName]]"></oj-bind-text>
+            </h1>
+          </div>
+
+          <div class="oj-flex-bar-end">
+            <!-- Responsive Toolbar -->
+            <oj-toolbar>
+              <oj-menu-button id="userMenu" display="[[smScreen() ? 'icons' : 'all']]">
+                <span>
+<!--                   <oj-bind-text value="[[onepDepName]]"></oj-bind-text>
+ -->                  <oj-bind-text value="[[username]]"></oj-bind-text>
+                </span>
+                <span slot="endIcon"
+                  :class="[[{'oj-icon demo-appheader-avatar': smScreen(), 'oj-component-icon oj-button-menu-dropdown-icon': !smScreen()}]]"></span>
+                <oj-menu id="menu1" slot="menu" on-oj-action="[[menuItemAction]]" style="display:none">
+                  <!-- <oj-option id="seldep" value="seldep">Switch Deployment</oj-option>
+                  <oj-option id="help" value="help">Help</oj-option>
+                  <oj-option id="about" value="about">About</oj-option> -->
+                  <oj-option id="out" value="out">Sign Out</oj-option>
+                </oj-menu>
+              </oj-menu-button>
+            </oj-toolbar>
+          </div>
+
+        </div>
+
+      </oj-bind-if>
+
+    </header>
+    <!-- outer offcanvas wrapper -->
+      <div class="oj-offcanvas-outer-wrapper oj-offcanvas-page contentStyle" style="border: 1px solid #065b85;">
+<!--         <div class="strip" ></div>
+ -->        <!-- start offcanvas -->
+        <div id="drawer" class="oj-contrast-background oj-contrast-marker oj-offcanvas-start oj-offcanvas-page"
+          style="width: 250px;height: 800px;position:fixed;background-color: #154c60;">
+          <div id="drawerContent">
+            <oj-navigation-list id="navList" data="[[navDataProvider]]" drill-mode="sliding"
+              item.renderer="[[KnockoutTemplateUtils.getRenderer('navTemplate', true)]]" selection="{{selection.path}}">
+            </oj-navigation-list>
+
+          </div>
+        </div>
+        <div id="main" class="">
+          <oj-module class="oj-web-applayout-page" config="[[moduleAdapter.koObservableConfig]]">
+          </oj-module>
+        </div>
+      </div>
+
+<!--   <footer class="oj-web-applayout-footer" role="contentinfo">
+    <div class="oj-web-applayout-footer-item oj-web-applayout-max-width">
+      <ul>
+        <oj-bind-for-each data="[[footerLinksDP]]">
+          <template>
+            <li><a :id="[[$current.data.linkId]]" :href="[[$current.data.linkTarget]]" target="_blank">
+                <oj-bind-text value="[[$current.data.name]]"></oj-bind-text>
+              </a></li>
+          </template>
+        </oj-bind-for-each>
+      </ul>
+    </div>
+    <div class="oj-web-applayout-footer-item oj-web-applayout-max-width oj-text-color-secondary oj-typography-body-sm">
+    </div>
+  </footer>
+</div>
+. . .  -->  
+<!-- This injects script tags for the main javascript files -->
+<!-- injector:scripts -->
+<!-- endinjector -->
+</body>
+</html>

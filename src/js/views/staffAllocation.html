@@ -1,0 +1,351 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+  <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;This section lists the matching staffs for allocation for the selected posted shift. You can select individual staffs from the list for allocation.
+</div>
+
+<div
+class="oj-panel oj-flex  oj-xl-margin-6x">
+<div class="oj-sm-padding-1x oj-sm-4">
+  <b>Client Name : <oj-bind-text value="[[clientName]]"></oj-bind-text></b>
+</div>
+<div class="oj-sm-padding-1x oj-sm-3">
+    <b>Shift Name : <oj-bind-text value="[[shiftName]]"></oj-bind-text></b>
+</div>
+<div class="oj-sm-padding-1x oj-sm-3">
+  <b>Shift Date : <oj-bind-text value="[[shiftDate]]"></oj-bind-text></b>
+</div>
+<div class="oj-sm-padding-1x oj-sm-2">
+  <b>Staff Required : <oj-bind-text value="[[requiredStaff]]"></oj-bind-text></b>
+</div>
+<div class="oj-sm-padding-1x oj-sm-4">
+  <b>Staff Type : <oj-bind-text value="[[jobRole]]"></oj-bind-text></b>
+</div>
+<div class="oj-sm-padding-1x oj-sm-3">
+  <b>Start Time : <oj-bind-text value="[[startTime]]"></oj-bind-text></b>
+</div>
+<div class="oj-sm-padding-1x oj-sm-3">
+  <b>End Time : <oj-bind-text value="[[endTime]]"></oj-bind-text></b>
+</div>
+<div class="oj-sm-padding-1x oj-sm-2">
+  <b>Allocated Staff : <oj-bind-text value="[[allocatedCount]]"></oj-bind-text></b>
+</div>
+</div>
+
+<div
+class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+<div
+  class=" oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-2">
+  <oj-select-single  id="" label-hint="Preferred Staff" 
+  label-edge="inside" data="[[choiceListDP]]" value="{{checkPreferredList}}">
+  </oj-select-single>
+</div>
+<div
+  class=" oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-2">
+  <oj-select-single  id="" label-hint="Own Transportation" 
+  label-edge="inside" data="[[choiceListDP]]" value="{{checkTransportation}}">
+  </oj-select-single>
+</div>
+<div
+  class=" oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-4">
+  <oj-select-many label-hint="Select Visa Type" style="margin-top:-5px;"
+  label-edge="inside" options="[[visaTypeListDP]]" value="{{visa_type}}">
+  </oj-select-many>
+</div>
+    <div
+      class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-3">
+      <oj-button id="confirmBtn" style="margin-top:12px;" class="oj-flex-bar-end" chroming='solid' on-oj-action="[[filterStaff]]">Search
+      </oj-button>
+    </div>
+</div>
+
+<div class="oj-panel oj-xl-margin-4x">
+    <!-- <oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider1]]"
+    class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}"  on-selected-changed="[[handleSelectedChanged]]"> -->
+    <oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider1]]"
+    class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+    <template slot="itemTemplate" data-oj-as="item">
+      <div
+      class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+      <li>
+        <oj-list-item-layout>
+        
+          <div class="oj-typography-body-md">
+            <div class="oj-flex">
+       
+              <!-- <div class="oj-flex-item demo-list-item-layout5 oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                  <oj-selector
+                  slot="selector"
+                  selected-keys="{{selectorSelectedItems}}"
+                  selection-mode="multiple"
+                  row-key="[[item.data.staff_id]]"
+                  :id="[['listview_checkboxset' + item.data.staff_id]]"></oj-selector>
+                </oj-list-item-layout>
+              </div> -->
+
+              <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                    <oj-bind-text value="Staff Name"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg">
+                    <a on-click= "[[goToProfile]]" target="_blank" title="Go To Profile">
+                      <oj-bind-text value="[[item.data.staff_name]]"></oj-bind-text>
+                    </a>
+                </div>
+                  
+                </oj-list-item-layout>
+              </div>
+  
+              <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                    <oj-bind-text value="Preferred"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg">
+                    <oj-bind-if test="[[item.data.client_id == selectedClientId() ]]">
+                        <oj-bind-text value="Yes"></oj-bind-text>
+                    </oj-bind-if> 
+                    <oj-bind-if test="[[item.data.client_id != selectedClientId() ]]">
+                        <oj-bind-text value="No"></oj-bind-text>
+                    </oj-bind-if> 
+                  </div>
+                  
+                </oj-list-item-layout>
+              </div>
+              
+              <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                    <oj-bind-text value="Visa Type"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg">
+                    <oj-bind-if test="[[item.data.visa_status != null ]]">
+                        <oj-bind-text value="[[item.data.visa_status]]"></oj-bind-text>
+                    </oj-bind-if> 
+                    <oj-bind-if test="[[item.data.visa_status == null ]]">
+                        <oj-bind-text value="N/A"></oj-bind-text>
+                    </oj-bind-if> 
+                </div>
+                  
+                </oj-list-item-layout>
+              </div>
+
+              <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                    <oj-bind-text value="Own Transportation"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg">
+                    <div>
+                        <oj-bind-text value="[[item.data.transportation]]"></oj-bind-text>
+                    </div>
+                </div>
+                  
+                </oj-list-item-layout>
+              </div>
+
+              <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                    <oj-bind-text value="Booking Status"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg">
+                    <oj-bind-if test="[[item.data.allocation_status == null ]]">
+                    <oj-bind-text value="Pending"></oj-bind-text>
+                  </oj-bind-if>
+                  <oj-bind-if test="[[item.data.allocation_status != null ]]">
+                    <oj-bind-text value="[[item.data.allocation_status]]"></oj-bind-text>
+                  </oj-bind-if>
+                </div>
+                  
+                </oj-list-item-layout>
+              </div>
+
+              <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<oj-bind-text value="Actions"></oj-bind-text>
+                   </div>
+                   <div slot="tertiary" class="oj-typography-body-lg">
+               <oj-bind-if test="[[actionVal() == true ]]">
+                <oj-button
+                :id = "[[item.data.staff_id]]"
+                chroming="borderless"
+                display="icons"
+                class="oj-button-sm viewBtn"
+                on-oj-action="[[profileView]]">
+                <span slot="startIcon"></span>
+                Staff Profile View
+              </oj-button> 
+               <oj-bind-if test="[[item.data.allocation_status == null ]]">
+               <oj-button class="oj-xl-margin-2x" on-oj-action="[[allocateStaff]]">
+                <span slot="startIcon"></span>
+                Allocate
+                </oj-button> 
+              </oj-bind-if>
+            </oj-bind-if>
+            <oj-bind-if test="[[actionVal() != true ]]">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<oj-button
+                 :id = "[[item.data.staff_id]]"
+                 chroming="borderless"
+                 display="icons"
+                 class="oj-button-sm viewBtn"
+                 on-oj-action="[[profileView]]">
+                 <span slot="startIcon"></span>
+                 Staff Profile View
+               </oj-button> 
+            </oj-bind-if>
+              <oj-bind-if test="[[item.data.allocation_status == 'Request Expired' ]]">
+             &nbsp;&nbsp;
+                <oj-button class="oj-xl-margin-2x" on-oj-action="[[ReallocateStaff]]">
+                  <span slot="startIcon"></span>
+                  Reallocate
+                  </oj-button> 
+              </oj-bind-if>
+              <oj-bind-if test="[[item.data.allocation_status == 'Rejected' ]]">
+                &nbsp;&nbsp;
+                   <oj-button class="oj-xl-margin-2x" on-oj-action="[[ReallocateStaff]]">
+                     <span slot="startIcon"></span>
+                     Reallocate
+                     </oj-button> 
+                 </oj-bind-if>
+              <oj-bind-if test="[[item.data.allocation_status == 'Requested' ]]">
+                <oj-button class="oj-xl-margin-2x" on-oj-action="[[confirmAllocation]]">
+                  <span slot="startIcon"></span>
+                  Confirm
+              </oj-button> 
+                   <oj-button class="oj-xl-margin-2x" on-oj-action="[[allocateStaff]]">
+                     <span slot="startIcon"></span>
+                    Reject
+                    </oj-button> 
+                 </oj-bind-if>
+              <oj-bind-if test="[[item.data.allocation_status == 'Confirmed' ]]">
+              &nbsp;&nbsp;
+                  <oj-button class="oj-xl-margin-2x" on-oj-action="[[allocateStaff]]">
+                    <span slot="startIcon"></span>
+                  Reject
+                    </oj-button> 
+                </oj-bind-if>
+              </div>
+              </oj-list-item-layout>
+          </div>
+  
+  
+            </div>
+          </div>
+        
+        </oj-list-item-layout>
+      </li>
+    </div>
+  </div>
+    </template>
+  </oj-list-view>
+
+  <!-- <div style="display: flex;justify-content: center;"
+  class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+  <div class="oj-flex-bar">
+    <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[allocateStaff]]">Allocate
+    </oj-button>
+  </div>
+</div> -->
+
+
+  <oj-dialog id="openUserProfileInfo" dialog-title="Staff Profile" modality="modeless"
+cancel-behavior="[[CancelBehaviorOpt]]" style="display:none;width:550px;min-width:240px;max-width:550px;">
+<div id="divToDownload" slot="body">
+  <oj-avatar
+  role="img"
+  src="[[profilePhoto]]"
+  :title="Pic">
+</oj-avatar>   
+  <div><b>Job Role</b> &nbsp;&nbsp;: <oj-bind-text value="[[jobRoleStaff]]"></oj-bind-text></div></br>
+  <div><b>Personal Details</b></div>
+  <div>Name  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   : <oj-bind-text value="[[name]]"></oj-bind-text></div>
+  <div>Gender &nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[gender]]"></oj-bind-text></div></br>
+  <div><b>DBS Details</b></div>
+  <div>DBS Number	 &nbsp;&nbsp;&nbsp;   : <oj-bind-text value="[[dbsNumber]]"></oj-bind-text></div>
+  <div>Date of Issue &nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[dbsExpiryDate]]"></oj-bind-text></div></br>
+  <div><b>Visa Details</b></div>
+  <div>Valid Visa/BRP	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   : <oj-bind-text value="Checked and verified"></oj-bind-text></div>
+  <div>BRP Expiry Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[dbsExpiryDate]]"></oj-bind-text></div>
+  <div>Right to Work&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="Checked and verified"></oj-bind-text></div>
+  <div>Right to Work Expiry &nbsp;&nbsp;: <oj-bind-text value="[[dbsExpiryDate]]"></oj-bind-text></div></br>
+  <div><b>Reference Details</b></div>
+  <div>Reference 1 &nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="Checked and verified"></oj-bind-text></div>
+  <div>Reference 2 &nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="Checked and verified"></oj-bind-text></div></br>
+  <div><b>Mandatory Training Modules</b></div>
+  <div>Moving and Handling   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[movingFile_expiry_date]]"></oj-bind-text></div>
+  <div>Safeguarding Adults   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[safeguarding_expiry_date]]"></oj-bind-text></div>
+  <div>Health and Safety     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[health_expiry_date]]"></oj-bind-text></div>
+  <div>Food and Hygiene    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[food_expiry_date]]"></oj-bind-text></div>
+  <div>First Aid/ Basic Life Support &nbsp;&nbsp;: <oj-bind-text value="[[support_expiry_date]]"></oj-bind-text></div>
+  <div>COSHH     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[coshh_expiry_date]]"></oj-bind-text></div>
+  <div>Fire Safety  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[safety_expiry_date]]"></oj-bind-text></div>
+  <div>Challenging Behavior  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[behaviour_expiry_date]]"></oj-bind-text></div>
+  <div>Epilepsy  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[epilepsy_expiry_date]]"></oj-bind-text></div>
+  <div>Mental Capacity Act  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[act_expiry_date]]"></oj-bind-text></div>
+  <div>Infection Prevention Control &nbsp;&nbsp;: <oj-bind-text value="[[prevention_expiry_date]]"></oj-bind-text></div>
+  <div>Learning Disabilities &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[disability_expiry_date]]"></oj-bind-text></div>
+  <div>Care Certificate  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[care_expiry_date]]"></oj-bind-text></div></br>
+</div>
+<div class="oj-flex">
+  <div class="oj-sm-5"></div>
+  <oj-button  id="downloadBtn" style="background-color:#5470ff;" class="oj-xl-margin-4x" on-oj-action="[[downloadProfile]]"><span style="color:white">Download</span>
+  </oj-button>
+       <div class="oj-sm-5"></div>
+    </div>
+    </div>
+</oj-dialog> 
+
+<div id="DownloadProfile" style="display:none" >
+<!--   <div class="logo-print"> </div>
+ -->  <div id="pic-print" style="margin:50px"> </div> 
+ <div style="margin-left:50px;">
+  <div><b>Job Role</b> &nbsp;&nbsp;: <oj-bind-text value="[[jobRoleStaff]]"></oj-bind-text></div></br>
+  <div><b>Personal Details</b></div>
+  <div>Name  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   : <oj-bind-text value="[[name]]"></oj-bind-text></div>
+  <div>Gender &nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[gender]]"></oj-bind-text></div></br>
+  <div><b>DBS Details</b></div>
+  <div>DBS Number	 &nbsp;&nbsp;&nbsp;   : <oj-bind-text value="[[dbsNumber]]"></oj-bind-text></div>
+  <div>Date of Issue &nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[dbsExpiryDate]]"></oj-bind-text></div></br>
+  <div><b>Visa Details</b></div>
+  <div>Valid Visa/BRP	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   : <oj-bind-text value="Checked and verified"></oj-bind-text></div>
+  <div>BRP Expiry Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[dbsExpiryDate]]"></oj-bind-text></div>
+  <div>Right to Work&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="Checked and verified"></oj-bind-text></div>
+  <div>Right to Work Expiry &nbsp;&nbsp;: <oj-bind-text value="[[dbsExpiryDate]]"></oj-bind-text></div></br>
+  <div><b>Reference Details</b></div>
+  <div>Reference 1 &nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="Checked and verified"></oj-bind-text></div>
+  <div>Reference 2 &nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="Checked and verified"></oj-bind-text></div></br>
+  <div><b>Mandatory Training Modules</b></div>
+  <div>Moving and Handling   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[movingFile_expiry_date]]"></oj-bind-text></div>
+  <div>Safeguarding Adults   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[safeguarding_expiry_date]]"></oj-bind-text></div>
+  <div>Health and Safety     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[health_expiry_date]]"></oj-bind-text></div>
+  <div>Food and Hygiene    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[food_expiry_date]]"></oj-bind-text></div>
+  <div>First Aid/ Basic Life Support &nbsp;&nbsp;: <oj-bind-text value="[[support_expiry_date]]"></oj-bind-text></div>
+  <div>COSHH     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[coshh_expiry_date]]"></oj-bind-text></div>
+  <div>Fire Safety  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[safety_expiry_date]]"></oj-bind-text></div>
+  <div>Challenging Behavior  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[behaviour_expiry_date]]"></oj-bind-text></div>
+  <div>Epilepsy  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[epilepsy_expiry_date]]"></oj-bind-text></div>
+  <div>Mental Capacity Act  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[act_expiry_date]]"></oj-bind-text></div>
+  <div>Infection Prevention Control &nbsp;&nbsp;: <oj-bind-text value="[[prevention_expiry_date]]"></oj-bind-text></div>
+  <div>Learning Disabilities &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[disability_expiry_date]]"></oj-bind-text></div>
+  <div>Care Certificate  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <oj-bind-text value="[[care_expiry_date]]"></oj-bind-text></div></br>
+</div>
+</div> 
+
+
+<oj-dialog id="openAddselectionRequireDialogue" dialog-title="Warning" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+  <div slot="body">
+    <oj-bind-text value='Please select one'></oj-bind-text>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openAllocationProgress" dialog-title="Please Wait..." modality="modeless"
+style="display:none;width:350px;min-width:240px;max-width:450px;">
+<div slot="body">
+  <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+  </oj-progress-bar>
+</div>
+</oj-dialog>

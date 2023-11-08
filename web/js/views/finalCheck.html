@@ -1,0 +1,525 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<div id="sampleDemo"  class="demo-container sampleDemo">
+    <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+      
+      <div id="moduleDemo">  
+        <div class="demo-padding">
+            <div class="demo-controls">
+              <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+                <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;In this section, admin can active the new candidate to the Staff Manager section.
+              </div>    
+            </div>
+              <div class="oj-panel contentStyle">
+                <div class="oj-flex-item demo-list-item-layout3 ">
+                  <div
+                 class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-lg-margin-3x oj-md-padding-2x">
+                
+                 <div class="row">   
+                  <div class="col-sm-4">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+                      <oj-bind-text value="Section Name"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+                      <a href="?ojr=staffView%2FviewStaff%3Bindex%3D0" style="text-decoration: none;">Profile Info</a>
+                    </div>  
+                    </div>
+                  <div class="col-sm-4">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+                      <oj-bind-text value="Audit Status"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+                      <oj-bind-text value="[[profileStatus]]"></oj-bind-text>
+                    </div>                     
+                  </div>
+                  <div class="col-sm-4">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+                      <oj-bind-text value="Audited By"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+                      <oj-bind-text value="[[profileAuditer]]"></oj-bind-text>
+                    </div>                      
+                  </div>
+              </div>
+                </div>
+              </div>
+              
+            </div>
+          </br>
+
+              <div class="oj-panel contentStyle">
+                <div class="oj-flex-item demo-list-item-layout3 ">
+                  <div
+                 class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-lg-margin-3x oj-md-padding-2x">
+                
+                 <div class="row">   
+                  <div class="col-sm-4">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+                      <oj-bind-text value="Section Name"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+                      <a href="?ojr=staffView%2FaddReference%3Bindex%3D1" style="text-decoration: none;">References</a>
+
+                    </div>                    
+                  </div>
+                  <div class="col-sm-4">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+                      <oj-bind-text value="Audit Status"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+                      <oj-bind-text value="[[referenceStatus]]"></oj-bind-text>
+                    </div> 
+                                           
+                  </div>     
+
+                  <div class="col-sm-4">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+                      <oj-bind-text value="Audited By"></oj-bind-text>
+                    </div> 
+                    <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+                      <oj-bind-text value="[[referenceAuditer]]"></oj-bind-text>
+                    </div>                      
+                  </div>
+              </div>
+                </div>
+              </div>
+              
+            </div>
+          </br>
+
+          <div class="oj-panel contentStyle">
+            <div class="oj-flex-item demo-list-item-layout3 ">
+              <div
+             class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-lg-margin-3x oj-md-padding-2x">
+            
+             <div class="row">   
+              <div class="col-sm-4">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+                  <oj-bind-text value="Section Name"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+                  <a href="?ojr=staffView%2FaddBank%3Bindex%3D2" style="text-decoration: none;">Bank</a>
+                </div>                    
+              </div>
+              <div class="col-sm-4">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+                  <oj-bind-text value="Audit Status"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+                  <oj-bind-text value="[[bankStatus]]"></oj-bind-text>
+                </div> 
+                                       
+              </div>
+              <div class="col-sm-4">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+                  <oj-bind-text value="Audited By"></oj-bind-text>
+                </div> 
+                <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+                  <oj-bind-text value="[[bankAuditer]]"></oj-bind-text>
+                </div>                        
+              </div>
+          </div>
+            </div>
+          </div>
+          
+        </div>
+  </br>
+
+  <div class="oj-panel contentStyle">
+    <div class="oj-flex-item demo-list-item-layout3 ">
+      <div
+     class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-lg-margin-3x oj-md-padding-2x">
+    
+     <div class="row">   
+      <div class="col-sm-4">
+        <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+          <oj-bind-text value="Section Name"></oj-bind-text>
+        </div>
+        <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+          <a href="?ojr=staffView%2FaddNextOfKin%3Bindex%3D3" style="text-decoration: none;">Next Of Kin</a>
+        </div>                    
+      </div>
+      <div class="col-sm-4">
+        <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+          <oj-bind-text value="Audit Status"></oj-bind-text>
+        </div>
+        <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+          <oj-bind-text value="[[relativeStatus]]"></oj-bind-text>
+        </div> 
+                               
+      </div>
+      <div class="col-sm-4">
+        <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+          <oj-bind-text value="Audited By"></oj-bind-text>
+        </div> 
+        <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+          <oj-bind-text value="[[relativeAuditer]]"></oj-bind-text>
+        </div>                      
+      </div>
+  </div>
+    </div>
+  </div>
+  
+</div>  
+</br>
+
+<div class="oj-panel contentStyle">
+  <div class="oj-flex-item demo-list-item-layout3 ">
+    <div
+   class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-lg-margin-3x oj-md-padding-2x">
+  
+   <div class="row">   
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Section Name"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <a href="?ojr=staffView%2FaddEducation%3Bindex%3D4" style="text-decoration: none;">Education</a>
+      </div>                    
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audit Status"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[educationStatus]]"></oj-bind-text>
+      </div> 
+                             
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audited By"></oj-bind-text>
+      </div> 
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[educationAuditer]]"></oj-bind-text>
+      </div>                      
+    </div>
+</div>
+  </div>
+</div>
+
+</div>  
+</br>
+
+<div class="oj-panel contentStyle">
+  <div class="oj-flex-item demo-list-item-layout3 ">
+    <div
+   class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-lg-margin-3x oj-md-padding-2x">
+  
+   <div class="row">   
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Section Name"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <a href="?ojr=staffView%2FaddWork%3Bindex%3D5" style="text-decoration: none;">Work History</a>
+      </div>                    
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audit Status"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[workStatus]]"></oj-bind-text>
+      </div> 
+                             
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audited By"></oj-bind-text>
+      </div> 
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[workAuditer]]"></oj-bind-text>
+      </div>                      
+    </div>
+</div>
+  </div>
+</div>
+
+</div>  
+</br>
+
+<div class="oj-panel contentStyle">
+  <div class="oj-flex-item demo-list-item-layout3 ">
+    <div
+   class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-lg-margin-3x oj-md-padding-2x">
+  
+   <div class="row">   
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Section Name"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <a href="?ojr=staffView%2FaddHealth%3Bindex%3D6" style="text-decoration: none;">Health</a>
+      </div>                    
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audit Status"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[healthStatus]]"></oj-bind-text>
+      </div> 
+                             
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audited By"></oj-bind-text>
+      </div> 
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[healthAuditer]]"></oj-bind-text>
+      </div>                      
+    </div>
+</div>
+  </div>
+</div>
+
+</div> 
+</br>
+
+<div class="oj-panel contentStyle">
+  <div class="oj-flex-item demo-list-item-layout3 ">
+    <div
+   class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-lg-margin-3x oj-md-padding-2x">
+  
+   <div class="row">   
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Section Name"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <a href="?ojr=staffView%2FaddDBS%3Bindex%3D7" style="text-decoration: none;">DBS</a>
+      </div>                    
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audit Status"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[dbsStatus]]"></oj-bind-text>
+      </div> 
+                             
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audited By"></oj-bind-text>
+      </div> 
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[dbsAuditer]]"></oj-bind-text>
+      </div>                      
+    </div>
+</div>
+  </div>
+</div>
+
+</div> 
+
+</br>
+
+<div class="oj-panel contentStyle">
+  <div class="oj-flex-item demo-list-item-layout3 ">
+    <div
+   class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-lg-margin-3x oj-md-padding-2x">
+  
+   <div class="row">   
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Section Name"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <a href="?ojr=staffView%2FaddRightToWork%3Bindex%3D8" style="text-decoration: none;">Right To Work</a>
+      </div>                    
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audit Status"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[rightStatus]]"></oj-bind-text>
+      </div> 
+                             
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audited By"></oj-bind-text>
+      </div> 
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[rightAuditer]]"></oj-bind-text>
+      </div>                      
+    </div>
+</div>
+  </div>
+</div>
+
+</div>  
+</br>
+
+<div class="oj-panel contentStyle">
+  <div class="oj-flex-item demo-list-item-layout3 ">
+    <div
+   class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-lg-margin-3x oj-md-padding-2x">
+  
+   <div class="row">   
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Section Name"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <a href="?ojr=staffView%2FaddTraining%3Bindex%3D9" style="text-decoration: none;">Training</a>
+      </div>                    
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audit Status"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[trainingStatus]]"></oj-bind-text>
+      </div> 
+                             
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audited By"></oj-bind-text>
+      </div> 
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[trainingAuditer]]"></oj-bind-text>
+      </div>                      
+    </div>
+</div>
+  </div>
+</div>
+
+</div> 
+</br>
+
+<div class="oj-panel contentStyle">
+  <div class="oj-flex-item demo-list-item-layout3 ">
+    <div
+   class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-lg-margin-3x oj-md-padding-2x">
+  
+   <div class="row">   
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Section Name"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <a href="?ojr=staffView%2FstarterChecklist%3Bindex%3D10" style="text-decoration: none;">Starter Checklist</a>
+      </div>                    
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audit Status"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[starterStatus]]"></oj-bind-text>
+      </div> 
+                             
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audited By"></oj-bind-text>
+      </div> 
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[starterAuditer]]"></oj-bind-text>
+      </div>                      
+    </div>
+</div>
+  </div>
+</div>
+
+</div>
+</br>
+
+<div class="oj-panel contentStyle">
+  <div class="oj-flex-item demo-list-item-layout3 ">
+    <div
+   class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-lg-margin-3x oj-md-padding-2x">
+  
+   <div class="row">   
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Section Name"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <a href="?ojr=staffView%2FbookInduction%3Bindex%3D11" style="text-decoration: none;">Induction</a>
+      </div>                    
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audit Status"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[inductionStatus]]"></oj-bind-text>
+      </div> 
+                             
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audited By"></oj-bind-text>
+      </div> 
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[inductionAuditer]]"></oj-bind-text>
+      </div>                      
+    </div>
+</div>
+  </div>
+</div>
+
+</div>
+</br>
+
+<div class="oj-panel contentStyle">
+  <div class="oj-flex-item demo-list-item-layout3 ">
+    <div
+   class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-lg-margin-3x oj-md-padding-2x">
+  
+   <div class="row">   
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Section Name"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <a href="?ojr=staffView%2Fcontract%3Bindex%3D12" style="text-decoration: none;">Contract</a>
+
+      </div>                    
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audit Status"></oj-bind-text>
+      </div>
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[contractStatus]]"></oj-bind-text>
+      </div> 
+                             
+    </div>
+    <div class="col-sm-4">
+      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="">
+        <oj-bind-text value="Audited By"></oj-bind-text>
+      </div> 
+      <div slot="tertiary" class="oj-typography-body-lg" :aria-label="">
+        <oj-bind-text value="[[contractAuditer]]"></oj-bind-text>
+      </div>                      
+    </div>
+</div>
+  </div>
+</div>
+
+</div>
+</br>
+<div style="display: flex;justify-content: center;"
+class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+<div class="oj-flex-bar">
+  <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[staffActivate]]">Activate
+  </oj-button>
+</div>
+</div>
+      </div>
+        
+    </div>
+  </div>
+
+ 
+
+        
+    

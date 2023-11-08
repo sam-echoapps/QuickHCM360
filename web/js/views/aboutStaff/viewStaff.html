@@ -1,0 +1,155 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<div id="sampleDemo"  class="demo-container sampleDemo">
+    <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+      
+      <div id="moduleDemo">    
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1; display: flex;align-items: baseline;">
+          <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp; The candidate is requested to update profile details.
+        </div> 
+       <!--  <div class="demo-padding">
+            <div class="demo-controls">
+              <oj-button id="buttonOpener" display="icons" on-oj-action="[[startToggle]]">
+                <span slot="startIcon" class="fa  fa-bars"></span>
+                Start
+              </oj-button>
+            </div>
+          </div> -->
+
+          <div
+          class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+          <div
+            class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-12x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5">
+            <oj-validation-group id="staffUpdateSec1" role="group" valid="{{groupValid}}"
+            aria-labelledby="grouplabelid" disbaled>
+            <oj-select-single required id="title" label-hint="Title" label-edge="inside" data="[[titleListDP]]" value="{{title}}">
+            </oj-select-single>
+            <oj-input-text required id="firstName" label-hint="First Name" value="{{firstName}}" clear-icon="always">
+            </oj-input-text>
+            <oj-input-text required id="lastName" label-hint="Last Name"
+              value="{{lastName}}" clear-icon="always"></oj-input-text>
+              <oj-select-single required id="mainPost" label-hint="Position applying for" label-edge="inside" data="[[mainPostListDP]]" value="{{mainPost}}" on-value-changed="[[subpostShow]]"
+              >
+              </oj-select-single>
+              <div id="subpost1" style="display:none"><br>
+                <oj-checkboxset value="{{subpost}}" label-hint="Sub positions (Optional)" class="oj-choice-direction-row">
+                  <oj-option value="Kitchen Assistant">Kitchen Assistant</oj-option>
+                  <oj-option value="Domestic Care">Domestic Care</oj-option>
+                </oj-checkboxset>
+                </div>
+                <div id="subpost2" style="display:none"><br>
+                <oj-checkboxset value="{{subpost}}" label-hint="Sub positions (Optional)">
+                  <oj-option value="Care Assistant">Care Assistant</oj-option>
+                </oj-checkboxset>
+              </div>
+              <div id="subpost3" style="display:none"><br>
+                <oj-checkboxset value="{{subpost}}" label-hint="Sub positions (Optional)">
+                  <oj-option value="Living Care">Living Care</oj-option>
+                </oj-checkboxset>
+              </div><br>
+              <oj-select-single required id="status" label-hint="Work status" label-edge="inside" data="[[statusDP]]" value="{{status}}">
+              </oj-select-single>
+              <oj-input-text required id="address1" label-hint="Address1" value="{{address1}}" clear-icon="always">
+              </oj-input-text>
+              <oj-input-text required id="address2" label-hint="Address2" value="{{address2}}" clear-icon="always">
+              </oj-input-text>
+              <oj-input-text required id="postTown" label-hint="Town/City" value="{{postTown}}" clear-icon="always">
+              </oj-input-text>
+              <oj-input-text required id="postCode" label-hint="Postal code" value="{{postCode}}" clear-icon="always">
+              </oj-input-text>
+            </oj-validation-group>
+          </div>
+          <div
+            class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-12x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5">
+            <oj-validation-group id="staffUpdateSec2" role="group" valid="{{groupValid}}"
+            aria-labelledby="grouplabelid">
+            <!-- <oj-input-text required id="contactEmail" label-hint="Contact Email" value="{{contactEmail}}"  validators="[[emailPatternValidator]]" clear-icon="always">
+            </oj-input-text> -->
+            <oj-input-text required id="contactEmail" label-hint="Contact Email" value="{{contactEmail}}" clear-icon="always" on-value-changed="[[emailPatternValidator]]">
+            </oj-input-text>
+            <div class="oj-text-color-danger"><oj-bind-text value='[[emailError]]'></oj-bind-text></div></br>
+            <oj-select-single id="countryCode" label-hint="Country Code" required  data="[[countryCodes]]" value="{{countryCode}}"></oj-select-single>
+            <oj-input-text required length.max="10" id="contactNumber" label-hint="Contact Number" value="{{contactNumber}}" clear-icon="always" on-value-changed="[[onlyNumberKey]]">
+            </oj-input-text>
+            <div class="oj-text-color-danger"><oj-bind-text value='[[contactError]]'></oj-bind-text></div></br>
+            <oj-select-single required label-hint="Gender" 
+            label-edge="inside" data="[[genderListDP]]" value="{{gender}}">
+            </oj-select-single></br>
+            <oj-select-single required label-hint="Do you have your own transportation?" 
+            label-edge="inside" data="[[choiceListDP]]" value="{{have_transportation}}">
+            </oj-select-single></br></br>
+          </oj-validation-group>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+          <oj-avatar
+            role="img"
+            src="[[profilePhoto]]"
+            :title="Profile Photo">
+          </oj-avatar>   
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+            <oj-file-picker  primary-text="[[primaryCustomText]]"
+              secondary-text="[[secondaryCustomText]]" on-oj-select="[[selectListener]]">
+              </oj-file-picker>
+            <div class="oj-text-color-danger"><oj-bind-text value='[[typeError]]'></oj-bind-text></div></br>
+          </div>  
+          </oj-validation-group>
+        </div>
+          </div>
+          <div style="display: flex;justify-content: center;"
+          class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x oj-sm-12">
+          <div class="oj-flex-bar">
+            <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[staffInfoUpdate]]">Update
+            </oj-button>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      
+
+      <oj-dialog id="openUpdateStaffProgress" dialog-title="Updating Staff Details" modality="modeless"
+      style="display:none;width:350px;min-width:240px;max-width:450px;">
+      <div slot="body">
+        <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+        </oj-progress-bar>
+      </div>
+    </oj-dialog>
+    <oj-dialog id="openStaffUpdateResult" dialog-title="Update Staff Details" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;">
+      <div slot="body">
+        <oj-bind-text value='[[updateStaffMsg]]'></oj-bind-text>
+      </div>
+      <div  class="oj-flex-bar" slot="footer">
+        <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel" on-oj-action="[[DBErrorOKClose]]">
+          OK
+        </oj-button>
+      </div>
+    </oj-dialog>      
+    </div>
+  </div>
+
+  <oj-dialog id="openAddUploadingProgress" dialog-title="Please wait!Uploading...." modality="modeless"
+    style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+      </oj-progress-bar>
+    </div>
+  </oj-dialog>
+
+  <oj-dialog id="openFileUploadResult" dialog-title="Upload Document" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-bind-text value='[[uploadDocumentMsg]]'></oj-bind-text>
+    </div>
+    <div  class="oj-flex-bar" slot="footer">
+      <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel" on-oj-action="[[DBErrorOKClose]]">
+        OK
+      </oj-button>
+    </div>
+  </oj-dialog> 
+
+      
+        
+    

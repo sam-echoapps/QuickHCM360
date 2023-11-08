@@ -1,0 +1,147 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<div id="sampleDemo"  class="demo-container sampleDemo">
+  <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+    
+    <div id="moduleDemo">
+      <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;">
+        <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i>  &nbsp;&nbsp;
+        <p>For all candidates with nationalities other than the UK, the system will ask to confirm their right to work (RTW) in the UK by collecting the following details so you can perform your checks.</p>
+      </div>          </br> 
+      <div
+      class="oj-panel">
+      <h4 class="">Passport/ Visa Details</h4><hr>
+      <div
+        class="col-md-12">
+        <oj-validation-group id="staffRightToWorkCheck" role="group" valid="{{groupValid}}"
+      aria-labelledby="grouplabelid">
+      <div class="row">
+        <div class="col-md-4">
+            <oj-select-single required id="visa_status" label-hint="Visa Status" label-edge="inside" data="[[visaStatusListDP]]" value="{{visa_status}}" on-value-changed="[[rightToworkSection]]">
+            </oj-select-single>
+        </div>
+        <div class="col-md-4">
+          <oj-input-date required="[[requiredContent]]" label-hint="Visa Expiry Date" autocomplete="off" value="{{visa_expiry_date}}"></oj-input-date>
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <oj-input-text id="passport_no" label-hint="Passport No." value="{{passport_no}}" clear-icon="always" required="[[requiredContent]]">
+        </div>
+        <div class="col-md-4">
+          <oj-input-text id="place_of_issue" label-hint="Passport Place Of Issue" value="{{place_of_issue}}" clear-icon="always" required="[[requiredContent]]">
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <oj-input-date required="[[requiredContent]]" label-hint="Passport Issue Date" autocomplete="off" value="{{issue_date}}"></oj-input-date>
+        </div>
+        <div class="col-md-4">
+          <oj-input-date required="[[requiredContent]]" label-hint="Passport Expiry Date" autocomplete="off" value="{{expiry_date}}"></oj-input-date>
+          </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="oj-text-color-danger"><oj-bind-text value='[[uploadError]]'></oj-bind-text></div>
+            <oj-file-picker  primary-text="[[passportFileText]]"
+              secondary-text="[[passportCustomText]]" on-oj-select="[[passportSubmit]]">
+              </oj-file-picker>
+              <div class="oj-text-color-danger"><oj-bind-text value='[[typeError]]'></oj-bind-text></div></br>
+        </div>
+        <div class="col-md-4" id="passportPreview" style="display:none"></br></br>
+          <a on-click="[[previewClick]]" target="_blank"><b style="color:rgb(58, 30, 219);">Click here</b></a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"></br></br>
+          <oj-input-date  label-hint="BRP Expiry Date" autocomplete="off" value="{{brp_expiry_date}}"></oj-input-date>
+          </div>
+        <div class="col-md-4"></br>
+            <oj-file-picker  primary-text="[[BRPFileText]]"
+              secondary-text="[[BRPCustomText]]" on-oj-select="[[BRPSubmit]]">
+              </oj-file-picker>
+              <div class="oj-text-color-danger"><oj-bind-text value='[[typeError1]]'></oj-bind-text></div></br>
+        </div>
+        <div class="col-md-4" id="BRPPreview" style="display:none"></br></br>
+          <a on-click="[[previewClickBRP]]" target="_blank"><b style="color:rgb(58, 30, 219);">Click here</b></a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"></br></br>
+          <oj-select-single required id="have_sharecode" label-hint="Do you have Employer Share Code?" label-edge="inside" data="[[choiceListDP]]" value="{{have_sharecode}}" on-value-changed="[[shareCodeSec]]">
+          </oj-select-single>         
+         </div>
+         <div class="col-md-4" id="sharecodeValSec" style="display:none"></br></br>
+          <oj-input-text id="sharecode" label-hint="Share Code" value="{{sharecode}}" clear-icon="always" required>
+        </div>
+      </div>
+      <div class="col-md-12" id="sharecode_generator" style="display:none"><br/>
+        Click on the link to generate a share code which will be used by your employer to check your right to work in the UK.
+       <a href="https://www.gov.uk/prove-right-to-work" target="_blank"><b style="color:red;">Click here</b></a>
+        </div>
+    </oj-validation-group></br>
+    </div>
+    <oj-bind-if test="[[RightActionBtn() === 'Add']]">
+      <div style="display: flex;justify-content: center;"
+      class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+      <div class="oj-flex-bar">
+        <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[staffRightToWorkSave]]">Save
+        </oj-button>
+      </div>
+    </div>
+  </oj-bind-if>
+  <oj-bind-if test="[[RightActionBtn() === 'Update']]">
+    <div style="display: flex;justify-content: center;"
+    class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+    <div class="oj-flex-bar">
+      <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[staffRightToWorkUpdate]]">Update
+      </oj-button>
+    </div>
+  </div>
+</oj-bind-if>
+    </div>
+  </div>  
+
+    <oj-dialog id="openAddUploadingProgress" dialog-title="Please wait!Uploading...." modality="modeless"
+    style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+      </oj-progress-bar>
+    </div>
+  </oj-dialog>
+
+  <oj-dialog id="openFileUploadResult" dialog-title="Upload Document" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-bind-text value='[[uploadDocumentMsg]]'></oj-bind-text>
+    </div>
+    <div  class="oj-flex-bar" slot="footer">
+      <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel" on-oj-action="[[DBErrorOKClose]]">
+        OK
+      </oj-button>
+    </div>
+  </oj-dialog> 
+
+  <oj-dialog id="openAddRightToWorkResult" dialog-title="[[ResultTitle]]" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-bind-text value='[[addRightToWorkMsg]]'></oj-bind-text>
+    </div>
+    <div  class="oj-flex-bar" slot="footer">
+      <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel" on-oj-action="[[DBErrorOKClose]]">
+        OK
+      </oj-button>
+    </div>
+  </oj-dialog>
+
+  <oj-dialog id="openAddRightToWorkProgress" dialog-title="[[progressDialog]]" modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>
+
+    
+
+  

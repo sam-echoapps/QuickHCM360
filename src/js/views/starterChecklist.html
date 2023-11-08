@@ -1,0 +1,729 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/654f86f867.js" crossorigin="anonymous"></script>
+<div id="starter" style="border: 1px solid #80808036; margin: 10px; padding: 10px; border-radius: 3px;">
+    <p style="font-weight: bold; font-size: 20px; color: #227e9e;">Starter Checklist</p>
+    <oj-bind-if test="[[userExist() === 0 ]]">
+        <div class="induction-form" id="1" style="margin-left: 20px;">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p style="font-weight: bold;">Do you have P45 ?</p>
+                    <oj-select-single id="select" label-hint="Choose One" label-edge="inside" on-value-changed="[[ps45ValueChange]]"
+                        class="oj-form-control-max-width-md" data="[[selectOptions]]" value="{{selectPs4Val}}"></oj-select-single>
+                </div>
+                <div class="col-sm-6">
+                    <div id="file-picker" style="display: none;">
+                        <oj-file-picker  primary-text="[[ps45FileText]]" secondary-text="[[ps45CustomText]]" on-oj-select="[[ps45FileSave]]">
+                        </oj-file-picker>
+                        <div class="oj-text-color-danger"><oj-bind-text value='[[typeError]]'></oj-bind-text></div></br>        
+                    </div>
+                </div>
+            </div>
+            <hr style="margin-top: 20px;">
+            <div class="row" id="inst" style="margin-top: 30px;display: none;">
+                <p style="font-weight: bold;font-family: sans-serif;">INSTRUCTIONS FOR EMPLOYERS</p>
+                <p style="font-size: 15px; font-family: sans-serif;">
+                    This Starter Checklist can be used to gather information about your new employee. 
+                    You can use this information to help fill in your first Full Payment Submission (FPS) for this employee. 
+                    You need to keep the information recorded on the Starter Checklist record for the current and previous 3 tax years. 
+                    Do not send this form to HM Revenue and Customs (HMRC).
+                </p>
+                <p style="font-weight: bold;font-family: sans-serif;margin-top: 40px;">INSTRUCTIONS FOR EMPLOYEES</p>
+                <p style="font-size: 15px;font-family: sans-serif;">
+                    As a new employee your employer needs the information on this form before your first payday to tell HMRC about you and help them use the correct tax code. 
+                    Fill in this form then give it to your employer. Do not send this form to HMRC. 
+                    It’s important that you choose the correct statement. If you do not choose the correct statement you may pay too much or too little tax. 
+                    For help filling in this form watch our short youtube video, go to 
+                    <a href="https://www.youtube.com/hmrcgovuk" target="_blank" style="font-weight: bold; color: red;text-decoration: none;">
+                        Click here
+                    </a>
+                </p>
+                <div style="display: flex; justify-content: end;padding-right: 100px;">
+                    <oj-button id="icon_button1" display="icons" style="width: 100px;" on-oj-action="[[nextPage]]">
+                        Next
+                    </oj-button>
+                </div>
+            </div>
+        </div>
+
+        <div class="induction-form" id="2" style="margin-left: 20px;display: none;">
+            <div class="row" id="personal-details" style="margin-top: 30px;">
+                <p style="font-weight: bold;font-family: sans-serif;">EMPLOYEE'S PERSONAL DETAILS</p>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Title
+                        <oj-input-text id="text-input" value="{{title}}" label-hint="Title" label-edge="inside" disabled=""></oj-input-text>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        First Name
+                        <oj-input-text id="text-input" value="{{firstname}}" label-hint="First Name" label-edge="inside" disabled=""></oj-input-text>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Last Name
+                        <oj-input-text id="text-input" value="{{lastname}}" label-hint="Last Name" label-edge="inside" disabled=""></oj-input-text>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Address Line One
+                        <oj-input-text id="text-input" value="{{address1}}" label-hint="Address1" label-edge="inside" disabled=""></oj-input-text>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Address Line Two
+                        <oj-input-text id="text-input" value="{{address2}}" label-hint="Address2" label-edge="inside" disabled=""></oj-input-text>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Post Town
+                        <oj-input-text id="text-input" value="{{posttown}}" label-hint="Post Town" label-edge="inside" disabled=""></oj-input-text>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Postcode
+                        <oj-input-text id="text-input" value="{{postcode}}" label-hint="Postcode" label-edge="inside" disabled=""></oj-input-text>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        National Insurance Number
+                        <oj-input-text id="text-input" value="{{nationalInsuranceNo}}" label-hint="Insurance number" label-edge="inside" on-value-changed="[[insrNoChange]]"></oj-input-text>
+                        <p style="color: red;font-size: 12px;"><oj-bind-text value="[[insLength]]"></oj-bind-text></p>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Employment Start Date
+                        <oj-input-date value="{{employementStartDate}}" label-hint="Employement Start Date" autocomplete="off" on-value-changed="[[insrNoChange]]"></oj-input-date>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: end;padding-right: 100px;">
+                    <oj-button id="icon_button2" display="icons" disabled="true" style="width: 100px; margin-top: 20px;" on-oj-action="[[nextPage]]">
+                        Next
+                    </oj-button>
+                </div>
+            </div>
+        </div>
+
+        <div class="induction-form" id="3" style="margin-left: 20px;display: none;">
+            <div class="row" id="personal-details" style="margin-top: 30px;">
+                <p style="font-weight: bold;font-family: sans-serif;">EMPLOYEE STATEMENT</p>
+                <hr>
+                <p>Choose the statement that applies to you, either A, B or C, and tick the appropriate box.</p>
+                <div class="row">
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Statement A	
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Statement B	
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Statement C
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 20px;background-color: #f1f3fa; padding: 10px;">
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        <div class="statement">
+                            <p>
+                                Do not choose this statement if you’re in receipt of a State, Works or Private Pension.
+                            </p>
+                            <p>Choose this statement if the following applies.</p>
+                            <p>
+                                This is my first job since 6 April and since the 6 April I’ve not received payments from any of the following:
+                            </p>
+                            <ul>
+                                <li>Jobseeker’s Allowance</li>
+                                <li>Employment and Support Allowance</li>
+                                <li>Incapacity Benefit</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        <div class="statement">
+                            <p>Do not choose this statement if you’re in receipt of a State, Works or Private Pension</p>
+                            <p>Choose this statement if the following applies.</p>
+                            <p>
+                                Since 6 April I have had another job but I do not have a P45. And/or since the 6 April I have receive payments from any of the following:
+                            </p>
+                            <ul>
+                                <li>Jobseeker’s Allowance</li>
+                                <li>Employment and Support Allowance</li>
+                                <li>Incapacity Benefit</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        <div class="statement">
+                            <p>Choose this statement if:</p>
+                            <ul>
+                                <li>you have another job and/or</li>
+                                <li>you’re in receipt of a State, Works or Private Pension</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-4">
+                        <oj-checkboxset class="oj-choice-direction-row" value="{{statement1}}" on-value-changed="[[statChange]]">
+                            <oj-option value="A">Statement A applies to me</oj-option>
+                        </oj-checkboxset>
+                    </div>
+                    <div class="col-sm-4">
+                        <oj-checkboxset class="oj-choice-direction-row" value="{{statement2}}" on-value-changed="[[statChange]]">
+                            <oj-option value="B">Statement B applies to me</oj-option>
+                        </oj-checkboxset>
+                    </div>
+                    <div class="col-sm-4">
+                        <oj-checkboxset class="oj-choice-direction-row" value="{{statement3}}" on-value-changed="[[statChange]]">
+                            <oj-option value="C">Statement C applies to me</oj-option>
+                        </oj-checkboxset>
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: end;padding-right: 100px;">
+                    <oj-button id="icon_button3" display="icons" disabled="true" style="width: 100px; margin-top: 20px;" on-oj-action="[[nextPage]]">
+                        Next
+                    </oj-button>
+                </div>
+            </div>
+        </div>
+
+        <div class="induction-form" id="4" style="margin-left: 20px;display: none;">
+            <div class="row" id="personal-details" style="margin-top: 30px;">
+                <p style="font-weight: bold;font-family: sans-serif;">STUDENT LOAN</p>
+                <hr>
+                <p style="font-weight: bold;">
+                    For more guidance about repaying, go to 
+                    <a href="https://www.gov.uk/repaying-your-student-loan" target="_blank" style="color: red;text-decoration: none;">Click here</a>
+                </p>
+
+                <div class="row" style="display: flex; justify-content: center;">
+                    <div class="col-sm-6">
+                        <p>
+                            1) Do you have one of the Student Loan Plans described below which is not fully repaid?
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <oj-select-single id="select" label-hint="Choose One" label-edge="inside" on-value-changed="[[studValChanged]]"
+                        class="oj-form-control-max-width-md" data="[[selectOptions]]" value="{{selectStudLoanVal}}"></oj-select-single>
+                    </div>
+                </div>
+
+                <div class="row" id="studies" style="display: none; justify-content: center; margin-top: 10px;">
+                    <div class="col-sm-6">
+                        <p>
+                            2) Did you complete or leave your studies before 6th April?
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <oj-select-single id="select" label-hint="Choose One" label-edge="inside" on-value-changed="[[studiesChanged]]"
+                        class="oj-form-control-max-width-md" data="[[selectOptions]]" value="{{selectStudiesVal}}"></oj-select-single>
+                    </div>
+                </div>
+
+                <div class="row" id="repayStudLoan" style="display: none; justify-content: center; margin-top: 10px;">
+                    <div class="col-sm-6">
+                        <p>
+                            3) Are you repaying your Student Loan directly to the Student Loans Company by direct debit?
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <oj-select-single id="select" label-hint="Choose One" label-edge="inside" on-value-changed="[[repayStudLoanChanged]]"
+                        class="oj-form-control-max-width-md" data="[[selectOptions]]" value="{{repayStudLoanVal}}"></oj-select-single>
+                    </div>
+                </div>
+
+                <div class="row" id="typeStudLoan" style="display: none; justify-content: center; margin-top: 10px;">
+                    <div class="col-sm-6">
+                        <p>
+                            4) What type of Student Loan do you have?
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <oj-select-single id="select" label-hint="Choose One" label-edge="inside" class="oj-form-control-max-width-md" 
+                            data="[[typeLoanOptions]]" value="{{typeStudLoanVal}}"></oj-select-single>
+                    </div>
+                </div>
+
+                <p style="font-weight: bold;font-family: sans-serif;">Student Loan Plans</p>
+                <p>
+                    You’ll have a Plan 1 Student Loan if:
+                    <ul>
+                        <li>you lived in Scotland or Northern Ireland when you started your course (undergraduate or postgraduate)</li>
+                        <li>you lived in England or Wales and started your undergraduate course before 1 September 2012</li>
+                    </ul>
+                    You’ll have a Plan 2 Student Loan if:
+                    <ul>
+                        <li>you lived in England or Wales and started your undergraduate course on or after 1 September 2012</li>
+                        <li>your loan is a Part Time Maintenance Loan</li>
+                        <li>your loan is an Advanced Learner Loan</li>
+                        <li>your loan is a Postgraduate Healthcare Loan</li>
+                    </ul>
+                </p>
+
+                <div class="row" id="postgrd-lon" style="display: none;">
+                    <p style="font-weight: bold;font-family: sans-serif;">POSTGRADUATE LOAN</p>
+                    <hr>
+                    <p style="font-weight: bold;">
+                        For more guidance about funding and repaying, go to
+                        <a href="https://www.gov.uk/funding-for-postgraduate-study" target="_blank" style="color: red;text-decoration: none;">Click here</a>
+                    </p>
+                    <p style="font-weight: bold;">
+                        For more guidance for employers, go to
+                        <a href="https://www.gov.uk/guidance/special-rules-for-student-loans" target="_blank" style="color: red;text-decoration: none;">Click here</a>
+                    </p>
+                    <div class="col-sm-6">
+                        <p>
+                            1) Do you have a Postgraduate Loan which is not fully repaid?
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <oj-select-single id="select" label-hint="Choose One" label-edge="inside" on-value-changed="[[postgrdChanged]]"
+                        class="oj-form-control-max-width-md" data="[[selectOptions]]" value="{{selectPostGrdVal}}"></oj-select-single>
+                    </div>
+                </div>
+
+                <div class="row" id="compltPostgrd" style="display: none; justify-content: center; margin-top: 10px;">
+                    <p>
+                        You’ll have a Postgraduate Loan if:
+                        <ul>
+                            <li>you lived in England and started your Postgraduate Master’s course on or after 1 August 2016</li>
+                            <li>you lived in Wales and started your Postgraduate Master’s course on or after 1 August 2017</li>
+                            <li>you lived in England or Wales and started your Postgraduate Doctoral course on or after 1 August 2018</li>
+                        </ul>
+                    </p>
+                    <div class="col-sm-6">
+                        <p>
+                            2) Did you complete or leave your Postgraduate studies before 6th April?
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <oj-select-single id="select" label-hint="Choose One" label-edge="inside" on-value-changed="[[compltPostgrdChanged]]"
+                        class="oj-form-control-max-width-md" data="[[selectOptions]]" value="{{compltPostgrdVal}}"></oj-select-single>
+                    </div>
+                </div>
+
+                <div class="row" id="repayPostgrd" style="display: none; justify-content: center; margin-top: 10px;">
+                    <div class="col-sm-6">
+                        <p>
+                            3) Are you repaying your Postgraduate Loan direct to the Student Loans Company by direct debit?
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <oj-select-single id="select" label-hint="Choose One" label-edge="inside" on-value-changed="[[repayPostgrdChanged]]"
+                        class="oj-form-control-max-width-md" data="[[selectOptions]]" value="{{repayPostgrdVal}}"></oj-select-single>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: end;padding-right: 100px;">
+                    <oj-button id="icon_button4" display="icons" style="width: 100px; margin-top: 20px;display: none;" on-oj-action="[[nextPage]]">
+                        Next
+                    </oj-button>
+                </div>
+            </div>
+        </div>
+
+        <div class="induction-form" id="5" style="margin-left: 20px;display: none;">
+            <div class="row" id="inst" style="margin-top: 30px;">
+                <p style="font-weight: bold;font-family: sans-serif;">DECLARATION</p>
+                <hr>
+                <oj-validation-group id="checkListValidation" role="group" valid="{{checkListValid}}">
+                    <oj-checkboxset value="{{declaration}}" required label-hint="Declaration">
+                        <oj-option value="agree">
+                            I confirm that the information given within this form is true and accurate. I hereby give consent for this information being used for personnel administration and business purposes.
+                        </oj-option>
+                    </oj-checkboxset>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <oj-input-text required id="text-input" value="{{name}}" label-hint="Name" label-edge="inside" on-value-changed="[[createSignature]]"></oj-input-text>
+                        </div>
+                        <div class="col-sm-4" style="font-family: Cedarville Cursive">
+                            <oj-input-text id="text-input1" value="{{esignature}}" label-hint="Esignature" label-edge="inside" disabled></oj-input-text>
+                        </div>
+                        <div class="col-sm-4">
+                            <oj-input-date required label-hint="date" autocomplete="off" value="{{date}}"></oj-input-date>
+                        </div>
+                    </div>
+                </oj-validation-group>
+                <div style="display: flex; justify-content: center;padding-right: 100px;">
+                    <oj-button id="icon_button1" display="icons" style="width: 100px;" on-oj-action="[[formSubmit]]">
+                        Submit
+                    </oj-button>
+                </div>
+            </div>
+        </div>
+    </oj-bind-if>
+    
+    <oj-popup id="popup1" class="demo-popup" auto-dismiss="none" modality="modal" position.my.horizontal="center"
+        position.my.vertical="center" position.at.horizontal="center" position.at.vertical="center" position.of="window" tail="none">
+        <div class="demo-popup-body">
+            <div class="demo-popup-content oj-sm-padding-2x">
+                <oj-progress-circle size="md" value="-1"></oj-progress-circle>
+            </div>
+        </div>
+    </oj-popup>
+
+    <oj-bind-if test="[[userExist() === 1 ]]">
+        <div id="msg-div">
+            <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+                <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+                <p style="font-weight: 500;">User has submitted Starter Checklist. We will let you know once the Starter Checklist is under review.</p>
+            </div>
+            <oj-bind-if test="[[p45Val() === 'Yes' ]]">
+                Do you want to reupload your P45 document? </br></br>
+                <oj-file-picker  primary-text="[[ps45FileText]]" secondary-text="[[ps45CustomText]]" on-oj-select="[[ps45FileUpdate]]">
+                </oj-file-picker>
+                <div class="oj-text-color-danger"><oj-bind-text value='[[typeError1]]'></oj-bind-text></div></br>        
+                 <a  on-click="[[previewClick]]" target="_blank"><b style="color:red;">Click here to see the uploaded document</b></a>
+            </oj-bind-if>
+            <oj-bind-if test="[[p45Val() === 'No' ]]">
+                Do you want to Edit Starter Checklist? 
+                <a id="passportLink" on-click="[[editStarter]]"><b style="color:red;">Click here</b></a>
+            </oj-bind-if>
+        </div>
+
+        <div class="induction-form" id="1" style="margin-left: 20px;">
+            <div class="row" id="inst" style="margin-top: 30px;display: none;">
+                <p style="font-weight: bold;font-family: sans-serif;">INSTRUCTIONS FOR EMPLOYERS</p>
+                <p style="font-size: 15px; font-family: sans-serif;">
+                    This Starter Checklist can be used to gather information about your new employee. 
+                    You can use this information to help fill in your first Full Payment Submission (FPS) for this employee. 
+                    You need to keep the information recorded on the Starter Checklist record for the current and previous 3 tax years. 
+                    Do not send this form to HM Revenue and Customs (HMRC).
+                </p>
+                <p style="font-weight: bold;font-family: sans-serif;margin-top: 40px;">INSTRUCTIONS FOR EMPLOYEES</p>
+                <p style="font-size: 15px;font-family: sans-serif;">
+                    As a new employee your employer needs the information on this form before your first payday to tell HMRC about you and help them use the correct tax code. 
+                    Fill in this form then give it to your employer. Do not send this form to HMRC. 
+                    It’s important that you choose the correct statement. If you do not choose the correct statement you may pay too much or too little tax. 
+                    For help filling in this form watch our short youtube video, go to 
+                    <a href="https://www.youtube.com/hmrcgovuk" target="_blank" style="font-weight: bold; color: red;text-decoration: none;">
+                        Click here
+                    </a>
+                </p>
+                <div style="display: flex; justify-content: end;padding-right: 100px;">
+                    <oj-button id="icon_button1" display="icons" style="width: 100px;" on-oj-action="[[nextPage]]">
+                        Next
+                    </oj-button>
+                </div>
+            </div>
+        </div>
+        <div class="induction-form" id="2" style="margin-left: 20px;display: none;">
+            <div class="row" id="personal-details" style="margin-top: 30px;">
+                <p style="font-weight: bold;font-family: sans-serif;">EMPLOYEE'S PERSONAL DETAILS</p>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Title
+                        <oj-input-text id="text-input" value="{{title}}" label-hint="Title" label-edge="inside" disabled=""></oj-input-text>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        First Name
+                        <oj-input-text id="text-input" value="{{firstname}}" label-hint="First Name" label-edge="inside" disabled=""></oj-input-text>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Last Name
+                        <oj-input-text id="text-input" value="{{lastname}}" label-hint="Last Name" label-edge="inside" disabled=""></oj-input-text>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Address Line One
+                        <oj-input-text id="text-input" value="{{address1}}" label-hint="Address1" label-edge="inside" disabled=""></oj-input-text>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Address Line Two
+                        <oj-input-text id="text-input" value="{{address2}}" label-hint="Address2" label-edge="inside" disabled=""></oj-input-text>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Post Town
+                        <oj-input-text id="text-input" value="{{posttown}}" label-hint="Post Town" label-edge="inside" disabled=""></oj-input-text>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Postcode
+                        <oj-input-text id="text-input" value="{{postcode}}" label-hint="Postcode" label-edge="inside" disabled=""></oj-input-text>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        National Insurance Number
+                        <oj-input-text id="text-input" value="{{nationalInsuranceNo}}" label-hint="Insurance number" label-edge="inside" on-value-changed="[[insrNoChange]]"></oj-input-text>
+                        <p style="color: red;font-size: 12px;"><oj-bind-text value="[[insLength]]"></oj-bind-text></p>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Employment Start Date
+                        <oj-input-date value="{{employementStartDate}}" label-hint="Employement Start Date" autocomplete="off" on-value-changed="[[insrNoChange]]"></oj-input-date>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: end;padding-right: 100px;">
+                    <oj-button id="icon_button2" display="icons" disabled="true" style="width: 100px; margin-top: 20px;" on-oj-action="[[nextPage]]">
+                        Next
+                    </oj-button>
+                </div>
+            </div>
+        </div>
+        <div class="induction-form" id="3" style="margin-left: 20px;display: none;">
+            <div class="row" id="personal-details" style="margin-top: 30px;">
+                <p style="font-weight: bold;font-family: sans-serif;">EMPLOYEE STATEMENT</p>
+                <hr>
+                <p>Choose the statement that applies to you, either A, B or C, and tick the appropriate box.</p>
+                <div class="row">
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Statement A	
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Statement B	
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        Statement C
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 20px;background-color: #f1f3fa; padding: 10px;">
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        <div class="statement">
+                            <p>
+                                Do not choose this statement if you’re in receipt of a State, Works or Private Pension.
+                            </p>
+                            <p>Choose this statement if the following applies.</p>
+                            <p>
+                                This is my first job since 6 April and since the 6 April I’ve not received payments from any of the following:
+                            </p>
+                            <ul>
+                                <li>Jobseeker’s Allowance</li>
+                                <li>Employment and Support Allowance</li>
+                                <li>Incapacity Benefit</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        <div class="statement">
+                            <p>Do not choose this statement if you’re in receipt of a State, Works or Private Pension</p>
+                            <p>Choose this statement if the following applies.</p>
+                            <p>
+                                Since 6 April I have had another job but I do not have a P45. And/or since the 6 April I have receive payments from any of the following:
+                            </p>
+                            <ul>
+                                <li>Jobseeker’s Allowance</li>
+                                <li>Employment and Support Allowance</li>
+                                <li>Incapacity Benefit</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px">
+                        <div class="statement">
+                            <p>Choose this statement if:</p>
+                            <ul>
+                                <li>you have another job and/or</li>
+                                <li>you’re in receipt of a State, Works or Private Pension</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-4">
+                        <oj-checkboxset class="oj-choice-direction-row" value="{{statement1}}" on-value-changed="[[statChange]]">
+                            <oj-option value="A">Statement A applies to me</oj-option>
+                        </oj-checkboxset>
+                    </div>
+                    <div class="col-sm-4">
+                        <oj-checkboxset class="oj-choice-direction-row" value="{{statement2}}" on-value-changed="[[statChange]]">
+                            <oj-option value="B">Statement B applies to me</oj-option>
+                        </oj-checkboxset>
+                    </div>
+                    <div class="col-sm-4">
+                        <oj-checkboxset class="oj-choice-direction-row" value="{{statement3}}" on-value-changed="[[statChange]]">
+                            <oj-option value="C">Statement C applies to me</oj-option>
+                        </oj-checkboxset>
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: end;padding-right: 100px;">
+                    <oj-button id="icon_button3" display="icons" disabled="true" style="width: 100px; margin-top: 20px;" on-oj-action="[[nextPage]]">
+                        Next
+                    </oj-button>
+                </div>
+            </div>
+        </div>
+
+        <div class="induction-form" id="4" style="margin-left: 20px;display: none;">
+            <div class="row" id="personal-details" style="margin-top: 30px;">
+                <p style="font-weight: bold;font-family: sans-serif;">STUDENT LOAN</p>
+                <hr>
+                <p style="font-weight: bold;">
+                    For more guidance about repaying, go to 
+                    <a href="https://www.gov.uk/repaying-your-student-loan" target="_blank" style="color: red;text-decoration: none;">Click here</a>
+                </p>
+
+                <div class="row" style="display: flex; justify-content: center;">
+                    <div class="col-sm-6">
+                        <p>
+                            1) Do you have one of the Student Loan Plans described below which is not fully repaid?
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <oj-select-single id="select" label-hint="Choose One" label-edge="inside" on-value-changed="[[studValChanged]]"
+                        class="oj-form-control-max-width-md" data="[[selectOptions]]" value="{{selectStudLoanVal}}"></oj-select-single>
+                    </div>
+                </div>
+
+                <div class="row" id="studies" style="display: none; justify-content: center; margin-top: 10px;">
+                    <div class="col-sm-6">
+                        <p>
+                            2) Did you complete or leave your studies before 6th April?
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <oj-select-single id="select" label-hint="Choose One" label-edge="inside" on-value-changed="[[studiesChanged]]"
+                        class="oj-form-control-max-width-md" data="[[selectOptions]]" value="{{selectStudiesVal}}"></oj-select-single>
+                    </div>
+                </div>
+
+                <div class="row" id="repayStudLoan" style="display: none; justify-content: center; margin-top: 10px;">
+                    <div class="col-sm-6">
+                        <p>
+                            3) Are you repaying your Student Loan directly to the Student Loans Company by direct debit?
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <oj-select-single id="select" label-hint="Choose One" label-edge="inside" on-value-changed="[[repayStudLoanChanged]]"
+                        class="oj-form-control-max-width-md" data="[[selectOptions]]" value="{{repayStudLoanVal}}"></oj-select-single>
+                    </div>
+                </div>
+
+                <div class="row" id="typeStudLoan" style="display: none; justify-content: center; margin-top: 10px;">
+                    <div class="col-sm-6">
+                        <p>
+                            4) What type of Student Loan do you have?
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <oj-select-single id="select" label-hint="Choose One" label-edge="inside" class="oj-form-control-max-width-md" 
+                            data="[[typeLoanOptions]]" value="{{typeStudLoanVal}}"></oj-select-single>
+                    </div>
+                </div>
+
+                <p style="font-weight: bold;font-family: sans-serif;">Student Loan Plans</p>
+                <p>
+                    You’ll have a Plan 1 Student Loan if:
+                    <ul>
+                        <li>you lived in Scotland or Northern Ireland when you started your course (undergraduate or postgraduate)</li>
+                        <li>you lived in England or Wales and started your undergraduate course before 1 September 2012</li>
+                    </ul>
+                    You’ll have a Plan 2 Student Loan if:
+                    <ul>
+                        <li>you lived in England or Wales and started your undergraduate course on or after 1 September 2012</li>
+                        <li>your loan is a Part Time Maintenance Loan</li>
+                        <li>your loan is an Advanced Learner Loan</li>
+                        <li>your loan is a Postgraduate Healthcare Loan</li>
+                    </ul>
+                </p>
+
+                <div class="row" id="postgrd-lon" style="display: none;">
+                    <p style="font-weight: bold;font-family: sans-serif;">POSTGRADUATE LOAN</p>
+                    <hr>
+                    <p style="font-weight: bold;">
+                        For more guidance about funding and repaying, go to
+                        <a href="https://www.gov.uk/funding-for-postgraduate-study" target="_blank" style="color: red;text-decoration: none;">Click here</a>
+                    </p>
+                    <p style="font-weight: bold;">
+                        For more guidance for employers, go to
+                        <a href="https://www.gov.uk/guidance/special-rules-for-student-loans" target="_blank" style="color: red;text-decoration: none;">Click here</a>
+                    </p>
+                    <div class="col-sm-6">
+                        <p>
+                            1) Do you have a Postgraduate Loan which is not fully repaid?
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <oj-select-single id="select" label-hint="Choose One" label-edge="inside" on-value-changed="[[postgrdChanged]]"
+                        class="oj-form-control-max-width-md" data="[[selectOptions]]" value="{{selectPostGrdVal}}"></oj-select-single>
+                    </div>
+                </div>
+
+                <div class="row" id="compltPostgrd" style="display: none; justify-content: center; margin-top: 10px;">
+                    <p>
+                        You’ll have a Postgraduate Loan if:
+                        <ul>
+                            <li>you lived in England and started your Postgraduate Master’s course on or after 1 August 2016</li>
+                            <li>you lived in Wales and started your Postgraduate Master’s course on or after 1 August 2017</li>
+                            <li>you lived in England or Wales and started your Postgraduate Doctoral course on or after 1 August 2018</li>
+                        </ul>
+                    </p>
+                    <div class="col-sm-6">
+                        <p>
+                            2) Did you complete or leave your Postgraduate studies before 6th April?
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <oj-select-single id="select" label-hint="Choose One" label-edge="inside" on-value-changed="[[compltPostgrdChanged]]"
+                        class="oj-form-control-max-width-md" data="[[selectOptions]]" value="{{compltPostgrdVal}}"></oj-select-single>
+                    </div>
+                </div>
+
+                <div class="row" id="repayPostgrd" style="display: none; justify-content: center; margin-top: 10px;">
+                    <div class="col-sm-6">
+                        <p>
+                            3) Are you repaying your Postgraduate Loan direct to the Student Loans Company by direct debit?
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <oj-select-single id="select" label-hint="Choose One" label-edge="inside" on-value-changed="[[repayPostgrdChanged]]"
+                        class="oj-form-control-max-width-md" data="[[selectOptions]]" value="{{repayPostgrdVal}}"></oj-select-single>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: end;padding-right: 100px;">
+                    <oj-button id="icon_button4" display="icons" style="width: 100px; margin-top: 20px;display: none;" on-oj-action="[[nextPage]]">
+                        Next
+                    </oj-button>
+                </div>
+            </div>
+        </div>
+        <div class="induction-form" id="5" style="margin-left: 20px;display: none;">
+            <div class="row" id="inst" style="margin-top: 30px;">
+                <p style="font-weight: bold;font-family: sans-serif;">DECLARATION</p>
+                <hr>
+                <oj-validation-group id="checkListValidation" role="group" valid="{{checkListValid}}">
+                    <oj-checkboxset value="{{declaration}}" required label-hint="Declaration">
+                        <oj-option value="agree">
+                            I confirm that the information given within this form is true and accurate. I hereby give consent for this information being used for personnel administration and business purposes.
+                        </oj-option>
+                    </oj-checkboxset>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <oj-input-text required id="text-input" value="{{name}}" label-hint="Name" label-edge="inside" on-value-changed="[[createSignature]]"></oj-input-text>
+                        </div>
+                        <div class="col-sm-4" style="font-family: Cedarville Cursive">
+                            <oj-input-text id="text-input1" value="{{esignature}}" label-hint="Esignature" label-edge="inside" disabled></oj-input-text>
+                        </div>
+                        <div class="col-sm-4">
+                            <oj-input-date required label-hint="date" autocomplete="off" value="{{date}}"></oj-input-date>
+                        </div>
+                    </div>
+                </oj-validation-group>
+                <div style="display: flex; justify-content: center;padding-right: 100px;">
+                    <oj-button id="icon_button1" display="icons" style="width: 100px;" on-oj-action="[[formUpdate]]">
+                        Update
+                    </oj-button>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div class="oj-panel">
+    <div class="oj-flex">
+      <oj-bind-if test="[[starterStatus() === 'Pending']]">
+    <oj-button chroming="solid" class="oj-xl-margin-4x" on-oj-action="[[updateStarterStatus]]">
+         <span slot="startIcon" class=""> Not Audited: Click to mark as audited</span>
+       </oj-button>
+      </oj-bind-if>
+     </div>
+     <div class="oj-flex">
+      <oj-bind-if test="[[starterStatus() === 'Audited']]">
+    <oj-button chroming="solid" class="oj-xl-margin-4x" on-oj-action="[[updateStarterStatus]]">
+         <span slot="startIcon" class=""> Audited: Click to mark as audit pending</span>
+       </oj-button>
+      </oj-bind-if>
+     </div>
+    </div>
+    </oj-bind-if>
+
+    <oj-dialog id="openAddUploadingProgress" dialog-title="Please wait!Uploading...." modality="modeless"
+    style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+      </oj-progress-bar>
+    </div>
+    </oj-dialog>

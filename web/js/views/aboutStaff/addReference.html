@@ -1,0 +1,353 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<div id="sampleDemo"  class="demo-container sampleDemo">
+  <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+    
+    <div id="moduleDemo">  
+      <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;">
+          <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i>  &nbsp;&nbsp;
+          <p>
+            Please give the names and contact details of two referees. One should be your previous employer. If you are a student or a fresher, kindly give 2 reference from your education. Please make sure that the below contact information are correct and they can be contacted at any time.</br>
+          </p>
+      </div>  
+      
+      <div id="showAddBtn">
+      <oj-button chroming="callToAction" class="oj-xl-margin-4x" on-oj-action="[[openAddReferenceDialog]]">
+              <span slot="startIcon" class="demo-icon-sprite"> Add Reference</span>
+            </oj-button></div>   
+
+     <div class="oj-panel">
+     <oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider1]]"
+    class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+    <template slot="itemTemplate" data-oj-as="item">
+      <div
+      class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+      <li>
+        <oj-list-item-layout :aria-label="[['Details for ' +item.data.name]]">
+        
+          <div class="oj-typography-body-md">
+            <div class="oj-flex oj-sm-align-items-center">
+       
+              <div class="oj-flex-item  ">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                  :aria-label="[['task ' +item.data.taskName]]">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                    <oj-bind-text value="Reference Name"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.refer_name]]">
+                    <oj-bind-text value="[[item.data.refer_name]]"></oj-bind-text>
+                  </div>
+                  
+                </oj-list-item-layout>
+              </div>
+              
+              <div class="oj-flex-item  oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                  :aria-label="[['task ' +item.data.taskName]]">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                    <oj-bind-text value="Referrer Status"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.referrer_status]]">
+                    <oj-bind-text value="[[item.data.referrer_status]]"></oj-bind-text>
+                  </div>
+                  
+                </oj-list-item-layout>
+              </div>
+              <oj-bind-if test="[[item.data.referrer_status === 'Uploaded']]">
+              <div class="oj-flex-item oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                  :aria-label="[['task ' +item.data.taskName]]">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                    <oj-bind-text value="Document Preview"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.referrer_status]]">
+                    <div class="oj-text-color-success"><a  :id = "[[ item.data.file ]]" on-click= "[[previewClick]]" target="_blank">Click here</a></div>
+                  </div>
+                  
+                </oj-list-item-layout>
+              </div>
+            </oj-bind-if>
+
+            <oj-bind-if test="[[item.data.referrer_status == 'Email Sent']]">
+              <div class="oj-flex-item oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                  :aria-label="[['task ' +item.data.taskName]]">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                    <oj-bind-text value="Document Preview"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.referrer_status]]">
+                    <oj-bind-text value="Not Uploaded"></oj-bind-text>
+                  </div>
+                  
+                </oj-list-item-layout>
+              </div>
+            </oj-bind-if>
+
+            <oj-bind-if test="[[item.data.referrer_status == 'Received']]">
+              <div class="oj-flex-item oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                  :aria-label="[['task ' +item.data.taskName]]">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                    <oj-bind-text value="Document Preview"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg" :aria-label="[['name ' +item.data.referrer_status]]">
+                   <!--  <oj-button
+                    chroming="borderless"
+                    display="icons"
+                    class="oj-button-sm viewBtn"
+                    on-oj-action="[[viewFormDetails]]">
+                    <span slot="startIcon"></span>
+                    View
+                  </oj-button> -->
+                  <div class="oj-text-color-success"><a  :id = "test" on-click= "[[viewFormDetails]]" target="_blank">Click here</a></div>
+                  </div>                  
+                </oj-list-item-layout>
+              </div>
+            </oj-bind-if>
+                <div class="oj-flex-item demo-list-item-layout oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off"
+                    :aria-label="[['task ' +item.data.taskName]]">
+                    <oj-bind-if test="[[item.data.referrer_status === 'Pending']]">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                      &nbsp; &nbsp; &nbsp; <oj-bind-text value="Actions"></oj-bind-text>
+                    </div>
+                  </oj-bind-if>
+                  <oj-bind-if test="[[item.data.referrer_status === 'Email Sent']]">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                      &nbsp; &nbsp; &nbsp; <oj-bind-text value="Actions"></oj-bind-text>
+                    </div>
+                  </oj-bind-if>
+                  <oj-bind-if test="[[item.data.referrer_status === 'Uploaded']]">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                      &nbsp; &nbsp; &nbsp; <oj-bind-text value="Actions"></oj-bind-text>
+                    </div>
+                  </oj-bind-if>
+                  <oj-bind-if test="[[item.data.referrer_status === 'Received']]">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <oj-bind-text value="Actions"></oj-bind-text>
+                    </div>
+                  </oj-bind-if>
+                  <div slot="tertiary" class="oj-typography-body-lg"
+                  :aria-label="[['Contact Phone ' + item.data.PPhone]]">
+                    <div>
+                      <oj-button
+                      :id = "[['save' + + item.data.id ]]"
+                      chroming="borderless"
+                      display="icons"
+                      class="oj-button-sm editBtn"
+                      on-oj-action="[[editReferenceInfo]]"
+                      >
+                      <span slot="startIcon"></span>
+                    Edit
+                    </oj-button> 
+                    <oj-button
+                  chroming="borderless"
+                  display="icons"
+                  class="oj-button-sm sendMailBtn"
+                  on-oj-action="[[sendEmailConfirm]]">
+                  <span slot="startIcon"></span>
+                  Send E-mail
+                </oj-button> 
+              </oj-button> 
+            
+            <oj-button
+            chroming="borderless"
+            display="icons"
+            class="oj-button-sm uploadBtn"
+            on-oj-action="[[UploadDocument]]">
+            <span slot="startIcon"></span>
+            Upload
+          </oj-button>
+                    <oj-button
+                    chroming="borderless"
+                    display="icons"
+                    class="oj-button-sm deleteBtn"
+                    on-oj-action="[[deleteConfirm]]">
+                    <span slot="startIcon"></span>
+                    Delete
+                  </oj-button>
+                  </div>
+                </div>
+              </oj-list-item-layout>
+            </div>
+
+            </div>
+          </div>
+        
+        </oj-list-item-layout>
+      </li>
+    </div>
+  </div>
+    </template>
+  </oj-list-view>
+</div>
+      <oj-dialog id="openAddReferenceDialog" dialog-title="[[DialogTitle]]" modality="modeless" drag-affordance="title-bar"
+  cancel-behavior="[[CancelBehaviorOpt]]" style="display:none;width:900px;min-width:900px;max-width:900px;">
+  <div slot="body">
+
+  <div
+    class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+    <div
+      class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-6">
+      <oj-validation-group id="referAddSec1" role="group" valid="{{groupValid}}"
+            aria-labelledby="grouplabelid" disbaled>
+            <oj-input-text required id="refer_name" label-hint="Reference Name" value="{{refer_name}}" clear-icon="always">
+            </oj-input-text>
+            <oj-input-text required id="refer_company" label-hint="Reference Company Name" value="{{refer_company}}" clear-icon="always">
+            </oj-input-text>
+            <oj-input-text required id="refer_email" label-hint="Reference Contact Email" value="{{refer_email}}" clear-icon="always" on-value-changed="[[emailPatternValidator]]">
+            </oj-input-text>
+            <div class="oj-text-color-danger"><oj-bind-text value='[[emailError]]'></oj-bind-text></div></br>
+            </oj-validation-group>
+    </div>
+    <div
+      class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5 ">
+      <oj-validation-group id="referAddSec2" role="group" valid="{{groupValid}}"
+      aria-labelledby="grouplabelid">
+      <oj-input-text required id="refer_address" label-hint="Reference Address" value="{{refer_address}}" clear-icon="always">
+      </oj-input-text>
+      <oj-select-single required id="refer_job" label-hint="Position/Job" label-edge="inside" data="[[jobListDP]]" value="{{refer_job}}" 
+      >
+      </oj-select-single>
+      <oj-input-text required length.max="10" id="refer_contact" label-hint="Reference Contact Number" value="{{refer_contact}}" clear-icon="always" on-value-changed="[[onlyNumberKey]]">
+      </oj-input-text>
+      <div class="oj-text-color-danger"><oj-bind-text value='[[contactError]]'></oj-bind-text></div></br>
+    </oj-validation-group>
+    </div>
+  </div>
+  <oj-bind-if test="[[referenceActionBtn() === 'Add']]">
+  <div style="display: flex;justify-content: center;"
+    class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+    <div class="oj-flex-bar">
+      <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[referenceInfoSave]]">Save
+      </oj-button>
+    </div>
+  </div>
+</oj-bind-if>
+<oj-bind-if test="[[referenceActionBtn() === 'Update']]">
+  <div style="display: flex;justify-content: center;"
+    class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+    <div class="oj-flex-bar">
+      <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[referenceInfoUpdate]]">Update
+      </oj-button>
+    </div>
+  </div>
+</oj-bind-if>
+ 
+</div>
+</oj-dialog>
+        
+
+      <oj-dialog id="openViewReferenceDialog" dialog-title="[[DialogTitle]]" modality="modeless" drag-affordance="title-bar"
+      cancel-behavior="[[CancelBehaviorOpt]]" style="display:none;width:900px;min-width:900px;max-width:900px;">
+        <div slot="body">
+          <div class="logo">
+<!--             <img src="../../css/images/comapny.png">
+ -->          </div>
+          <div class="details">
+            <h3>Reference For: <oj-bind-text value='[[userName]]'></oj-bind-text></h3>
+            <h3>Reference Given By: <oj-bind-text value='[[referName]]'></oj-bind-text></h3>
+            
+            <h5 style="margin: 10px 0px;">1. What is your relationship with candidate?</h5>
+            <span style="font-size: 17px; margin: 20px; font-weight: 500; color: #214791;">
+              <oj-bind-text value='[[relationShip]]'></oj-bind-text>
+            </span>
+            <br>
+            <h5 style="margin: 10px 0px;">2. Referee's Organizational name</h5>
+            <span style="font-size: 17px; margin: 20px; font-weight: 500; color: #214791;">
+              <oj-bind-text value='[[organisationName]]'></oj-bind-text>
+            </span>
+            <br>
+            <h5 style="margin: 10px 0px;">3. What is your Job title/Position in the Organization?</h5>
+            <span style="font-size: 17px; margin: 20px; font-weight: 500; color: #214791;">
+              <oj-bind-text value='[[jobTitle]]'></oj-bind-text>
+            </span>
+            <br>
+            <h5 style="margin: 10px 0px;">4. How long have you known this candidate?</h5>
+            <span style="font-size: 17px; margin: 20px; font-weight: 500; color: #214791;">
+              <oj-bind-text value='[[logKnownCandidate]]'></oj-bind-text>
+            </span>
+            <br>
+            <h5 style="margin: 10px 0px;">5. Was the candidate trustworthy,reliability and honest at all times?</h5>
+            <span style="font-size: 17px; margin: 20px; font-weight: 500; color: #214791;">
+              <oj-bind-text value='[[trustWorthy]]'></oj-bind-text>
+            </span>
+            <br>
+            <h5 style="margin: 10px 0px;">6. Are there, to your knowledge, any circumstances which would make
+              it undesirable for us to employ this candidate?
+            </h5>
+            <span style="font-size: 17px; margin: 20px; font-weight: 500; color: #214791;">
+              <oj-bind-text value='[[anyCircumstance]]'></oj-bind-text>
+            </span>
+            <br>
+            <h5 style="margin: 10px 0px;">7. Is there any other information you wish to disclose about this candidate?</h5>
+            <span style="font-size: 17px; margin: 20px; font-weight: 500; color: #214791;">
+              <oj-bind-text value='[[otherInformation]]'></oj-bind-text>
+            </span>
+          </div>
+        </div>
+      </oj-dialog>
+    </div>
+    
+  <oj-dialog id="openAddReferenceProgress" dialog-title="Saving Reference Details" modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openReferenceSaveResult" dialog-title="[[ResultTitle]]" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-bind-text value='[[saveReferenceMsg]]'></oj-bind-text>
+  </div>
+  <div  class="oj-flex-bar" slot="footer">
+    <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel" on-oj-action="[[DBErrorOKClose]]">
+      OK
+    </oj-button>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openAddUploadingProgress" dialog-title="[[progressText]]" modality="modeless"
+style="display:none;width:350px;min-width:240px;max-width:450px;">
+<div slot="body">
+  <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+  </oj-progress-bar>
+</div>
+</oj-dialog>
+
+<oj-dialog id="openDeleteConfirm" dialog-title="Delete Reference Details" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+  <div slot="body">
+    <oj-bind-text value='Do you want to delete the selected row?'></oj-bind-text>
+  </div>
+  <div  class="oj-flex-bar" slot="footer">
+    <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[deleteReferenceInfo]]">
+      OK
+    </oj-button>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openSendConfirm" dialog-title="Send Referrer Form" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+  <div slot="body">
+    <oj-bind-text value='Do you want to send referrer form to the referree?'></oj-bind-text>
+  </div>
+  <div  class="oj-flex-bar" slot="footer">
+    <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[sendEmailAction]]">
+      Yes
+    </oj-button>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openFileUpload" dialog-title="Upload Reference Document" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+  <div slot="body">
+    <oj-file-picker  primary-text="[[referenceFileText]]"
+      secondary-text="[[referenceCustomText]]" on-oj-select="[[referenceDocUpload]]">
+    </oj-file-picker>
+    <div class="oj-text-color-danger"><oj-bind-text value='[[typeError]]'></oj-bind-text></div>
+    </div>
+</oj-dialog>
+
+
+
+ 
+    

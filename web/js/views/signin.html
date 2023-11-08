@@ -1,0 +1,53 @@
+<div class="login-body">
+  <div class="login-div">
+      <div class="logo">
+          <!-- <img src="../../css/images/company.jpg"> -->
+        </div>
+      <div class="login-form">
+          <div class="input">
+            <oj-validation-group id="tracker" valid="{{groupValid}}">
+              <oj-input-text class="signin-input" required id='OnePlaceUsername' placeholder='User Name' spellcheck='false' aria-label='User Name' value='{{OnePlaceuserName}}' required='true'></oj-input-text>
+          </div>
+          <div class="input">
+              <oj-input-password  required id='OnePlacePassword' placeholder='Password' aria-label='password' value='{{OnePlacepassWord}}' required='true'></oj-input-password>
+          </div>
+        </oj-validation-group>
+          <div class="submit-btn">
+            <oj-button id='signInBtn' class='demo-signin-button' chroming='solid'
+            on-oj-action='[[signIn]]'><span class="demo-signin-button-label"><span class='oj-hybrid-padding-horizontal'>Sign In</span></span></oj-button>          </div>
+            <oj-dialog id="LoginErrDialog" dialog-title="Login Error" style="display:none;width:500px;min-width:500px;max-width:500px;">
+              <div slot="body">
+                  <oj-bind-for-each data="[[LoginErr]]">
+                      <template data-oj-as="LoginMsg">
+                          <br>
+                          <oj-bind-text value='[[LoginMsg.data]]'></oj-bind-text>
+                      </template>
+                  </oj-bind-for-each>
+              </div>
+              <div slot="footer">
+                  <oj-button id="okdelButton" on-oj-action="[[LoginMsgOKClose]]">
+                      OK
+                  </oj-button>
+              </div>
+          </oj-dialog>
+      </div>
+  </div>
+  <div class="create-accnt-link">
+    <a href="?ojr=register" style="color: #fff;text-decoration: none;">New here? Create an account</a>
+  </div>
+</div>  
+
+<oj-dialog id="signInProgress" title="Authenticating...." modality="modeless"
+style="display:none;width:350px;min-width:240px;max-width:450px;">
+<div slot="body">
+<oj-progress-bar class="oj-progress-bar-embedded" id="createbar" value="-1" >
+</oj-progress-bar>
+</div>
+</oj-dialog>
+
+<oj-dialog id="TimeoutSign" dialog-title="There is a technical issue. Please try again later" modality="modeless"
+style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+    <div slot="body">
+        
+    </div>
+</oj-dialog>

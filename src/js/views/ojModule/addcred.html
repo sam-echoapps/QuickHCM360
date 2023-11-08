@@ -1,0 +1,211 @@
+
+<div class="oj-flex">
+    <div class="oj-panel oj-md-12 oj-flex oj-xl-margin-4x" >
+            <div class="oj-panel  oj-md-5 oj-sm-margin-1x-bottom oj-xl-margin-4x oj-xl-padding-1x oj-lg-margin-4x oj-lg-padding-1x oj-md-margin-4x oj-md-padding-1x oj-sm-margin-1x oj-sm-padding-1x">
+                <h6 class="demo-center-items oj-typography-heading-xl">View Client Details</h6>
+     <p>Selected Client:
+        <span id=" results" class="oj-typography-body-lg oj-typography-bold">
+                <oj-bind-text value="[[selectedMenuItem]]"></oj-bind-text>
+                </span>
+                </p>
+                <oj-tree-view id="treeview" data="[[data]]" item.selectable="[[leafOnly]]" selection-mode="single"
+                    aria-label="CredentialStore Hierarchical View">
+                    <oj-menu slot="contextMenu" aria-label="Edit" on-oj-action="[[menuAction]]"
+                        on-oj-before-open="[[menuBeforeOpen]]">
+                        <oj-option id="dblogin" value="dblogin">Test DBLogin</oj-option>
+                    </oj-menu>
+                    <template slot="itemTemplate" data-oj-as="row">
+                        <span class="oj-treeview-item-icon"></span>
+                        <span class="oj-typography-body-lg oj-typography-bold oj-treeview-item-text"></span>
+                        <oj-bind-text value="[[row.data.value]]"></oj-bind-text>
+                        </span>
+                    </template>
+                </oj-tree-view>
+            </div>
+
+            <div class="oj-panel oj-md-5 oj-xl-margin-4x" style="margin-left: 3%;">
+          
+                    <h6 class="demo-center-items oj-typography-heading-xl">Add Client Details</h6>
+                <div class="oj-panel demo-center-items oj-xl-margin-4x">
+
+                    <oj-buttonset-one class="oj-buttonset-width-auto" value="{{buttonValue}}">
+                        <oj-option id="addOption" value="add">Add Client</oj-option>
+                        <oj-option id="edOption" value="edit">Edit Client</oj-option>
+                        <oj-option id="delOption" value="del">Delete Client</oj-option>
+                    </oj-buttonset-one>
+                </div>
+
+                <oj-bind-if test="[[buttonValue() === 'add']]">
+                    <div class="oj-panel oj-xl-margin-4x">
+                        <oj-buttonset-one class="oj-buttonset-width-auto" value="{{dombuttonValue}}">
+                            <oj-option id="onOption" value="newDom">New Client Type</oj-option>
+                            <oj-option id="offOption" value="existDom">Existing Client Type</oj-option>
+                        </oj-buttonset-one>
+                        <br>
+                        <br>
+                        <oj-validation-group id="add_user" valid="{{groupValid}}"> 
+                        <oj-form-layout id="fl4" label-edge="start" max-columns="1" direction="row" style="max-width: 60rem !important;">
+                        <oj-bind-if test="[[dombuttonValue() === 'existDom']]">
+                                <oj-label for="domcombo">Client Type</oj-label>
+                                <oj-select-single required id="domcombo" data="[[domname1DP]]" value="{{selectedDomCategoryExist}}">
+                                </oj-select-single>
+                        </oj-bind-if>
+                        <oj-bind-if test="[[dombuttonValue() === 'newDom']]">
+                           <oj-label for="domcombo">Client Type</oj-label>
+                                <oj-input-text  required id="domcombo" value="{{selectedClientType}}"></oj-input-text>
+                        </oj-bind-if>
+                            <oj-label for="Alias-Name">Legal Business Name</oj-label>
+                            <oj-input-text required id="Alias-Name" value="{{aliasName}}"></oj-input-text>
+                            <oj-label for="User-Name">Business Unit</oj-label>
+                            <oj-input-text required id="User-Name"   
+                                value="{{uName}}" validators="[[userNamePatternValidator]]"></oj-input-text>
+                                <oj-label for="User-Name">Contact Person</oj-label>
+                                <oj-input-text required id="User-Name"  label-hint="Last Name , First Name" label-edge='inside'
+                                    value="{{uName}}" validators="[[userNamePatternValidator]]"></oj-input-text>
+                                    <oj-label for="User-Name">Contact Email</oj-label>
+                                    <oj-input-text required id="User-Name"  
+                                        value="{{uName}}" validators="[[userNamePatternValidator]]"></oj-input-text>
+                                        <oj-label for="User-Name">Contact Phone</oj-label>
+                                        <oj-input-text required id="User-Name"  
+                                            value="{{uName}}" validators="[[userNamePatternValidator]]"></oj-input-text>
+                        
+
+                        </oj-form-layout>
+                    </oj-validation-group>
+                    </div>
+                    <oj-dialog id="addUserCredStoreDialog" dialog-title="Add User" modality="modeless" style="display:none;width:500px;min-width:540px;max-width:550px;">
+                        <div slot="body">
+                            <oj-bind-text value='[[succMsgAddUser]]'></oj-bind-text>
+                        </div>
+                        <div slot="footer">
+                            <oj-button id="okaddButton" chroming="callToAction" on-oj-action="[[addUserOKClose]]">
+                                OK
+                            </oj-button>
+                        </div>
+                    </oj-dialog>
+                    <div   class="oj-panel oj-flex-bar oj-sm-margin-1x-bottom oj-xl-margin-4x" style="display: block;">
+                        <div class="oj-flex-bar-end">
+                            <oj-button id='addUsr' class="oj-flex-bar-end" chroming="callToAction" on-oj-action='[[clickAddUsr]]'>Add Client
+                            </oj-button>
+                        </div>
+                    </div>
+
+                </oj-bind-if>
+
+                <oj-bind-if test="[[buttonValue() === 'edit']]">
+
+                    <div class="oj-panel oj-xl-margin-4x ">
+                        <oj-validation-group id="edit_user" valid="{{groupValid}}">   
+                        <oj-form-layout id="fl4" label-edge="start" max-columns="1" direction="row" style="max-width: 60rem !important;">
+
+                            <oj-label for="Dom">Credential Domain</oj-label>
+                            <oj-select-single required id="Dom" data="{{domname1DP}}" value="{{selectedDomCategory}}"
+                            on-value-changed="[[domSelectionChanged]]">
+                            </oj-select-single>
+                            <oj-label for="alias">Credential Alias</oj-label>
+                            <oj-select-single required id="alias" data="[[aliascategoriesDP]]" value="{{selectedAliascategory}}"
+                                on-value-changed="[[aliasSelectionChanged]]">
+                            </oj-select-single>
+
+                            <oj-label for="uname">User Name</oj-label>
+                            <oj-combobox-one required id="uname" options="{{unamecategories}}" value="{{selectedUsercategory}}">
+                            </oj-combobox-one>
+
+                            <oj-label for="uRepPass">Password</oj-label>
+                            <oj-input-password required id="uRepPass" value="{{uRepPass}}"></oj-input-password>
+
+
+                        </oj-form-layout>
+                        </oj-validation-group>
+                    </div>
+                    <oj-dialog id="edUserCredStoreDialog" dialog-title="Alter User" modality="modeless" style="display:none;width:300px;min-width:240px;max-width:350px;">
+                        <div slot="body">
+                            <oj-bind-text value='[[succMsgedUsr]]'></oj-bind-text>
+                        </div>
+                        <div slot="footer">
+                            <oj-button id="okdelButton" chroming="callToAction" on-oj-action="[[edUserOKClose]]">
+                                OK
+                            </oj-button>
+                        </div>
+                    </oj-dialog>
+
+                    <div class="oj-panel oj-flex-bar oj-sm-margin-1x-bottom oj-xl-margin-4x" >
+                        <div class="oj-flex-bar-end">
+                            <oj-button id='edUsr' class="oj-flex-bar-end" chroming="callToAction" on-oj-action='[[clickEditUsr]]'>Save
+                            </oj-button>
+                        </div>
+                    </div>
+                </oj-bind-if>
+
+                <oj-bind-if test="[[buttonValue() === 'del']]">
+                    <div class="oj-panel oj-xl-margin-4x">
+                        <oj-validation-group id="delete_user" valid="{{groupValid}}">   
+                        <oj-form-layout  id="fl4" label-edge="start" max-columns="1" direction="row" style="max-width: 60rem !important;">
+                            <oj-label for="comboboxdel1">Credential Domain</oj-label>
+                            <oj-select-single  required id="comboboxdel1" data="{{domname1DP}}" value="{{selectedDomCategory}}"
+                            on-value-changed="[[domSelectionChanged]]">
+                            </oj-select-single>
+                            <oj-label for="comboboxdel2">Credential Alias</oj-label>
+                            <oj-select-single  required id="comboboxdel2" data="{{aliascategoriesDP}}"
+                                value="{{selectedAliascategory}}" on-value-changed="[[aliasSelectionChanged]]">
+                            </oj-select-single>
+
+                            <oj-label for="comboboxdel3">User Name</oj-label>
+                            <oj-select-single required id="comboboxdel3" data="{{unamecategoriesDP}}"
+                                value="{{selectedUsercategory}}">
+                            </oj-select-single>
+
+                        </oj-form-layout>
+                        </oj-validation-group>
+                    </div>
+      
+
+                    <div class="oj-panel oj-flex-bar oj-sm-margin-1x-bottom oj-xl-margin-4x" >
+                        <div class="oj-flex-bar-end">
+                            <oj-button id='delUsr' on-oj-action='[[openDelSuppLog]]' chroming="danger" >Delete User
+                            </oj-button>
+                        </div>
+                    </div>
+
+                    <oj-dialog id="delUserCredStoreDialog" dialog-title="Delete User" modality="modeless" style="display:none;width:300px;min-width:240px;max-width:350px;">
+                        <div slot="body">
+                            <oj-bind-text value='[[succMsgDelUsr]]'></oj-bind-text>
+                        </div>
+                        <div slot="footer">
+                            <oj-button id="okdelButton" chroming="callToAction" on-oj-action="[[delUserOKClose]]">
+                                OK
+                            </oj-button>
+                        </div>
+                    </oj-dialog>
+
+                </oj-bind-if>
+                    <oj-dialog id="DeleteUser" dialog-title="Delete Credentialstore User" modality="modeless" style="display:none;width:900px;min-width:900px;max-width:900px;">
+                        <div slot="body">
+                                <span>Are you sure ? </span>
+                        </div>
+                        <div slot="footer">
+                            <oj-button id="okYesButton" chroming="callToAction" on-oj-action="[[clickDelUsr]]">
+                             Yes 
+                         </oj-button>
+                         <oj-button id="okNoButton" chroming="callToAction" on-oj-action="[[CloseOkDlt]]">
+                            No
+                        </oj-button>
+                        </div>
+                        </oj-dialog>
+
+
+
+
+        <oj-dialog id="TimeoutCred" dialog-title="There is a technical issue. Please try again later" modality="modeless"
+        style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+            <div slot="body">
+            </div>
+        </oj-dialog>
+
+        <oj-dialog id="FetchDataDialog" title="Fetching Details" modality="modeless"
+    style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+        <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+        </oj-progress-bar>
+    </div>
+</oj-dialog>

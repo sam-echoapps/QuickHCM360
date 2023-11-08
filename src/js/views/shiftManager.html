@@ -1,0 +1,710 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+  <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;This section gives you an overview of client shift. You can select individual client names to  post new shifts and to view their shift history, confirmed shifts and completed shifts.
+</div>
+
+<div
+class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+<div
+  class=" oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-3">
+  <oj-validation-group id="filterSec" role="group" valid="{{groupValid}}"
+  aria-labelledby="grouplabelid" disbaled>
+  <oj-select-single required label-hint="Select Client Name" 
+  label-edge="inside" data="[[ClientDetDP]]" value="{{client_name_filter}}">
+  </oj-select-single>
+</oj-validation-group>
+</div>
+        <div
+          class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-7">
+          <oj-button id="confirmBtn" style="margin-top:12px;" class="oj-flex-bar-end" chroming='solid' on-oj-action="[[filterPostedShift]]">Search
+          </oj-button>
+        </div>
+        <!-- <div
+          class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-4">
+        <oj-buttonset-one id="setMultipleButtons" value="{{shiftList}}" aria-label="Choose only one format" class="oj-xl-margin-4x" style="margin-top:12px;">
+          <oj-bind-for-each data="[[formatValues]]">
+            <template>
+              <oj-option value="[[$current.data.id]]">
+                <span>
+                  <oj-bind-text value="[[$current.data.label]]"></oj-bind-text>
+                </span>
+              </oj-option>
+            </template>
+          </oj-bind-for-each>
+        </oj-buttonset-one>
+      </div> -->
+        <div
+        class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-1">
+        <oj-button id="confirmBtn" style="margin-top:12px;" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[postNewShift]]">Post Shift
+        </oj-button>
+      </div>
+</div>
+
+<div class="oj-flex">
+    <div class="oj-sm-8">
+    </div>
+    <div class="oj-sm-4">
+        <oj-buttonset-one id="setMultipleButtons" value="{{shiftList}}" aria-label="Choose only one format">
+          <oj-bind-for-each data="[[formatValues]]">
+            <template>
+              <oj-option value="[[$current.data.id]]">
+                <span>
+                  <oj-bind-text value="[[$current.data.label]]"></oj-bind-text>
+                </span>
+              </oj-option>
+            </template>
+          </oj-bind-for-each>
+        </oj-buttonset-one>
+      </div>
+</div>
+
+<oj-bind-if test="[[shiftList() === 'pending']]">
+<div class="oj-panel oj-xl-margin-4x">
+  <oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider1]]"
+  class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+  <template slot="itemTemplate" data-oj-as="item">
+    <div
+    class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+    <li>
+      <oj-list-item-layout>
+      
+        <div class="oj-typography-body-md">
+          <div class="oj-flex">
+     
+            <div class="oj-flex-item demo-list-item-layout1 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Client Name"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <a on-click= "[[goToProfile]]" target="_blank" title="Go To Client Profile">
+                    <oj-bind-text value="[[item.data.client_name]]"></oj-bind-text>
+                  </a>
+                </div>
+                
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Shift Date"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <oj-bind-text value="[[item.data.shift_date]]"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <oj-bind-text value="[[item.data.shift_time]]"></oj-bind-text>
+                </div>
+                
+              </oj-list-item-layout>
+            </div>
+            
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Shift Name"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <oj-bind-text value="[[item.data.shift_name]]"></oj-bind-text>
+                </div>
+                
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Staff Type"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <oj-bind-text value="[[item.data.job_role]]"></oj-bind-text>
+                </div>
+                
+              </oj-list-item-layout>
+            </div>
+
+          <!--   <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Start Time"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <oj-bind-text value="[[item.data.start_time]]"></oj-bind-text>
+                </div>
+                
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="End Time"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <oj-bind-text value="[[item.data.end_time]]"></oj-bind-text>
+                </div>
+                
+              </oj-list-item-layout>
+            </div>
+ -->
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Staff Required"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <oj-bind-text value="[[item.data.required_staff]]"></oj-bind-text>
+                </div>
+                
+              </oj-list-item-layout>
+            </div>
+
+            <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Shift Status"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <oj-bind-text value="[[item.data.shift_status]]"></oj-bind-text>
+                </div>
+                
+              </oj-list-item-layout>
+            </div>
+
+           <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+              <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                  <oj-bind-text value="Booking Status"></oj-bind-text>
+                </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <oj-bind-text value="[[item.data.booking_status]]"></oj-bind-text>
+                </div>
+                
+              </oj-list-item-layout>
+            </div>
+
+
+              <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                    &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<oj-bind-text value="Actions"></oj-bind-text>
+                  </div>
+                <div slot="tertiary" class="oj-typography-body-lg">
+                  <div>
+                <oj-button
+                chroming="borderless"
+                display="icons"
+                class="oj-button-sm allocateBtn"
+                on-oj-action="[[allocateStaff]]">
+                <span slot="startIcon"></span>
+                Allocation
+              </oj-button> 
+              <oj-bind-if test="[[item.data.booking_status == 'Confirmed' ]]">
+              <oj-button
+              chroming="borderless"
+              display="icons"
+              class="oj-button-sm shifts"
+              on-oj-action="[[approveAllocation]]">
+              <span slot="startIcon"></span>
+              Approve Shifts
+              </oj-button> 
+            </oj-bind-if>
+                 <oj-button
+                  chroming="borderless"
+                  display="icons"
+                  class="oj-button-sm editBtn"
+                  on-oj-action="[[editPostedShift]]">
+                  <span slot="startIcon"></span>
+                  Edit
+                </oj-button> 
+                  <oj-button
+                  chroming="borderless"
+                  display="icons"
+                  class="oj-button-sm deleteBtn"
+                  on-oj-action="[[deleteConfirm]]">
+                  <span slot="startIcon"></span>
+                  Delete
+                </oj-button> 
+                </div>
+              </div>
+            </oj-list-item-layout>
+          </div>
+
+          </div>
+        </div>
+      
+      </oj-list-item-layout>
+    </li>
+  </div>
+</div>
+</oj-bind-if>
+
+
+ <oj-bind-if test="[[shiftList() === 'confirmed']]">
+  <div class="oj-panel oj-xl-margin-4x">
+    <oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider2]]"
+    class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+    <template slot="itemTemplate" data-oj-as="item">
+      <div
+      class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+      <li>
+        <oj-list-item-layout>
+        
+          <div class="oj-typography-body-md">
+            <div class="oj-flex">
+       
+              <div class="oj-flex-item demo-list-item-layout1 oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                    <oj-bind-text value="Client Name"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg">
+                    <a on-click= "[[goToProfile]]" target="_blank" title="Go To Client Profile">
+                      <oj-bind-text value="[[item.data.client_name]]"></oj-bind-text>
+                    </a>
+                  </div>
+                  
+                </oj-list-item-layout>
+              </div>
+  
+              <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                    <oj-bind-text value="Shift Date"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg">
+                    <oj-bind-text value="[[item.data.shift_date]]"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg">
+                    <oj-bind-text value="[[item.data.shift_time]]"></oj-bind-text>
+                  </div>
+                  
+                </oj-list-item-layout>
+              </div>
+              
+              <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                    <oj-bind-text value="Shift Name"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg">
+                    <oj-bind-text value="[[item.data.shift_name]]"></oj-bind-text>
+                  </div>
+                  
+                </oj-list-item-layout>
+              </div>
+  
+              <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                    <oj-bind-text value="Staff Type"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg">
+                    <oj-bind-text value="[[item.data.job_role]]"></oj-bind-text>
+                  </div>
+                  
+                </oj-list-item-layout>
+              </div>
+  
+              <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                    <oj-bind-text value="Staff Required"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg">
+                    <oj-bind-text value="[[item.data.required_staff]]"></oj-bind-text>
+                  </div>
+                  
+                </oj-list-item-layout>
+              </div>
+  
+              <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                    <oj-bind-text value="Shift Status"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg">
+                    <oj-bind-text value="[[item.data.shift_status]]"></oj-bind-text>
+                  </div>
+                  
+                </oj-list-item-layout>
+              </div>
+  
+             <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                  <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                    <oj-bind-text value="Booking Status"></oj-bind-text>
+                  </div>
+                  <div slot="tertiary" class="oj-typography-body-lg">
+                    <oj-bind-text value="[[item.data.booking_status]]"></oj-bind-text>
+                  </div>
+                  
+                </oj-list-item-layout>
+              </div>
+  
+  
+               <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<oj-bind-text value="Actions"></oj-bind-text>
+                    </div>
+                  <div slot="tertiary" class="oj-typography-body-lg">
+                    <div>
+                  <!-- <oj-button
+                  chroming="borderless"
+                  display="icons"
+                  class="oj-button-sm allocateBtn"
+                  on-oj-action="[[allocateStaff]]">
+                  <span slot="startIcon"></span>
+                  Allocation
+                </oj-button> 
+                <oj-bind-if test="[[item.data.booking_status == 'Confirmed' ]]">
+                <oj-button
+                chroming="borderless"
+                display="icons"
+                class="oj-button-sm shifts"
+                on-oj-action="[[approveAllocation]]">
+                <span slot="startIcon"></span>
+                Approve Shifts
+                </oj-button> 
+              </oj-bind-if> -->
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  <oj-button
+                    chroming="borderless"
+                    display="icons"
+                    class="oj-button-sm editBtn"
+                    on-oj-action="[[editPostedShift]]">
+                    <span slot="startIcon"></span>
+                    Edit
+                  </oj-button> 
+                    <oj-button
+                    chroming="borderless"
+                    display="icons"
+                    class="oj-button-sm deleteBtn"
+                    on-oj-action="[[deleteConfirm]]">
+                    <span slot="startIcon"></span>
+                    Delete
+                  </oj-button> 
+                  </div>
+                </div>
+              </oj-list-item-layout>
+            </div> 
+  
+            </div>
+          </div>
+        
+        </oj-list-item-layout>
+      </li>
+    </div>
+  </div>
+  </oj-bind-if>
+
+ <oj-bind-if test="[[shiftList() === 'completed']]">
+    <div class="oj-panel oj-xl-margin-4x">
+      <oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider3]]"
+      class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+      <template slot="itemTemplate" data-oj-as="item">
+        <div
+        class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+        <li>
+          <oj-list-item-layout>
+          
+            <div class="oj-typography-body-md">
+              <div class="oj-flex">
+         
+                <div class="oj-flex-item demo-list-item-layout1 oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                      <oj-bind-text value="Client Name"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg">
+                      <a on-click= "[[goToProfile]]" target="_blank" title="Go To Client Profile">
+                        <oj-bind-text value="[[item.data.client_name]]"></oj-bind-text>
+                      </a>
+                    </div>
+                    
+                  </oj-list-item-layout>
+                </div>
+    
+                <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                      <oj-bind-text value="Shift Date"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg">
+                      <oj-bind-text value="[[item.data.shift_date]]"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg">
+                      <oj-bind-text value="[[item.data.shift_time]]"></oj-bind-text>
+                    </div>
+                  </oj-list-item-layout>
+                </div>
+                
+                <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                      <oj-bind-text value="Shift Name"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg">
+                      <oj-bind-text value="[[item.data.shift_name]]"></oj-bind-text>
+                    </div>
+                    
+                  </oj-list-item-layout>
+                </div>
+    
+                <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                      <oj-bind-text value="Staff Type"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg">
+                      <oj-bind-text value="[[item.data.job_role]]"></oj-bind-text>
+                    </div>
+                    
+                  </oj-list-item-layout>
+                </div>
+  
+                <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                      <oj-bind-text value="Staff Required"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg">
+                      <oj-bind-text value="[[item.data.required_staff]]"></oj-bind-text>
+                    </div>
+                    
+                  </oj-list-item-layout>
+                </div>
+    
+                <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                      <oj-bind-text value="Shift Status"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg">
+                      <oj-bind-text value="[[item.data.shift_status]]"></oj-bind-text>
+                    </div>
+                    
+                  </oj-list-item-layout>
+                </div>
+    
+               <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                  <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                    <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                      <oj-bind-text value="Booking Status"></oj-bind-text>
+                    </div>
+                    <div slot="tertiary" class="oj-typography-body-lg">
+                      <oj-bind-text value="[[item.data.booking_status]]"></oj-bind-text>
+                    </div>
+                    
+                  </oj-list-item-layout>
+                </div>
+    
+    
+                  <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                    <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                        <oj-bind-text value="Actions"></oj-bind-text>
+                      </div>
+                    <div slot="tertiary" class="oj-typography-body-lg">
+                      <div>
+                    <!-- <oj-button
+                    chroming="borderless"
+                    display="icons"
+                    class="oj-button-sm allocateBtn"
+                    on-oj-action="[[allocateStaff]]">
+                    <span slot="startIcon"></span>
+                    Allocation
+                  </oj-button>  -->
+                  <!-- <oj-bind-if test="[[item.data.booking_status == 'Confirmed' ]]">
+                  <oj-button
+                  chroming="borderless"
+                  display="icons"
+                  class="oj-button-sm shifts"
+                  on-oj-action="[[approveAllocation]]">
+                  <span slot="startIcon"></span>
+                  Approve Shifts
+                  </oj-button> 
+                </oj-bind-if> -->
+                     <!-- <oj-button
+                      chroming="borderless"
+                      display="icons"
+                      class="oj-button-sm editBtn"
+                      on-oj-action="[[editPostedShift]]">
+                      <span slot="startIcon"></span>
+                      Edit
+                    </oj-button>  -->
+                    &nbsp;&nbsp;&nbsp;&nbsp;<oj-button
+                      chroming="borderless"
+                      display="icons"
+                      class="oj-button-sm deleteBtn"
+                      on-oj-action="[[deleteConfirm]]">
+                      <span slot="startIcon"></span>
+                      Delete
+                    </oj-button> 
+                    </div>
+                  </div>
+                </oj-list-item-layout>
+              </div>
+    
+              </div>
+            </div>
+          
+          </oj-list-item-layout>
+        </li>
+      </div>
+    </div>
+    </oj-bind-if>
+  
+  </template>
+</oj-list-view>
+
+<oj-dialog id="openPostNewShiftDialog" dialog-title="Post New Shift" modality="modeless" drag-affordance="title-bar"
+  cancel-behavior="[[CancelBehaviorOpt]]" style="display:none;width:900px;min-width:900px;max-width:900px;">
+  <div slot="body">
+    <div
+    class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+    <div
+      class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5">
+      <oj-validation-group id="postShiftSec1" role="group" valid="{{groupValid}}"
+      aria-labelledby="grouplabelid" disbaled>
+      <oj-bind-if test="[[actionVal() == 'Add']]">
+        <oj-select-single required label-hint="Select Client Name" 
+      label-edge="inside" data="[[ClientDetDP]]" value="{{client_name}}" on-value-changed="[[clientJobRole]]"> 
+      </oj-select-single>
+    </oj-bind-if>
+    <oj-bind-if test="[[actionVal() == 'Update']]">
+      <oj-select-single required label-hint="Client Name" 
+    label-edge="inside" data="[[ClientDetDP]]" value="{{client_name}}" on-value-changed="[[clientJobRole]]" disabled> 
+    </oj-select-single>
+    </oj-bind-if>
+      <oj-input-time required id="startTime" value="{{startTime}}" label-hint="Shift Start Time"></oj-input-time></br></br> 
+      <oj-bind-if test="[[actionVal() == 'Add']]">
+        <!-- <oj-select-single required  label-hint="Select Job Role" 
+        label-edge="inside" data="[[JobRoleDP]]" value="{{selected_job_role}}">
+        </oj-select-single></br></br>  -->
+        <oj-input-text required label-hint="Job Role" value="{{selected_job_role}}" clear-icon="always" disabled>
+        </oj-input-text></br></br>
+    </oj-bind-if>
+    <oj-bind-if test="[[actionVal() == 'Update']]">
+      <oj-input-text required label-hint="Job Role" value="{{selected_job_role}}" clear-icon="always" disabled>
+      </oj-input-text></br></br>
+    </oj-bind-if>
+      <oj-input-text required id="required_staff" value="{{required_staff}}" label-hint="No. of Staff Required" on-keypress="[[onlyNumberKeyDigits]]"></oj-input-text></br></br>
+      <oj-bind-if test="[[actionVal() == 'Add']]">
+        <oj-select-single required label-hint="Select Department Name" 
+      label-edge="inside" data="[[DepartmentDetDP]]" value="{{department_name}}"> 
+      </oj-select-single></br></br>
+    </oj-bind-if>
+    <oj-bind-if test="[[actionVal() == 'Update']]">
+      <oj-input-text label-hint="Department Name" value="{{department_name}}" clear-icon="always" disabled>
+      </oj-input-text></br></br>
+    </oj-bind-if>
+      <oj-input-text id="staffExtraPay" label-hint="Staff Extra Pay(Optional)" value="{{staff_extra_pay}}" clear-icon="always" on-keypress="[[onlyNumberKey]]">
+      </oj-input-text></br></br>
+      <oj-text-area id="comments" value="{{comments}}" label-hint="Optional Information, if any" raw-valuenewE=""
+          rows="4" clear-icon="always">
+      </oj-text-area>
+    </oj-validation-group>
+    </div>
+    <div
+        class="oj-sm-1">
+    </div>
+    <div
+        class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5">
+        <oj-validation-group id="postShiftSec2" role="group" valid="{{groupValid}}"
+      aria-labelledby="grouplabelid">
+      <oj-bind-if test="[[actionVal() == 'Add']]">
+        <oj-select-single required label-hint="Select Shift Name" label-edge="inside" data="[[shiftNameDP]]" value="{{selectedShift}}" on-value-changed="[[shiftTimeGet]]"> 
+        </oj-select-single>
+    </oj-bind-if>
+    <oj-bind-if test="[[actionVal() == 'Update']]">
+      <oj-input-text label-hint="Shift Name" value="{{selectedShift}}" clear-icon="always" disabled>
+      </oj-input-text>
+      <!-- <oj-select-single required label-hint="Select Shift Name" label-edge="inside" data="[[shiftNameDP]]" value="{{selectedShift}}" on-value-changed="[[shiftTimeGet]]"> 
+      </oj-select-single></br></br> -->
+    </oj-bind-if>
+      <oj-input-time required id="endTime" value="{{endTime}}" label-hint="Shift End Time"></oj-input-time></br></br>
+      <oj-bind-if test="[[actionVal() == 'Add']]">
+        <oj-input-text required label-hint="Shift Type" value="{{selected_shift_type}}" clear-icon="always" disabled>
+        </oj-input-text></br></br>
+    </oj-bind-if>
+    <oj-bind-if test="[[actionVal() == 'Update']]">
+      <oj-input-text required label-hint="Shift Type" value="{{selected_shift_type}}" clear-icon="always" disabled>
+      </oj-input-text></br></br>
+    </oj-bind-if>
+      <oj-input-date required label-hint="Shift Date" autocomplete="off" value="{{selectShiftDate}}" min="{{currentDate}}"></oj-input-date></br></br> 
+      <oj-select-single required label-hint="Gender" 
+      label-edge="inside" data="[[genderListDP]]" value="{{gender}}">
+      </oj-select-single></br></br>
+     <!--  <oj-input-text required id="gender" label-hint="Gender" value="{{gender}}" clear-icon="always" disabled>
+      </oj-input-text></br></br> -->
+      <oj-bind-if test="[[actionVal() == 'Add']]">
+        <oj-select-single required label-hint="Shift Requested By" 
+      label-edge="inside" data="[[requestedDetDP]]" value="{{requested_by}}"> 
+      </oj-select-single></br></br>
+    </oj-bind-if>
+    <oj-bind-if test="[[actionVal() == 'Update']]">
+      <oj-input-text id="requested_by" label-hint="Shift Requested By" value="{{requested_by}}" clear-icon="always" disabled>
+      </oj-input-text></br></br>
+    </oj-bind-if>
+      <!-- <oj-input-text id="requested_by" label-hint="Shift Requested By(Optional)" value="{{requested_by}}" clear-icon="always">
+      </oj-input-text></br></br> -->
+      <oj-input-text id="clientExtraPay" label-hint="Client Extra Pay(Optional)" value="{{client_extra_pay}}" clear-icon="always" on-keypress="[[onlyNumberKey]]">
+      </oj-input-text></br></br>
+    </oj-validation-group>
+    </div>
+  </div>
+  <div style="display: flex;justify-content: center;"
+    class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+    <div class="oj-flex-bar">
+      <oj-bind-if test="[[actionVal() == 'Add']]">
+        <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[postShiftSave]]">Save
+        </oj-button>
+    </oj-bind-if>
+    <oj-bind-if test="[[actionVal() == 'Update']]">
+      <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[postShiftUpdate]]">Update
+      </oj-button>
+    </oj-bind-if>
+    </div>
+  </div>
+</div>
+</oj-dialog>
+
+<oj-dialog id="openPostShiftProgress" dialog-title="New shift posting..." modality="modeless"
+style="display:none;width:350px;min-width:240px;max-width:450px;">
+<div slot="body">
+  <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+  </oj-progress-bar>
+</div>
+</oj-dialog>
+
+<oj-dialog id="openDeleteConfirm" dialog-title="Delete Posted Shift" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+  <div slot="body">
+    <oj-bind-text value='Do you want to delete the selected row?'></oj-bind-text>
+  </div>
+  <div  class="oj-flex-bar" slot="footer">
+    <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[deletePostedShiftInfo]]">
+      Yes
+    </oj-button>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openDeletePostedShiftProgress" dialog-title="Please wait!Deleteing...." modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openUpdatePostShiftProgress" dialog-title="Updating shift..." modality="modeless"
+style="display:none;width:350px;min-width:240px;max-width:450px;">
+<div slot="body">
+  <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+  </oj-progress-bar>
+</div>
+</oj-dialog>
+

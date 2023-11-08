@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="css/register.css" type="text/css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+            <p class="text-center"></p>
+         
+                    <div class="col-sm-6" style="margin-top: 20px;">
+                        <div id="context"></div>
+                    </div>
+                    <div class="col-sm-6 mt-4">
+                        <input type="text" id="line_1" class="form-control" placeholder='Address line 1' spellcheck='false' aria-label='Address line 1' value="">
+                        <div class="oj-text-color-danger"><oj-bind-text value='[[addressLine1Error]]'></oj-bind-text></div></br>
+                    </div>
+                    <div class="col-sm-6 mt-4">
+                        <input type="text" id="line_2" class="form-control" placeholder='Address line 2' spellcheck='false' aria-label='Address line 1' value="">
+                        <div class="oj-text-color-danger"><oj-bind-text value='[[addressLine2Error]]'></oj-bind-text></div></br>
+                    </div>
+                    <div class="col-sm-6 mt-4">
+                        <input type="text" id="line_1" class="form-control" placeholder='Address line 3' spellcheck='false' aria-label='Address line 1' value="">
+                    </div>
+                    <div class="col-sm-6 mt-4">
+                        <input type="text" class="form-control" id="post_town" placeholder='Post town' spellcheck='false' aria-label='Address line 1' value="">
+                        <div class="oj-text-color-danger"><oj-bind-text value='[[townError]]'></oj-bind-text></div></br>
+                    </div>
+                    <div class="col-sm-6 mt-3">
+                        <input type="text" id="postcode" class="form-control" placeholder='Enter your postcode' spellcheck='false' aria-label='Address line 1' value="">
+                        <div class="oj-text-color-danger"><oj-bind-text value='[[postcodeError]]'></oj-bind-text></div></br>
+                    </div>
+                </div>
+   
+
+
+
+<script
+  type="module"
+  src="https://cdn.jsdelivr.net/npm/@ideal-postcodes/postcode-lookup-bundled@2/dist/postcode-lookup.esm.js"
+></script>
+
+<script type="module">
+    import { PostcodeLookup } from "https://cdn.jsdelivr.net/npm/@ideal-postcodes/postcode-lookup-bundled@2/dist/postcode-lookup.esm.js";
+    window.PostcodeLookup = PostcodeLookup;
+    PostcodeLookup.setup({
+      apiKey: "ak_l96o294xFkm5IoleolP19eggRpQyX",
+      context: "#context",
+      outputFields: {
+        line_1: "#line_1",
+        line_2: "#line_2",
+        line_3: "#line_3",
+        post_town: "#post_town",
+        postcode: "#postcode"
+      }
+    });
+  </script>
+  

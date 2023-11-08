@@ -1,0 +1,77 @@
+<div class="oj-flex">
+    <div  class="oj-panel oj-flex-item  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-10x oj-lg-margin-2x oj-lg-padding-7x oj-md-margin-2x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-2 bg_grey">
+                            <oj-form-layout id="fl1" readonly="[[isFormReadonly()]]">
+                                <div class="oj-panel io-color demo-center-items">
+                                    <h7>Region & Requirement</h7>
+                                </div>
+                                <oj-select-single required id="srcdep" label-hint="Choose Your AWS Region"
+                                    label-edge="inside" data="{{AWSRegionsDP}}" value="{{currentAWSRegion}}"
+                                    class="demo-max-width" >
+                                </oj-select-single>
+                                <oj-select-single required id="srcdep" label-hint="Choose Your Operating System"
+                                label-edge="inside" data="{{OperatingSystemsDP}}" value="{{currentOS}}"
+                                class="demo-max-width" >
+                            </oj-select-single>
+                            <oj-select-single required id="srcdep" label-hint="PreInstalled Software"
+                            label-edge="inside" data="{{PreInsSWListDP}}" value="{{currentSW}}"
+                            class="demo-max-width" >
+                        </oj-select-single>
+                                <oj-input-text  required id="VPCU" value="{{vcpu}}"
+                                    length.max="4" label-hint="Number of VPCU" ></oj-input-text>
+                                    <oj-input-text  required id="Memory Size" value="{{memory}}"
+                                    length.max="4" label-hint="Memory" ></oj-input-text>
+    
+    
+                                    <oj-button id="okdelButton" chroming='solid' on-oj-action="[[SelectSRCDeployment]]">
+                                        Submit
+                                    </oj-button>
+                            </oj-form-layout>
+                            <oj-dialog id="SelectSchemaDialog" dialog-title="Working on it ..." modality="modeless"
+                            style="display:none;width:350px;min-width:240px;max-width:450px;">
+                            <div slot="body">
+                                <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+                                </oj-progress-bar>
+                            </div>
+                        </oj-dialog>
+                        </div>
+                        <div class="oj-panel oj-flex-item oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-10x oj-lg-margin-2x oj-lg-padding-7x oj-md-margin-2x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x overwrite-sm5 oj-sm-8 bg_grey">
+                            <div class="oj-panel io-color demo-center-items">
+                                <h7>Instance Pricing Detail</h7>
+                            </div>
+                            <oj-table id='dbDetListtable' aria-label='Instance Pricing Detail' data='[[awsInstancesDP]]' display='grid'
+                                selection-mode='{"row": "single"}' columns='{{awsPricingcolumnArray}}' style='width: 100%;'>
+                            </oj-table>
+                            <oj-paging-control id="paging" data="[[awsInstancesDP]]" page-size="10" slot="bottom">
+                            </oj-paging-control>
+                        </div>
+    
+                        <div id="OPtions" class="oj-panel oj-flex-item oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-10x oj-lg-margin-2x oj-lg-padding-7x oj-md-margin-2x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x overwrite-sm5 oj-sm-8 bg_grey" style="display: none;    margin-left: 18% !important;">
+                            <div class="oj-panel io-color demo-center-items">
+                                <h7>Results Based on your inputs</h7>
+                            </div>
+                            <span>
+                               <span class="lh2">Best Savings Plans Hourly Rate :&nbsp;&nbsp;&nbsp;<strong><oj-bind-text value='[[demandPrice]]'></oj-bind-text></strong></br></span>
+                               <span class="lh2">1 Year in the commitment : 365 days * 24 hours * 1 year  :&nbsp;&nbsp;&nbsp;<strong>$<oj-bind-text value='[[demandPrice1Yr]]'></oj-bind-text></strong></br></span>
+                               <span class="lh2">3 Year in the commitment : 365 days * 24 hours * 3 year  :&nbsp;&nbsp;&nbsp;<strong>$<oj-bind-text value='[[demandPrice3Yr]]'></oj-bind-text></strong></br></br></span>
+                               <span class="lh2"> <strong> Best Plans available</strong></span></br>
+                               <br><span class="lh2"> <strong>Reserved Standard Plans</strong></span></br>
+                                <span class="lh2">AllUpfront 3yr Quantity :&nbsp;&nbsp;&nbsp;<strong>$<oj-bind-text value='[[ReservedstandardAllUpfront3yrQuantity]]'></oj-bind-text></strong></br></span>
+                                <span class="lh2">AllUpfront 1yr Quantity :&nbsp;&nbsp;&nbsp;<strong>$<oj-bind-text value='[[ReservedstandardAllUpfront1yrQuantity]]'></oj-bind-text></strong></br></span>
+                                <span class="lh2">PartialUpfront 3yr Quantity :&nbsp;&nbsp;&nbsp;<strong>$<oj-bind-text value='[[ReservedstandardPartialUpfront3yrQuantity]]'></oj-bind-text> + ( <oj-bind-text value='[[ReservedstandardPartialUpfront3yrHrs]]'></oj-bind-text> * 24 * 365 * 3) = $<oj-bind-text value='[[ReservedconvertibleAllUpfront3yrQuantityTot]]'></oj-bind-text></strong></br></span>
+                                <span class="lh2">PartialUpfront 1yr Quantity :&nbsp;&nbsp;&nbsp;<strong>$<oj-bind-text value='[[ReservedstandardPartialUpfront1yrQuantity]]'></oj-bind-text> + ( <oj-bind-text value='[[ReservedstandardPartialUpfront1yrHrs]]'></oj-bind-text> * 24 * 365 ) = $ <oj-bind-text value='[[ReservedconvertibleAllUpfront1yrQuantityTot]]'></oj-bind-text></strong></br></span>
+                                <span class="lh2">NoUpfront 1yr Hourly :&nbsp;&nbsp;&nbsp;<strong>$<oj-bind-text value='[[ReservedstandardNoUpfront1yrHrs]]'></oj-bind-text></strong></br></span>
+                                <span class="lh2">NoUpfront 3yr Hourly :&nbsp;&nbsp;&nbsp;<strong>$<oj-bind-text value='[[ReservedstandardNoUpfront3yrHrs]]'></oj-bind-text></strong></br></span>
+                                <br><span class="lh2"> <strong>Reserved Convertible Plans</strong></span></br>
+                                <span class="lh2">AllUpfront 3yr Quantity :&nbsp;&nbsp;&nbsp;<strong>$<oj-bind-text value='[[ReservedconvertibleAllUpfront3yrQuantity]]'></oj-bind-text></strong></br></span>
+                                <span class="lh2">AllUpfront 1yr Quantity :&nbsp;&nbsp;&nbsp;<strong>$<oj-bind-text value='[[ReservedconvertibleAllUpfront1yrQuantity]]'></oj-bind-text></strong></br></span>
+                                <span class="lh2">PartialUpfront 3yr Quantity :&nbsp;&nbsp;&nbsp;<strong>$<oj-bind-text value='[[ReservedconvertiblePartialUpfront3yrQuantity]]'></oj-bind-text> + ( <oj-bind-text value='[[ReservedconvertiblePartialUpfront3yrHrs]]'></oj-bind-text> * 24 * 365 * 3) = $<oj-bind-text value='[[ReservedconvertiblePartialUpfront3yrQuantityTot]]'></oj-bind-text></strong></br></span>
+                                <span class="lh2">PartialUpfront 1yr Quantity :&nbsp;&nbsp;&nbsp;<strong>$<oj-bind-text value='[[ReservedconvertiblePartialUpfront1yrQuantity]]'></oj-bind-text> + ( <oj-bind-text value='[[ReservedconvertiblePartialUpfront1yrHrs]]'></oj-bind-text> * 24 * 365 ) = $<oj-bind-text value='[[ReservedconvertiblePartialUpfront1yrQuantityTot]]'></oj-bind-text></strong></br></span>
+                                <span class="lh2">NoUpfront 3yr Hourly :&nbsp;&nbsp;&nbsp;<strong>$<oj-bind-text value='[[ReservedconvertibleNoUpfront3yrHrs]]'></oj-bind-text></strong></br></span>
+                                <span class="lh2">NoUpfront 1yr Hourly :&nbsp;&nbsp;&nbsp;<strong>$<oj-bind-text value='[[ReservedconvertibleNoUpfront1yrHrs]]'></oj-bind-text></strong></br></span>
+                                 </br>
+                            </span>
+                        </div>
+    
+    
+                        </div>
+    

@@ -1,0 +1,44 @@
+/* //Commented this for correct alligning submenu in Staff menu
+  #induction{
+  border: 1px solid #80808036; 
+  margin: 10px;
+  padding: 10px; 
+  border-radius: 3px;
+} */
+
+.available-day{
+    background-color: green;
+    color: #fff;
+    border-radius: 50%;
+}
+  
+.available-day a{
+  color: #fff !important;
+}
+
+.oj-datepicker-calendar td.oj-datepicker-today a.oj-selected, .oj-datepicker-calendar td a.oj-selected {
+  background: transparent;
+  border: 1px solid #000;
+  color: gray;
+  border-radius: 50%;
+}
+
+.sub-btn{
+  margin-top: 20px;
+  display: none;
+  margin-left: 100px;
+
+}
+
+.bank-holiday{
+  background-color: red;
+  color: #fff;
+  border-radius: 50%;
+}
+
+.special-holiday{
+  background-color: green;
+  color: #fff;
+  border-radius: 50%;
+  width : 10%;
+}

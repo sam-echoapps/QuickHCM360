@@ -1,0 +1,90 @@
+<link rel="stylesheet" href="../../../css/bookInduction.css">
+
+<div id="induction">
+    <oj-bind-if test="[[userCheck() === 'Not available' ]]">
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+            <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+            <p>Induction dates are highlighted in blue circles.</p>
+        </div>  
+        <p style="font-weight: bold; font-size: 15px;">Office Induction</p>
+        <div class="induction-form">
+            <oj-validation-group id="inductionUpdate" role="group" valid="{{inductionValid}}">
+                <oj-label for="datepicker">Choose induction Date :</oj-label>
+                
+                <oj-input-date required id="date" value="{{day}}" day-formatter="[[dayFormatter]]" autocomplete="off"
+                    label-hint="Input Date No Visual Label" label-edge="none" on-value-changed="[[showTime]]"></oj-input-date>
+                <oj-select-single required id="timeSlots" label-hint="Select your time slot" label-edge="inside" class="oj-form-control-max-width-md" 
+                    data="[[timeSlots]]" value="{{inductionId}}" style="display: none;"></oj-select-single>
+            </oj-validation-group>
+            <div class="sub-btn" id="submitBtn">
+                <oj-button id="btn" chroming='callToAction' on-oj-action="[[inductionSubmit]]">Submit</oj-button>
+            </div>
+        </div>
+    </oj-bind-if>
+    <oj-bind-if test="[[userCheck() === 'Rejected' ]]">
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+            <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+            <p>
+                You Booked Date is <oj-bind-text value="[[bookedDate]]"></oj-bind-text> 
+                <oj-bind-text value="[[bookedTime]]"></oj-bind-text> Rejected.
+            </p>
+            <p style="font-size: 15px;font-weight: 500;"> Please book again</p>
+        </div>
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+            <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+            <p>Induction dates are highlighted in blue circles.</p>
+        </div>  
+        <div class="induction-form">
+            <oj-validation-group id="inductionUpdate1" role="group" valid="{{inductionValid}}">
+                <oj-label for="datepicker">Choose induction Date :</oj-label>
+                
+                <oj-input-date required id="date" value="{{day}}" day-formatter="[[dayFormatter]]" autocomplete="off"
+                    label-hint="Input Date No Visual Label" label-edge="none" on-value-changed="[[showTime]]"></oj-input-date>
+                <oj-select-single required id="timeSlots" label-hint="Select your time slot" label-edge="inside" class="oj-form-control-max-width-md" 
+                    data="[[timeSlots]]" value="{{inductionId}}" style="display: none;"></oj-select-single>
+            </oj-validation-group>
+            <div class="sub-btn" id="submitBtn">
+                <oj-button id="btn" chroming='callToAction' on-oj-action="[[inductionSubmit]]">Submit</oj-button>
+            </div>
+        </div>
+    </oj-bind-if>
+    <oj-bind-if test="[[userCheck() === 'Requested' ]]">
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+            <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+            <p>
+                You Booked Date is <oj-bind-text value="[[bookedDate]]"></oj-bind-text> 
+                <oj-bind-text value="[[bookedTime]]"></oj-bind-text>
+            </p>
+            <p style="font-size: 15px;font-weight: 500;">. Please wait for the response.</p>
+        </div>
+    </oj-bind-if>
+    <oj-bind-if test="[[userCheck() === 'Confirmed' ]]">
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+            <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+            <p>
+                You Booked Date is <oj-bind-text value="[[bookedDate]]"></oj-bind-text> 
+                <oj-bind-text value="[[bookedTime]]"></oj-bind-text>
+            </p>
+            <p style="font-size: 15px;font-weight: 500;">
+                . Your induction program has been confirmed by the Jobs Plus admin.
+            </p>        
+        </div>
+    </oj-bind-if>
+    <oj-bind-if test="[[userCheck() === 'Attended' ]]">
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+            <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+            <p style="font-size: 15px;font-weight: 500;">
+                You have successfully attended the office induction. Please fill out the induction checklist form. 
+                <a href="?ojr=myprofile%2FinductionCheck%3Bindex%3D11">Click here</a>
+            </p>
+        </div>
+    </oj-bind-if>
+    <oj-bind-if test="[[userCheck() === 'Checklist Submitted' ]]">
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+            <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;
+            <p style="font-size: 15px;font-weight: 500;">
+                Thank you for attending the induction program and submitting the induction checklist.
+            </p>        
+        </div>
+    </oj-bind-if>
+</div>

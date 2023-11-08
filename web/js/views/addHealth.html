@@ -1,0 +1,436 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="css/postcode.css" type="text/css" />
+
+<div id="sampleDemo"  class="demo-container sampleDemo">
+  <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+    
+    <div id="moduleDemo">   
+      <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1;display: flex;align-items: baseline;">
+        <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp;The candidate is requested to provide health details.
+      </div>              
+        <div
+        class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+        <div
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-4">
+          <oj-validation-group id="staffHealthGPName" role="group" valid="{{groupValid}}"
+          aria-labelledby="grouplabelid">
+          <oj-input-text required id="gp_name" label-hint="GP Name" value="{{gp_name}}" clear-icon="always">
+          </oj-input-text>
+          </oj-validation-group>
+        </div>
+        <div
+        class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-3">
+        <oj-validation-group id="staffHealthCountryCode" role="group" valid="{{groupValid}}"
+        aria-labelledby="grouplabelid">
+        <oj-select-single class="register-input" id="countryCode" label-hint="Country Code" required placeholder="Country Code" data="[[countryCodes]]" value="{{countryCode}}"></oj-select-single>
+        </oj-validation-group>
+      </div>
+      <div
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-4">
+          <oj-validation-group id="staffHealthContact" role="group" valid="{{groupValid}}"
+          aria-labelledby="grouplabelid">
+          <oj-input-text required length.max="10" id="contactNumber" label-hint="Contact Number" value="{{contactNumber}}" clear-icon="always" on-value-changed="[[onlyNumberContact]]">
+          </oj-input-text>
+          <div class="oj-text-color-danger"><oj-bind-text value='[[contactError]]'></oj-bind-text></div></br>
+          </oj-validation-group>
+        </div>
+        <div id="postCodeLookup">
+        <p class="text-center"></p>
+        <div id="context"></div>
+      </div>
+        <oj-bind-if test="[[staffActionBtn() === 'Add']]">
+        <div
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-4">
+          <oj-validation-group id="staffHealthAddress1" role="group" valid="{{groupValid}}"
+          aria-labelledby="grouplabelid">
+          <input type="text" id="line_1" class="form-control" placeholder='Address line 1' spellcheck='false' aria-label='Address line 1' value="">
+          <div class="oj-text-color-danger"><oj-bind-text value='[[addressLine1Error]]'></oj-bind-text></div></br>
+
+          </oj-validation-group>
+        </div>
+        <div
+        class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-3">
+        <oj-validation-group id="staffHealthAddress2" role="group" valid="{{groupValid}}"
+        aria-labelledby="grouplabelid">
+        <input type="text" id="line_2" class="form-control" placeholder='Address line 2' spellcheck='false' aria-label='Address line 1' value="">
+        <div class="oj-text-color-danger"><oj-bind-text value='[[addressLine2Error]]'></oj-bind-text></div></br>
+      </oj-validation-group>
+      </div>
+      <div
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-4">
+          
+          <input type="text" id="line_3" class="form-control" placeholder='Address line 3' spellcheck='false' aria-label='Address line 1' value="">
+
+
+        </div>
+    
+        <div
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-4">
+          <oj-validation-group id="staffHealthTown" role="group" valid="{{groupValid}}"
+          aria-labelledby="grouplabelid">
+          <input type="text" class="form-control" id="post_town" placeholder='Post town' spellcheck='false' aria-label='Address line 1' value="">
+          <div class="oj-text-color-danger"><oj-bind-text value='[[townError]]'></oj-bind-text></div></br>
+          </oj-validation-group>
+        </div>
+        <div
+        class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-3">
+        <oj-validation-group id="staffHealthPostcode" role="group" valid="{{groupValid}}"
+        aria-labelledby="grouplabelid">
+        <input type="text" id="postcode" class="form-control" placeholder='Postcode' spellcheck='false' aria-label='Address line 1' value="">
+        <div class="oj-text-color-danger"><oj-bind-text value='[[postcodeError]]'></oj-bind-text></div></br>       
+      </oj-validation-group>
+      </div>
+      </oj-bind-if>
+      <oj-bind-if test="[[staffActionBtn() === 'Update']]">
+        <div
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-4">
+          <oj-validation-group id="staffHealthAddress1" role="group" valid="{{groupValid}}"
+          aria-labelledby="grouplabelid">
+          <oj-input-text required id="addressLine1" label-hint="Address Line One" value="{{addressLine1}}" clear-icon="always">
+          </oj-input-text>
+          </oj-validation-group>
+        </div>
+        <div
+        class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-3">
+        <oj-validation-group id="staffHealthAddress2" role="group" valid="{{groupValid}}"
+        aria-labelledby="grouplabelid">
+        <oj-input-text required id="addressLine2" label-hint="Address Line Two" value="{{addressLine2}}" clear-icon="always">
+        </oj-input-text>        
+      </oj-validation-group>
+      </div>
+      <div
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-4">
+          
+          <oj-input-text id="town" label-hint="Address Line Three(Optional)" value="{{addressLine3}}" clear-icon="always">
+          </oj-input-text>
+
+        </div>
+        <div
+          class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-4">
+          <oj-validation-group id="staffHealthTown" role="group" valid="{{groupValid}}"
+          aria-labelledby="grouplabelid">
+          <oj-input-text required id="town" label-hint="Post Town" value="{{town}}" clear-icon="always">
+          </oj-input-text>
+          </oj-validation-group>
+        </div>
+        <div
+        class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-3">
+        <oj-validation-group id="staffHealthPostcode" role="group" valid="{{groupValid}}"
+        aria-labelledby="grouplabelid">
+        <oj-input-text required id="postcode" label-hint="Postcode" value="{{postcode}}" clear-icon="always">
+        </oj-input-text>        
+      </oj-validation-group>
+      </div>
+    </oj-bind-if>
+      </div>
+      <div
+        class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-12">
+      <h5 class="" style="color:black">
+        <i class="fa fa-lightbulb-o" style="font-size:24px"></i> Please answer all the following questions by giving relevant details
+        </h5>
+      </div>
+
+      <div
+      class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+      <div
+        class="oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-12">
+        <b>1.Have you ever suffered from any of the following:</b>
+      </div>
+      <div
+        class="col-md-12">
+        <oj-validation-group id="staffHealthCheck" role="group" valid="{{groupValid}}"
+      aria-labelledby="grouplabelid">
+        <div class="row">
+          <div class="col-md-5"></br>
+              <oj-select-single required id="depression" label-hint="a) Depression, anxiety state, nervous illness or breakdown" 
+              label-edge="inside" data="[[choiceListDP]]" value="{{depression}}" on-value-changed="[[NoteSecShow]]">
+              </oj-select-single>
+          </div>
+          <div  class="col-md-1"></div>            
+            <div class="col-md-5" id="depression_note_sec" style="display:none"></br>
+              <oj-input-text id="depression_note" label-hint="Please specify" value="{{depression_note}}" clear-icon="always" required="[[requiredDepression]]">
+              </oj-input-text>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-md-5"></br>
+            <oj-select-single required id="epilepsy" label-hint="b) Epilepsy or disease of the nervous system" 
+              label-edge="inside" data="[[choiceListDP]]" value="{{epilepsy}}" on-value-changed="[[NoteSecShow]]">
+              </oj-select-single>
+          </div>
+        <div  class="col-md-1"></div>            
+          <div class="col-md-5" id="epilepsy_note_sec" style="display:none"></br>
+              <oj-input-text id="epilepsy_note" label-hint="Please specify" value="{{epilepsy_note}}" clear-icon="always" required="[[requiredEpilepsy]]">
+              </oj-input-text>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-md-5"></br>
+            <oj-select-single required id="ailment" label-hint="c) Ailment of lungs or chest" 
+              label-edge="inside" data="[[choiceListDP]]" value="{{ailment}}" on-value-changed="[[NoteSecShow]]">
+              </oj-select-single>
+          </div>
+          <div  class="col-md-1"></div>            
+            <div class="col-md-5" id="ailment_note_sec" style="display:none"></br>
+              <oj-input-text id="ailment_note" label-hint="Please specify" value="{{ailment_note}}" clear-icon="always" required="[[requiredAilment]]">
+              </oj-input-text>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5"></br>
+            <oj-select-single required id="spinal" label-hint="d) Spinal problem (backache)" 
+              label-edge="inside" data="[[choiceListDP]]" value="{{spinal}}" on-value-changed="[[NoteSecShow]]">
+              </oj-select-single>
+          </div>
+          <div  class="col-md-1"></div>            
+            <div class="col-md-5" id="spinal_note_sec" style="display:none"></br>
+              <oj-input-text id="spinal_note" label-hint="Please specify" value="{{spinal_note}}" clear-icon="always" required="[[requiredSpinal]]">
+              </oj-input-text>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5"></br>
+            <oj-select-single required id="arthritis" label-hint="e) Arthritis, Rheumatism or Gout etc" 
+              label-edge="inside" data="[[choiceListDP]]" value="{{arthritis}}" on-value-changed="[[NoteSecShow]]">
+              </oj-select-single>
+          </div>
+          <div  class="col-md-1"></div>            
+            <div class="col-md-5" id="arthritis_note_sec" style="display:none"></br>
+              <oj-input-text id="arthritis_note" label-hint="Please specify" value="{{arthritis_note}}" clear-icon="always" required="[[requiredArthritis]]">
+              </oj-input-text>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5"></br>
+            <oj-select-single required id="heart" label-hint="f) Any heart or circulatory, including blood problems" 
+              label-edge="inside" data="[[choiceListDP]]" value="{{heart}}" on-value-changed="[[NoteSecShow]]">
+              </oj-select-single>
+          </div>
+          <div  class="col-md-1"></div>            
+            <div class="col-md-5" id="heart_note_sec" style="display:none"></br>
+              <oj-input-text id="heart_note" label-hint="Please specify" value="{{heart_note}}" clear-icon="always" required="[[requiredHeart]]">
+              </oj-input-text>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5"></br>
+            <oj-select-single required id="kidney" label-hint="g) Illness of the kidneys, bladder, liver or glands" 
+              label-edge="inside" data="[[choiceListDP]]" value="{{kidney}}" on-value-changed="[[NoteSecShow]]">
+              </oj-select-single>
+          </div>
+          <div  class="col-md-1"></div>            
+            <div class="col-md-5" id="kidney_note_sec" style="display:none"></br>
+              <oj-input-text id="kidney_note" label-hint="Please specify" value="{{kidney_note}}" clear-icon="always" required="[[requiredKidney]]">
+              </oj-input-text>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5"></br>
+            <oj-select-single required id="diabetes" label-hint="h) Diabetes" 
+              label-edge="inside" data="[[choiceListDP]]" value="{{diabetes}}" on-value-changed="[[NoteSecShow]]">
+              </oj-select-single>
+          </div>
+          <div  class="col-md-1"></div>            
+            <div class="col-md-5" id="diabetes_note_sec" style="display:none"></br>
+              <oj-input-text id="diabetes_note" label-hint="Please specify" value="{{diabetes_note}}" clear-icon="always" required="[[requiredDiabetes]]">
+              </oj-input-text>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5"></br>
+            <oj-select-single required id="skin" label-hint="i) Skin disorder" 
+              label-edge="inside" data="[[choiceListDP]]" value="{{skin}}" on-value-changed="[[NoteSecShow]]">
+              </oj-select-single>
+          </div>
+          <div  class="col-md-1"></div>            
+            <div class="col-md-5" id="skin_note_sec" style="display:none"></br>
+              <oj-input-text id="skin_note" label-hint="Please specify" value="{{skin_note}}" clear-icon="always" required="[[requiredSkin]]">
+              </oj-input-text>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-5"></br>
+            <oj-select-single required id="medication" label-hint="2) Are you presently taking medication or undergoing treatment.?" 
+              label-edge="inside" data="[[choiceListDP]]" value="{{medication}}" on-value-changed="[[NoteSecShow]]">
+              </oj-select-single>
+          </div>
+          <div  class="col-md-1"></div>            
+            <div class="col-md-5" id="medication_note_sec" style="display:none"></br>
+              <oj-input-text id="medication_note" label-hint="Please specify" value="{{medication_note}}" clear-icon="always" required="[[requiredMedication]]">
+              </oj-input-text>
+          </div>
+        </div>
+
+        <div class="row">   
+          <div class="col-md-5"></br>
+            <oj-input-text id="alcohol" label-hint="3.a)What is your average daily consumption of Alcohol" value="{{alcohol}}" clear-icon="always" required on-value-changed="[[onlyNumberAlcohol]]">
+            </oj-input-text>
+            <div class="oj-text-color-danger"><oj-bind-text value='[[alcoholError]]'></oj-bind-text></div></br>
+          </div>
+          <div  class="col-md-1"></div>            
+            <div class="col-md-5" id="tobacco"></br>
+              <oj-input-text id="tobacco" label-hint="3.b)What is your average daily consumption of Tobacco" value="{{tobacco}}" clear-icon="always" required on-value-changed="[[onlyNumberTobacco]]">
+              </oj-input-text>
+              <div class="oj-text-color-danger"><oj-bind-text value='[[tobaccoError]]'></oj-bind-text></div></br>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5"></br>
+            <oj-select-single required id="disabled" label-hint="4) Are you a registered disabled person? " 
+              label-edge="inside" data="[[choiceListDP]]" value="{{disabled}}" on-value-changed="[[NoteSecShow]]">
+              </oj-select-single>
+          </div>
+          <div  class="col-md-1"></div>            
+            <div class="col-md-5" id="disabled_note_sec" style="display:none"></br>
+              <oj-input-text id="disabled_note" label-hint="Please specify" value="{{disabled_note}}" clear-icon="always" required="[[requiredDisabled]]">
+              </oj-input-text>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-5"></br>
+            <oj-select-single required id="benefit" label-hint="5) Did you received any industrial disablement benefit?" 
+              label-edge="inside" data="[[choiceListDP]]" value="{{benefit}}" on-value-changed="[[NoteSecShow]]">
+              </oj-select-single>
+          </div>
+          <div  class="col-md-1"></div>            
+            <div class="col-md-5" id="benefit_note_sec" style="display:none"></br>
+              <oj-input-text id="benefit_note" label-hint="Please specify" value="{{benefit_note}}" clear-icon="always" required="[[requiredBenefit]]">
+              </oj-input-text>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5"></br>
+            <oj-select-single required id="absent" label-hint="6)Did you miss any working days during the last 12 months (apart from holidays)?" 
+              label-edge="inside" data="[[choiceListDP]]" value="{{absent}}" on-value-changed="[[NoteSecShow]]">
+              </oj-select-single>
+          </div>
+          <div  class="col-md-1"></div>            
+            <div class="col-md-5" id="absent_note_sec" style="display:none"></br>
+              <oj-input-text id="absent_note" label-hint="How many absent days?" value="{{absent_note}}" clear-icon="always" required="[[requiredAbsent]]" on-value-changed="[[onlyNumberAbsent]]">
+              </oj-input-text>
+              <div class="oj-text-color-danger"><oj-bind-text value='[[absentError]]'></oj-bind-text></div></br>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5"></br>
+            <oj-select-single required id="pregnant" label-hint="7) Are you now pregnant?" 
+              label-edge="inside" data="[[choiceListDP]]" value="{{pregnant}}" on-value-changed="[[NoteSecShow]]">
+              </oj-select-single>
+          </div>
+          <div  class="col-md-1"></div>            
+            <div class="col-md-5" id="pregnant_note_sec" style="display:none"></br>
+              <oj-input-text id="pregnant_note" label-hint="Please Specify" value="{{pregnant_note}}" clear-icon="always" required="[[requiredPregnant]]">
+              </oj-input-text>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5"></br>
+            <oj-select-single required id="additional" label-hint="8) Do you have any additional details?" 
+              label-edge="inside" data="[[choiceListDP]]" value="{{additional}}" on-value-changed="[[NoteSecShow]]">
+              </oj-select-single>
+          </div>
+          <div  class="col-md-1"></div>            
+            <div class="col-md-5" id="additional_note_sec" style="display:none"></br>
+              <oj-input-text id="additional_note" label-hint="Please Specify" value="{{additional_note}}" clear-icon="always" required="[[requiredAdditional]]">
+              </oj-input-text>
+          </div>
+        </div>
+        <oj-bind-if test="[[staffActionBtn() === 'Add']]">
+        <div style="display: flex;justify-content: center;"
+        class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+        <div class="oj-flex-bar">
+          <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[staffHealthSave]]">Save
+          </oj-button>
+        </div>
+      </div>
+    </oj-bind-if>
+    <oj-bind-if test="[[staffActionBtn() === 'Update']]">
+      <div style="display: flex;justify-content: center;"
+          class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+          <div class="oj-flex-bar">
+            <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[staffHealthUpdate]]">Update
+            </oj-button>
+          </div>
+        </div>
+      </oj-bind-if>
+    </oj-validation-group>
+
+    </div>
+    </div>
+
+    </div>
+    <div class="oj-panel">
+    <div class="oj-flex">
+      <oj-bind-if test="[[healthStatus() === 'Pending']]">
+    <oj-button chroming="solid" class="oj-xl-margin-4x" on-oj-action="[[updateHealthStatus]]">
+         <span slot="startIcon" class=""> Not Audited: Click to mark as audited</span>
+       </oj-button>
+      </oj-bind-if>
+     </div>
+     <div class="oj-flex">
+      <oj-bind-if test="[[healthStatus() === 'Audited']]">
+    <oj-button chroming="solid" class="oj-xl-margin-4x" on-oj-action="[[updateHealthStatus]]">
+         <span slot="startIcon" class=""> Audited: Click to mark as audit pending</span>
+       </oj-button>
+      </oj-bind-if>
+     </div>
+    </div>
+
+    <oj-dialog id="openAddHealthProgress" dialog-title="Saving Medical Details" modality="modeless"
+    style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+      </oj-progress-bar>
+    </div>
+  </oj-dialog>
+
+  <oj-dialog id="openHealthSaveResult" dialog-title="Save Health Details" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;">
+    <div slot="body">
+      <oj-bind-text value='[[saveHealthMsg]]'></oj-bind-text>
+    </div>
+    <div  class="oj-flex-bar" slot="footer">
+      <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel" on-oj-action="[[DBErrorOKClose]]">
+        OK
+      </oj-button>
+    </div>
+  </oj-dialog> 
+
+  <script
+  type="module"
+  src="https://cdn.jsdelivr.net/npm/@ideal-postcodes/postcode-lookup-bundled@2/dist/postcode-lookup.esm.js"
+></script>
+
+<script type="module">
+    import { PostcodeLookup } from "https://cdn.jsdelivr.net/npm/@ideal-postcodes/postcode-lookup-bundled@2/dist/postcode-lookup.esm.js";
+    window.PostcodeLookup = PostcodeLookup;
+    PostcodeLookup.setup({
+      apiKey: "ak_l96o294xFkm5IoleolP19eggRpQyX",
+      context: "#context",
+      outputFields: {
+        line_1: "#line_1",
+        line_2: "#line_2",
+        line_3: "#line_3",
+        post_town: "#post_town",
+        postcode: "#postcode"
+      }
+    });
+  </script>
+  
+
+  

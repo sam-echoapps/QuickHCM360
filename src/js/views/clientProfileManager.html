@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<div class="oj-flex  oj-sm-flex-items-1">
+    <div style="width:250px; background-color: #e9ecef; height: 100vh; color: gray;padding: 20px;">
+        <h3><strong>Client Manager</strong></h3>
+        <p>Please go through the following steps to complete your application.</p>
+        <oj-list-view data="[[dataProvider]]" selection-mode="single" selection="{{selection}}">
+            <template slot="itemTemplate" data-oj-as="item">
+                <span style="color: black;display: flex; flex-direction: row;justify-content: space-between;">
+                    <oj-bind-text value="[[item.data.label]]"></oj-bind-text>
+                </span>
+            </template>
+        </oj-list-view>
+    </div>
+    <div class="oj-flex-item oj-panel" style="margin: 0px;">
+        <div class="hint-div oj-sm-margin-4x demo-mypanel">
+            <h2>Client Manager Home</h2>
+        </div>
+        <oj-module config="[[module.koObservableConfig]]"></oj-module>
+    </div>
+</div>

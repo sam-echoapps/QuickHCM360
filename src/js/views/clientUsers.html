@@ -1,0 +1,397 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<div id="sampleDemo"  class="demo-container sampleDemo">
+    <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+      
+      <div id="moduleDemo">    
+        <div class="hint" style="border: 1px solid #80808036; margin: 10px;padding: 10px;background-color: #d1ecf1; display: flex;align-items: baseline;">
+          <i class="bi bi-info-circle-fill" style="color: #002366;font-size: 20px;"></i> &nbsp;&nbsp; You can create and manage the users for the client portal.
+        </div> 
+      </br>
+      <div class="oj-flex addStaffAlign">
+          <oj-button chroming="callToAction" class="oj-xl-margin-4x" on-oj-action="[[openAddClientUsersDialog]]">
+              <span slot="startIcon" class="demo-icon-sprite"> Add Client Poratal User</span>
+            </oj-button>
+          </div>
+          <div class="oj-sm-12">
+            <oj-list-view id="listviewtwo" aria-label="multicolumn with list item layout" data="[[dataProvider1]]"
+           class="oj-sm-padding-2x-vertical" selection-mode="multiple" selected="{{selectorSelectedItems}}">
+           <template slot="itemTemplate" data-oj-as="item">
+             <div
+             class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x contentStyle">
+             <li>
+              <oj-list-item-layout :aria-label="[['Details for ' +item.data.name]]">
+           
+                <div class="oj-typography-body-md">
+                  <div class="oj-flex">
+             
+                   
+                    
+                   <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                     <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                       <oj-bind-text value="[[item.data.taskName]]"></oj-bind-text>
+                       <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                         <oj-bind-text value="Portal User"></oj-bind-text>
+                       </div>
+                       <div slot="tertiary" class="oj-typography-body-lg">
+                         <div>
+                           <oj-bind-text value="[[item.data.name]]"></oj-bind-text>
+                         </div>
+                       </div>
+                       <div slot="tertiary" class="oj-typography-body-lg">
+                       <div>
+                         <oj-bind-text value="[[item.data.user_type]]"></oj-bind-text>
+                       </div>
+                     </div>
+                     </oj-list-item-layout>
+                   </div>
+                   
+      
+                    <div class="oj-flex-item demo-list-item-layout2 oj-md-padding-4x-end">
+                     <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                       <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                         <oj-bind-text value="Contact"></oj-bind-text>
+                       </div>
+                       <div slot="tertiary" class="oj-typography-body-lg">
+                       <div>
+                         <oj-bind-text value="[[item.data.email]]"></oj-bind-text>
+                       </div>
+                     </div>
+                     <div slot="tertiary" class="oj-typography-body-lg">
+                     <div>
+                         <oj-bind-text value="[[item.data.phone]]"></oj-bind-text>
+                      </div>
+                   </div>
+                     </oj-list-item-layout>
+                   </div>
+   
+                   <div class="oj-flex-item demo-list-item-layout3 oj-md-padding-4x-end">
+                    <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                      <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary" :aria-label="[['name ' +item.data.userName]]">
+                        <oj-bind-text value="Status"></oj-bind-text>
+                      </div>
+                      <div slot="tertiary" class="oj-typography-body-lg">
+                    <span :class="[[getBadgeClass(item.data.status)]]">
+                      <oj-bind-if test="[[item.data.status === 'Pending']]">
+                      <oj-bind-text value="Active"></oj-bind-text>
+                    </oj-bind-if>
+                    <oj-bind-if test="[[item.data.status === 'Deactive']]">
+                      <oj-bind-text value="Inactive"></oj-bind-text>
+                    </oj-bind-if>
+                    </span>
+                  </div>
+                    </oj-list-item-layout>
+                  </div>
+
+                      <div class="oj-flex-item demo-list-item-layout oj-md-padding-4x-end">
+                        <oj-list-item-layout class="oj-listitemlayout-padding-off">
+                          <div slot="secondary" class="oj-typography-body-lg oj-text-color-secondary">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<oj-bind-text value="Actions"></oj-bind-text>
+                          </div>
+                        <div slot="tertiary" class="oj-typography-body-lg">
+                        
+                         <oj-button
+                          :id = "[['save' + + item.data.id ]]"
+                          chroming="borderless"
+                          display="icons"
+                          class="oj-button-sm editBtn"
+                          on-oj-action="[[editUserType]]">
+                          <span slot="startIcon"></span>
+                          Edit
+                        </oj-button> 
+                        <oj-button
+                          :id = "[['save' + + item.data.id ]]"
+                          chroming="borderless"
+                          display="icons"
+                          class="oj-button-sm changePassword"
+                          on-oj-action="[[changePassword]]">
+                          <span slot="startIcon"></span>
+                          Change Password
+                        </oj-button> 
+                        <oj-button
+                          chroming="borderless"
+                          display="icons"
+                          class="oj-button-sm sendMailBtn"
+                          on-oj-action="[[sendEmailConfirm]]">
+                          <span slot="startIcon"></span>
+                          Send credentials via E-mail
+                        </oj-button> 
+                        <oj-bind-if test="[[item.data.status === 'Pending']]">
+                          <oj-button
+                            chroming="borderless"
+                            display="icons"
+                            class="oj-button-sm userLockBtn"
+                            on-oj-action="[[deactivateConfirm]]">
+                            <span slot="startIcon"></span>
+                            Deactivate
+                          </oj-button> 
+                        </oj-bind-if>
+                        <oj-bind-if test="[[item.data.status === 'Deactive']]">
+                          <oj-button
+                            chroming="borderless"
+                            display="icons"
+                            class="oj-button-sm userUnLockBtn"
+                            on-oj-action="[[activateConfirm]]">
+                            <span slot="startIcon"></span>
+                            Activate
+                          </oj-button> 
+                        </oj-bind-if>
+                         <oj-button
+                         chroming="borderless"
+                         display="icons"
+                         class="oj-button-sm deleteBtn"
+                         on-oj-action="[[deleteConfirm]]">
+                         <span slot="startIcon"></span>
+                         Delete
+                       </oj-button> 
+                      </div>
+                    </oj-list-item-layout>
+                  </div>
+      
+                  </div>
+                </div>
+              
+              </oj-list-item-layout>
+             </li>
+           </div>
+         </div>
+           </template>
+         </oj-list-view>
+    </div> 
+  </div> 
+</div> 
+
+<oj-dialog id="openDeleteConfirm" dialog-title="Delete Department" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+  <div slot="body">
+    <oj-bind-text value='Do you want to delete the selected row?'></oj-bind-text>
+  </div>
+  <div  class="oj-flex-bar" slot="footer">
+    <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[deleteUserType]]">
+      Yes
+    </oj-button>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openDeleteUserTypeProgress" dialog-title="Please wait!Deleteing...." modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openAddClientUsersDialog" dialog-title="Add Client Portal User" modality="modeless" drag-affordance="title-bar"
+  cancel-behavior="[[CancelBehaviorOpt]]" style="display:none;width:600px;min-width:600px;max-width:600px;">
+  <div slot="body">
+
+  <div
+    class="oj-panel">
+    <div
+    class="oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+    <div
+      class="oj-sm-3">
+    
+    </div>
+    <div
+      class="oj-sm-6">
+      <oj-validation-group id="usersSec" role="group" valid="{{groupValid}}"
+      aria-labelledby="grouplabelid">
+      <oj-input-text required  label-hint="Name (First Name,Last Name)" value="{{username}}" clear-icon="always">
+      </oj-input-text>
+      <oj-input-text required required length.max="10" id="contactPhone" label-hint="Contact Phone" value="{{contactPhone}}" clear-icon="always" on-value-changed="[[onlyNumberKey]]">
+      </oj-input-text>
+      <div class="oj-text-color-danger"><oj-bind-text value='[[contactError]]'></oj-bind-text></div></br>
+      <oj-input-text required id="contactEmail" label-hint="Contact Email" value="{{contactEmail}}" clear-icon="always" on-value-changed="[[emailPatternValidator]]">
+      </oj-input-text>
+      <div class="oj-text-color-danger"><oj-bind-text value='[[emailError]]'></oj-bind-text></div></br>
+      <oj-select-single required id="userType" label-hint="Choose Client User Type" 
+      label-edge="inside" data="[[choiceListDP]]" value="{{user_type}}">
+      </oj-select-single>
+    </oj-validation-group>
+      <div style="display: flex;justify-content: center;"
+      class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+      <div class="oj-flex-bar">
+        <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[userTypeSave]]">Save
+        </oj-button>
+      </div>
+    </div>
+    </div>
+      </div>
+    </div>
+</oj-dialog>
+
+<oj-dialog id="openAddClientUsersProgress" dialog-title="Saving client portal users..." modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openUpdateClientUsersProgress" dialog-title="Updating client portal users..." modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openEditClientUsersDialog" dialog-title="Edit Client Portal User" modality="modeless" drag-affordance="title-bar"
+  cancel-behavior="[[CancelBehaviorOpt]]" style="display:none;width:600px;min-width:600px;max-width:600px;">
+  <div slot="body">
+
+  <div
+    class="oj-panel">
+    <div
+    class="oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+    <div
+      class="oj-sm-3">
+    
+    </div>
+    <div
+      class="oj-sm-6">
+      <oj-validation-group id="usersSec" role="group" valid="{{groupValid}}"
+      aria-labelledby="grouplabelid">
+      <oj-input-text required id="username" label-hint="Name (First Name,Last Name)" value="{{username}}" clear-icon="always">
+      </oj-input-text>
+      <oj-input-text required required length.max="10" id="contactPhoneEdit" label-hint="Contact Phone" value="{{contactPhoneEdit}}" clear-icon="always" on-value-changed="[[onlyNumberKeyEdit]]">
+      </oj-input-text>
+      <div class="oj-text-color-danger"><oj-bind-text value='[[contactErrorEdit]]'></oj-bind-text></div></br>
+      <oj-input-text required id="contactEmailEdit" label-hint="Contact Email" value="{{contactEmailEdit}}" clear-icon="always" on-value-changed="[[emailPatternValidatorEdit]]">
+      </oj-input-text>
+      <div class="oj-text-color-danger"><oj-bind-text value='[[emailErrorEdit]]'></oj-bind-text></div></br>
+      <oj-select-single required  label-hint="Choose Client User Type" 
+      label-edge="inside" data="[[choiceListDP]]" value="{{user_type}}">
+      </oj-select-single>
+    </oj-validation-group>
+      <div style="display: flex;justify-content: center;"
+      class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+      <div class="oj-flex-bar">
+        <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[userTypeUpdate]]">Update
+        </oj-button>
+      </div>
+    </div>
+    </div>
+      </div>
+    </div>
+</oj-dialog>
+
+<oj-dialog id="openUpdateClientUsersProgress" dialog-title="Updating client portal users..." modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openChangePasswordDialog" dialog-title="Change Password" modality="modeless" drag-affordance="title-bar"
+  cancel-behavior="[[CancelBehaviorOpt]]" style="display:none;width:600px;min-width:600px;max-width:600px;">
+  <div slot="body">
+
+  <div
+    class="oj-panel">
+    <div
+    class="oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x">
+    <div
+      class="oj-sm-3">
+    
+    </div>
+    <div
+    class="oj-sm-6">
+    <oj-input-text required label-hint="User Name" value="{{userName}}" clear-icon="always" disabled="true">
+    </oj-input-text>
+    <oj-input-text
+    value="{{password}}"
+    label-hint="Password"
+    hidden></oj-input-text>
+    <oj-input-password
+    value="{{password}}"
+    label-hint="Password"
+    mask-icon="visible"></oj-input-password>
+    <oj-validation-group id="passwordSec" role="group" valid="{{groupValid}}"
+    aria-labelledby="grouplabelid">
+    <oj-input-password
+    value="{{newPassword}}"
+    label-hint="New Password"
+    required></oj-input-password>
+    <oj-input-password
+    value="{{confirmPassword}}"
+    label-hint="Confirm Password"
+    on-value-changed="[[checkNewPassword]]" required></oj-input-password>
+  </oj-validation-group>
+    <div class="oj-text-color-danger"><oj-bind-text value='[[passwordError]]'></oj-bind-text></div></br>
+    <div style="display: flex;justify-content: center;"
+    class="oj-sm-margin-2x-bottom oj-xl-margin-2x oj-xl-padding-2x oj-lg-margin-2x oj-lg-padding-2x oj-md-margin-2x oj-md-padding-2x oj-sm-margin-1x oj-sm-padding-1x">
+    <div class="oj-flex-bar">
+      <oj-button id="confirmBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[clientCredentialUpdate]]">Update
+      </oj-button>
+    </div>
+  </div>
+  </div>
+      </div>
+    </div>
+</oj-dialog>
+
+<oj-dialog id="openUpdateCredentialProgress" dialog-title="Updating client user credentials" modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>
+      
+<oj-dialog id="openSendConfirm" dialog-title="Send User credentials" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+  <div slot="body">
+    <oj-bind-text value='Do you want to send login credentials to the selected staff?'></oj-bind-text>
+  </div>
+  <div  class="oj-flex-bar" slot="footer">
+    <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[sendEmailAction]]">
+      Yes
+    </oj-button>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openEmailSendingProgress" dialog-title="Please Wait!Sending credentials..." modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openDeactivateConfirm" dialog-title="Deactivate Client" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+  <div slot="body">
+    <oj-bind-text value='Do you want to deactivate the selected portal user?'></oj-bind-text>
+  </div>
+  <div  class="oj-flex-bar" slot="footer">
+    <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[deactivatePortalUsers]]">
+      Yes
+    </oj-button>
+  </div>
+</oj-dialog>
+
+<oj-dialog id="openDeactivateProgress" dialog-title="Please wait!Deactivating..." modality="modeless"
+style="display:none;width:350px;min-width:240px;max-width:450px;">
+<div slot="body">
+  <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+  </oj-progress-bar>
+</div>
+</oj-dialog>
+<oj-dialog id="openActivateConfirm" dialog-title="Activate Client" modality="modeless"  style="display:none;width:350px;min-width:240px;max-width:450px;" cancel-behavior="[[CancelBehaviorOpt]]">
+  <div slot="body">
+    <oj-bind-text value='Do you want to activate the selected portal user?'></oj-bind-text>
+  </div>
+  <div  class="oj-flex-bar" slot="footer">
+    <oj-button id="okdelButton" class="oj-flex-bar-start oj-button-cancel oj-button-danger-chrome" on-oj-action="[[activatePortalUsers]]">
+      Yes
+    </oj-button>
+  </div>
+</oj-dialog>
+<oj-dialog id="openActivateProgress" dialog-title="Please wait!Activating..." modality="modeless"
+  style="display:none;width:350px;min-width:240px;max-width:450px;">
+  <div slot="body">
+    <oj-progress-bar id="createbar" class="oj-progress-bar-embedded" value="-1">
+    </oj-progress-bar>
+  </div>
+</oj-dialog>

@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<div
+class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x" style="width:70%;">
+<div
+class="oj-panel  oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-3x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5">
+<oj-label for="datepicker">From Date</oj-label>
+<oj-input-date id="datepicker" value="{{from_date}}"></oj-input-date>
+</div>
+<div
+class="oj-panel oj-flex oj-sm-margin-2x-bottom oj-xl-margin-3x oj-xl-padding-5x oj-lg-margin-3x oj-lg-padding-7x oj-md-margin-3x oj-md-padding-4x oj-sm-margin-1x oj-sm-padding-1x oj-sm-5 ">
+<oj-label for="datepicker">To Date</oj-label>
+<oj-input-date id="datepicker" value="{{to_date}}"></oj-input-date>
+</div>
+<div class="oj-flex-bar">
+<oj-button id="availableBtn" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[getAvailableEmployees]]">Submit
+</oj-button>
+</div>
+<!-- <oj-label-value label-edge="start" label-width="60%">
+  <oj-radioset slot="value" id="allocateradioSetId" labelled-by="radiosetlabel" value="{{isAllocate}}"
+    class="oj-choice-direction-row">
+    <oj-option id="unallocated" value="unallocated">Unallocated</oj-option>
+    <oj-option id="allocated" value="allocated">Allocated</oj-option>
+  </oj-radioset>
+</oj-label-value> -->
+<oj-table id='allocatedTable' aria-label='All Table' data='[[allocationDetDP]]' display='grid'
+        selection-mode='{"row": "single"}'  columns='[
+        { "headerStyle": "font-size:13px; text-align: center;",
+          "headerText": "Name", "field": "surname", "id": "name" },
+        { "headerStyle": "font-size:13px; text-align: center;",
+          "headerText": "Posts", 
+          "field": "posts", "id": "posts" },
+        { "headerStyle": "font-size:13px; text-align: center;",
+          "headerText": "Email", 
+          "field": "email", "id": "email" },
+        { "headerStyle": "font-size:13px; text-align: center;",
+          "headerText": "Contact No.", 
+          "field": "contact_no", "id": "contact_no" },
+        { "headerStyle": "font-size:13px; text-align: center;",
+          "headerText": "Status", 
+          "field": "allocation_status", "id": "allocation_status" },
+        { "headerStyle": "font-size:13px; text-align: start;",
+          "headerText": "Action",
+          "maxWidth" : "10rem",
+          "className":"oj-helper-text-align-end oj-sm-padding-0-vertical",
+          "template": "actionTemplate", "id": "action" }]' style='width: 100%;'>
+         <template slot="actionTemplate" data-oj-as="cell">
+          <!-- <oj-button id="allocate" class="oj-flex-bar-end" chroming='callToAction' on-oj-action="[[allocationChecked]]">Allocate
+          </oj-button>   -->
+             <oj-button
+              chroming="borderless"
+              display="icons"
+              class="oj-button-sm"
+              on-oj-action="[[requestChecked]]"
+              disabled='[[cell.row.allocation_status === "Allocated"]]'
+              data-oj-clickthrough="disabled">
+              <span slot="startIcon" class="fas fa-check"></span>
+              Approve
+            </oj-button>
+         </template>
+        </oj-table>
+</div>
